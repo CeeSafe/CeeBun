@@ -15,6 +15,8 @@ It has the measurements, the milestones (M0–M6), the estimates, the risks, and
   - `probes/*.cee`: small programs that test which Rust features CeeSafe 0.21 supports. The `g*` probes fail on
     purpose: they show the gaps.
   - Rerun the scripts with `python3 -I analysis/bun_census.py upstream`.
+  - `scale/`: the M0 compiler scale test (`scale_test.py`, `summarize.py`, `results.jsonl`), and its report in
+    `scale/README.md`.
 
 ## Writing CeeSafe
 

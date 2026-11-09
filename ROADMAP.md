@@ -3,7 +3,8 @@
 **Goal:** show that CeeSafe can replace Rust, by porting Bun 1.4.4 (Rust) to CeeSafe. The port must pass Bun's own
 test suite and match its performance.
 
-**Status:** planning (2026-11-09). Nothing is ported yet.
+**Status:** M0 started (2026-11-09). Nothing is ported yet. The compiler scale test runs, and its first findings are in
+`analysis/scale/README.md`.
 
 ## 1. Starting point
 
@@ -59,7 +60,7 @@ That shows in the heavy use of `unsafe` and raw pointers.
 ### CeeSafe 0.21.0 against what Bun uses
 
 Each line below was tested with a small program on the installed compiler (`ceesafec run --interp`), unless marked
-otherwise.
+otherwise. The probes in `analysis/probes` give the same results on 0.24.2 (rerun 2026-11-09).
 
 | Rust feature | CeeSafe 0.21 |
 |---|---|
@@ -135,6 +136,12 @@ Make CeeSafe able to take the port. These are the gaps the measurements above fo
 
 **Exit:** the scale test checks and builds in acceptable time, and every gap above is either closed or has a written
 translation rule.
+
+**Progress (2026-11-09):** the scale test is `analysis/scale/scale_test.py`, and its findings are in
+`analysis/scale/README.md`.
+- **Fixed in the compiler (`fe4d0ca`):** three quadratic passes (C generation at 300k lines: 115 s → 16 s).
+- **Open:** the single-file C build (one core: 21 minutes and 7.9 GB at 700k lines), split output that does not scale
+  yet, and C functions declared in more than one package (128 in Bun).
 
 ### M1: Porting guide and trial (1 week)
 
@@ -238,5 +245,7 @@ that range.
 
 1. ~~Check out Bun 1.4.4 here as the frozen reference.~~ Done: `upstream/` (gitignored), a shallow clone made with
    `git clone --depth 1 --branch bun-v1.4.4 https://github.com/oven-sh/bun.git upstream`.
-2. Start M0 with the compiler scale test.
-3. Draft the ADRs for the M0 language gaps.
+2. ~~Start M0 with the compiler scale test.~~ Started: `analysis/scale/`.
+3. Finish the scale test at 1.5 million lines, then draft the ADRs it calls for: separate compilation at scale, and C
+   declarations shared between packages.
+4. Draft the ADRs for the M0 language gaps.
