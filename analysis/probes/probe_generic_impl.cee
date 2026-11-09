@@ -1,0 +1,27 @@
+// Probe: an impl for a generic type (impl<T: Bound> Interface for Wrap<T>), common in Bun's collections.
+
+interface Size {
+    fn size(borrow this) -> u64;
+}
+
+struct Item {
+    n: u64;
+}
+
+impl Size for Item {
+    fn size(borrow this) -> u64 => this.n;
+}
+
+struct Pair<T> {
+    a: T;
+    b: T;
+}
+
+impl<T: Size> Size for Pair<T> {
+    fn size(borrow this) -> u64 => this.a.size() + this.b.size();
+}
+
+fn main() {
+    let p = Pair<Item> { a: Item { n: 2 }, b: Item { n: 5 } };
+    Console.writeLine(p.size());
+}

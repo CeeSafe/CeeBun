@@ -1,0 +1,13 @@
+// Probe: calling C (Bun's JavaScriptCore bindings are extern "C" functions in C++) and raw pointers in unsafe code.
+
+extern "C" {
+    fn strlen(s: *CChar) -> usize;
+}
+
+/// Safety: the literal ends with a NUL, so strlen stays inside it.
+fn main() {
+    let text = "hello\0";
+    let p = text.ptr as *CChar;
+    let n = unsafe { strlen(p) };
+    Console.writeLine(n);
+}

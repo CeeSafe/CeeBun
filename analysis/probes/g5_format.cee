@@ -1,0 +1,7 @@
+// Bun: format!/write! everywhere; here, building a string from parts.
+fn main() {
+    var s = String.create();
+    s.append("x = ")!;
+    s.appendNumber(42)!;
+    Console.writeLine(s.view());
+}

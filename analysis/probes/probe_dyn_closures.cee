@@ -1,0 +1,41 @@
+// Probe: dynamic dispatch, owning closures stored in a struct (an event-loop callback), and a generic impl.
+
+interface Handler {
+    fn handle(borrow mut this, n: u64) -> u64;
+}
+
+struct Doubler {
+    calls: u64;
+}
+
+impl Handler for Doubler {
+    fn handle(borrow mut this, n: u64) -> u64 {
+        this.calls += 1;
+        return n * 2;
+    }
+}
+
+/// A task queue that owns its callbacks, as an event loop does.
+struct Loop {
+    tasks: Vector<Box<dyn mut fn(u64) -> u64>>;
+}
+
+fn adder(n: u64) -> Box<dyn mut fn(u64) -> u64> {
+    return Box.create(move (x) => x + n)!;
+}
+
+fn main() {
+    var handlers = Vector<Box<dyn Handler>>.create();
+    handlers.push(Box.create(Doubler { calls: 0 })!)!;
+    var x: u64 = 3;
+    for (i in 0..handlers.length) {
+        x = handlers[i].handle(x);
+    }
+    var l = Loop { tasks: Vector<Box<dyn mut fn(u64) -> u64>>.create() };
+    l.tasks.push(adder(10))!;
+    for (i in 0..l.tasks.length) {
+        let task = borrow mut l.tasks[i];
+        x = task(x);
+    }
+    Console.writeLine(x);
+}

@@ -1,0 +1,14 @@
+// Bun: Cell<T> / RefCell<T> for interior mutability (1,016 uses).
+struct Counter {
+    hits: Cell<u32>;
+}
+
+fn bump(c: borrow Counter) {
+    c.hits.set(c.hits.get() + 1);
+}
+
+fn main() {
+    let c = Counter { hits: Cell<u32>.create(0) };
+    bump(c);
+    Console.writeLine(c.hits.get());
+}

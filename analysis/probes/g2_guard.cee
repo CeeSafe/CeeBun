@@ -1,0 +1,8 @@
+// Bun: match x { Some(n) if n > 3 => ..., _ => ... }
+fn main() {
+    let x: u32? = Some(5);
+    match (x) {
+        Some(n) if n > 3 => { Console.writeLine("big"); }
+        _ => { Console.writeLine("small"); }
+    }
+}

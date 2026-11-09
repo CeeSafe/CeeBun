@@ -1,0 +1,21 @@
+// Probe: threads, Arc<Mutex<T>>, atomics: Bun's thread pool and shared state.
+
+struct Tally {
+    count: u64;
+}
+
+fn main() {
+    let tally = Arc<Mutex<Tally>>.create(Mutex<Tally>.create(Tally { count: 0 })!)!;
+    var workers = Vector<Thread<void>>.create();
+    for (i in 0..4) {
+        let mine = tally.clone();
+        workers.push(Thread.spawn(move () => {
+            var guard = mine.get().lock();
+            let data = guard.data();
+            data.count += 1;
+        })!)!;
+    }
+    workers.clear(); // dropping the threads joins them
+    var guard = tally.get().lock();
+    Console.writeLine(guard.data().count);
+}

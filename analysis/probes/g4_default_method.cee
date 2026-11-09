@@ -1,0 +1,20 @@
+// Bun: traits with default methods (common across its 540 traits).
+interface Named {
+    fn name(borrow this) -> StringView;
+    fn greet(borrow this) {
+        Console.writeLine(this.name());
+    }
+}
+
+struct A {
+    n: u32;
+}
+
+impl Named for A {
+    fn name(borrow this) -> StringView => "a";
+}
+
+fn main() {
+    let a = A { n: 1 };
+    a.greet();
+}
