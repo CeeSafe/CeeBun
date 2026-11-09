@@ -4,7 +4,7 @@ The first M0 item of `ROADMAP.md`: can `ceesafec` take a program of Bun's size? 
 lines in about 120 packages, 20 times the largest CeeSafe program so far (the compiler, 85,000 lines).
 
 **Status (2026-11-09):** started. Three quadratic passes found and fixed in the compiler (`~/dev/CeeSafe`
-commit `fe4d0ca`, on main). The gaps it found have ADRs (0081–0087, Proposed, `101d7bb`). The remaining blocker is the C step: the whole
+commit `fe4d0ca`, on main). The gaps it found have ADRs (0081–0087, accepted, CeeSafe `05beffb`). The remaining blocker is the C step: the whole
 program is one C file compiled on one core, and split output is not yet usable at this scale.
 
 ## The test

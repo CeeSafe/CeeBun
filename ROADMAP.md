@@ -145,12 +145,12 @@ translation rule.
 - **Fixed in the compiler (`fe4d0ca`):** three quadratic passes (C generation at 300k lines: 115 s → 16 s).
 - **Open:** the single-file C build (one core: 21 minutes and 7.9 GB at 700k lines), split output that does not scale
   yet, and C functions declared in more than one package (128 in Bun).
-- **The gaps' ADRs (2026-11-09, Proposed):** `~/dev/CeeSafe/spec/decisions/0081`–`0087`.
+- **The gaps' ADRs (2026-11-09, accepted as recommended):** `~/dev/CeeSafe/spec/decisions/0081`–`0087`.
   - **What they cover:** C declarations shared between packages, separate compilation at scale, const generic
     parameters, interior mutability, patterns, interfaces, and macros.
   - **How they were made:** each draft was written from Bun's measured usage and probes of the compiler. Two
     adversarial reviews and a fixer pass followed, with the evidence in `analysis/adr-evidence/`.
-  - **Proposed releases:** 0.24.3, then 0.25.0 to 0.27.0.
+  - **Releases:** 0.24.3, then 0.25.0 to 0.27.0. None is implemented yet.
 - **Fixed in the compiler (`b7c9f41`):** a data race in safe code (`Share` was every `Send` type) and interface method
   bodies that were never checked. Both were found while drafting the ADRs.
 
@@ -247,8 +247,11 @@ that range.
 ## 6. Decisions needed before M0
 
 1. **Scope:** runtime first (M5 later), or all of Bun?
-2. **Language changes:** which gaps get language changes (const generics, `Cell`, guards, default methods), and which
-   get translation rules only.
+2. ~~**Language changes:** which gaps get language changes (const generics, `Cell`, guards, default methods), and
+   which get translation rules only.~~ Decided 2026-11-09: ADRs 0081–0087, accepted as recommended (CeeSafe `05beffb`).
+   - **Language changes:** const generic parameters, cells, richer patterns, interface defaults and associated types,
+     `@derive`, `debugAssert`, `c"…"` and `embed`.
+   - **Translation rules only:** general macros, iterator chains, shared C declarations.
 3. **Budget:** API spend (see the estimates) and the build machine.
 4. **Name and licence:** Bun is MIT. Keep the licence and credit, and decide the name of the port.
 
