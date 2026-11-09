@@ -1,0 +1,13 @@
+// Probe 8: does an impl-level bound make T Copy inside the impl?
+struct W<T> {
+    value: T;
+}
+
+impl<T: Copy> W<T> {
+    fn get(borrow this) -> T => this.value;
+}
+
+fn main() {
+    let w = W<u32> { value: 3 };
+    Console.writeLine(w.get());
+}

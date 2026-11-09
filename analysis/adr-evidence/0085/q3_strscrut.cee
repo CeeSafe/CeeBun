@@ -1,0 +1,4 @@
+fn main() {
+    let s: StringView = "get";
+    match (s) { _ => { Console.writeLine("any"); } }
+}

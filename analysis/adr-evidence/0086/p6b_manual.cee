@@ -1,0 +1,23 @@
+interface Iter<T> {
+    fn next(borrow mut this) -> T?;
+}
+struct Count { i: u32; n: u32; }
+impl Iter<u32> for Count {
+    fn next(borrow mut this) -> u32? {
+        if (this.i >= this.n) { return null; }
+        this.i += 1;
+        return this.i;
+    }
+}
+fn sum<I: Iter<u32>>(it: I) -> u32 {
+    var t = 0u32;
+    var i = it;
+    loop {
+        match (i.next()) {
+            Some(x) => { t += x; }
+            null => { break; }
+        }
+    }
+    return t;
+}
+fn main() { Console.writeLine(sum(Count { i: 0, n: 4 })); }

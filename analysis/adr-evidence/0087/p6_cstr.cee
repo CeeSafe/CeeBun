@@ -1,0 +1,11 @@
+extern "C" { fn strlen(s: *CChar) -> usize; }
+const GREETING: StringView = "hello\0";
+/// Safety: each pointer is a static string literal that ends in a NUL.
+fn main() {
+    let n = unsafe { strlen("abc\0".ptr as *CChar) };
+    Console.writeLine(n);
+    let g = GREETING;
+    let m = unsafe { strlen(g.ptr as *CChar) };
+    Console.writeLine(m);
+    Console.writeLine(g.length);
+}

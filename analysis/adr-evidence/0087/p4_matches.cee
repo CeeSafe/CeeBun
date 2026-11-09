@@ -1,0 +1,11 @@
+enum Tok { Plus, Minus, Star, Num(i64) }
+fn isSign(t: borrow Tok) -> bool => match (t) { Tok.Plus => true, Tok.Minus => true, _ => false };
+fn isDigit(b: u8) -> bool => b >= '0' && b <= '9';
+fn main() {
+    let t = Tok.Minus;
+    Console.writeLine(isSign(borrow t));
+    Console.writeLine(isDigit('7'));
+    let n = Tok.Num(3);
+    let big = match (n) { Tok.Num(v) => v > 2, _ => false };
+    Console.writeLine(big);
+}

@@ -1,0 +1,28 @@
+interface Flavor {
+    fn typescript(borrow this) -> bool;
+}
+struct Ts {}
+impl Flavor for Ts {
+    fn typescript(borrow this) -> bool => true;
+}
+struct Parser<F: Flavor> {
+    flavor: F;
+    pos: usize;
+    fn step(borrow mut this) {
+        if (this.flavor.typescript()) {
+            this.pos += 2;
+        } else {
+            this.pos += 1;
+        }
+    }
+}
+struct Bare<F> {
+    pos: usize;
+}
+fn main() {
+    var p = Parser { flavor: Ts {}, pos: 0 };
+    p.step();
+    Console.writeLine(p.pos);
+    let b = Bare<Ts> { pos: 1 };
+    Console.writeLine(b.pos);
+}

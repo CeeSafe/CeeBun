@@ -1,0 +1,16 @@
+interface Flavor {
+    fn typescript() -> bool;
+}
+struct Ts {}
+impl Flavor for Ts {
+    fn typescript() -> bool => true;
+}
+fn pick<F: Flavor>(n: u32) -> u32 {
+    if (F.typescript()) {
+        return n + 1;
+    }
+    return n;
+}
+fn main() {
+    Console.writeLine(pick<Ts>(1));
+}

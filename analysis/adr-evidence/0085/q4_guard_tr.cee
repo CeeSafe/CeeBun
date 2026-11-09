@@ -1,0 +1,7 @@
+fn main() {
+    let x: u32? = Some(5);
+    match (x) {
+        Some(n) => { if (n > 3) { Console.writeLine("big"); } else { Console.writeLine("small"); } }
+        null => { Console.writeLine("small"); }
+    }
+}

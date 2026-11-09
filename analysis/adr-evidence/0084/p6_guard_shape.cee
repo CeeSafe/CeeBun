@@ -1,0 +1,39 @@
+// Probe 6: can user code spell a RefCell-shaped guard today (a scoped struct over a region, a drop that ends it)?
+// And is `borrow` usable as a method name?
+@noncopy
+struct Flagged<T> {
+    count: u32;
+    value: T;
+}
+
+struct Reader<region r, T> {
+    private cell: borrow(r) Flagged<T>;
+
+    fn get(borrow this) -> borrow T => borrow this.cell.value;
+
+    /// Safety: probe.
+    drop {
+        let p = borrow this.cell.count as *u32 as *mut u32;
+        unsafe { p.write(p.read() - 1); }
+    }
+}
+
+impl<T> Flagged<T> {
+    /// Safety: probe.
+    fn read(borrow this) -> Reader<T> {
+        let p = borrow this.count as *u32 as *mut u32;
+        unsafe { p.write(p.read() + 1); }
+        return Reader { cell: this };
+    }
+}
+
+fn main() {
+    let f = Flagged<u32> { count: 0, value: 7 };
+    {
+        let a = f.read();
+        let b = f.read();
+        Console.writeLine(f.count);
+        Console.writeLine(*a.get() + *b.get());
+    }
+    Console.writeLine(f.count);
+}

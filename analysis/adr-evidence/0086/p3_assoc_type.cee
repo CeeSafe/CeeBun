@@ -1,0 +1,5 @@
+interface Source {
+    type Item;
+    fn next(borrow mut this) -> Item?;
+}
+fn main() {}

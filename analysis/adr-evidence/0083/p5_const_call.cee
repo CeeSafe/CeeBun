@@ -1,0 +1,5 @@
+fn double(x: u32) -> u32 => x * 2;
+const D: u32 = double(2);
+fn main() {
+    Console.writeLine(D);
+}

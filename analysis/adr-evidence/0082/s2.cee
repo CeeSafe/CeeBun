@@ -1,0 +1,6 @@
+fn pick<T: Copy>(a: T, b: T, first: bool) -> T => if (first) a else b;
+
+fn main() {
+    let a: u64 = pick(1, 2, true);
+    Console.writeLine(a);
+}

@@ -1,0 +1,151 @@
+kind              rest    lint     all
+arm              67011   28129   95140
+guard             3617    3163    6780
+guard_on_bare      746     437    1183
+guard_mut            3       1       4
+guard_ref            2       3       5
+or                4296    2066    6362
+range              270      82     352
+bytechar          2050     602    2652
+bytestr           5708    1135    6843
+str                463     376     839
+at                 194     186     380
+slice              437     327     764
+struct            2790    1656    4446
+tuple             2140    1918    4058
+const              816      74     890
+=== or
+src/http_jsc/websocket_client.rs:333: Io::Socket | Io::Tunnel(_) => this.finish(Outcome::Closed),
+src/http_jsc/websocket_client.rs:924: ReceiveState::ExtendedPayloadLength16 | ReceiveState::ExtendedPayloadLength64 => {
+src/http_jsc/websocket_client.rs:2367: Opcode::Text | Opcode::Continue | Opcode::Binary => match payload_len {
+src/http_jsc/websocket_client/CppWebSocket.rs:354: NameCheck::Nobody | NameCheck::Callback { .. } => boringssl::ServerIdentity::Unchecked,
+src/js_parser_jsc/Macro.rs:669: T::ToJSON | T::JSON => self.coerce(T::JSON, value),
+src/js_parser_jsc/expr_jsc.rs:81: ExprData::EBoolean(boolean) | ExprData::EBranchBoolean(boolean) => Ok(if boolean.value {
+src/install_types/resolver_hooks.rs:357: (URI::Local(l), URI::Local(r)) | (URI::Remote(l), URI::Remote(r)) => {
+src/clap_macros/lib.rs:285: b'<' | b'>' => {
+src/parsers/xml.rs:1644: b'\t' | b'\n' | b'\r' => {
+src/parsers/xml.rs:1980: b'"' | b'\'' => {
+src/parsers/xml.rs:1986: Literal::Plain | Literal::System | Literal::Pubid => {
+src/parsers/xml.rs:2145: quote @ (b'"' | b'\'') => {
+=== at
+src/http_jsc/websocket_client.rs:765: Err(code @ ErrorCode::UnsupportedControlFrame) => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/parsers/xml.rs:2145: quote @ (b'"' | b'\'') => {
+src/parsers/json.rs:897: open @ (b'{' | b'[') => {
+src/install/PackageInstall.rs:2667: Err(err @ crate::Error::Sys(bun_errno::SystemErrno::ENOENT)) => {
+src/sql_jsc/postgres/DataCell.rs:171: Some((number, rest @ [end, ..])) if *end == self.delimiter || *end == b'}' => {
+src/bun_core/fmt.rs:2139: char_ @ (b'`' | b'"' | b'\'') => {
+src/bun_core/string/immutable/whitespace.rs:87: [ref rest @ .., 0x09..=0x0D | b' '] => rest,
+src/bun_core/string/immutable/whitespace.rs:252: [ref rest @ .., 0x09..=0x0D | b' '] => rest,
+src/bun_core/string/immutable/whitespace.rs:255: [ref rest @ .., a, b, c] if unicode_whitespace_len(&[a, b, c]) == 3 => rest,
+src/react_compiler/validation/validate_no_ref_access_in_render.rs:60: (a @ View::Structure(..), b @ View::Structure(..)) => are_equal(a, b),
+src/js_printer/lib.rs:3240: c @ 0..=0xFFFF => self.print(&bmp_escape(c)[..]),
+=== range
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/parsers/xml.rs:1452: b'a'..=b'f' if hex => u32::from(c - b'a' + 10),
+src/parsers/json5.rs:615: b'0'..=b'9' | b'.' => {
+src/parsers/json5.rs:921: b'1'..=b'9' => {
+src/parsers/json5.rs:975: b'0'..=b'9' => {
+src/parsers/json_stage2.rs:963: b'0'..=b'7' | b'_' => (8, 1, true),
+src/parsers/json_stage2.rs:1089: b'2'..=b'7' => {
+src/parsers/json_stage2.rs:1206: b'0'..=b'9' | b'.' => {
+src/parsers/yaml.rs:648: 0x80..=0xFF => true,
+src/parsers/yaml.rs:4836: 0x30..=0x39 /* '0'..'9' */ => {
+src/install/npm.rs:741: 500..=599 => return Err(crate::Error::HTTPInternalServerError),
+src/install/npm.rs:1689: 0..=3 => true,
+=== tuple
+src/install_types/resolver_hooks.rs:357: (URI::Local(l), URI::Local(r)) | (URI::Remote(l), URI::Remote(r)) => {
+src/parsers/yaml.rs:1701: (ast::ExprData::ENumber(ln), ast::ExprData::ENumber(rn)) => ln.value() == rn.value(),
+src/shell_parser/braces.rs:288: (Token::Eof, Token::Eof) => true,
+src/install/git_runner.rs:1533: (Status::Signaled(sig), None) => format!("git failed with signal {sig}"),
+src/install/lockfile.rs:534: (LoadResult::NotFound, None) => LockfileFormat::Text,
+src/install/lockfile.rs:537: (LoadResult::Err(err), _) => err.format,
+src/install/lockfile.rs:540: (LoadResult::Ok(_), None) => LockfileFormat::Text,
+src/install/lockfile.rs:561: (Migrated::Pnpm, _) => (ConfigVersion::V1, true),
+src/install/dependency.rs:1029: (_, None) => Tag::Npm,
+src/install/PackageInstall.rs:552: (Ok(src), Ok(dest)) => {
+src/install/NetworkTask.rs:918: (Some(_), _) => {
+src/install/prune.rs:546: (true, true) => configured,
+=== struct
+src/http_jsc/websocket_client/CppWebSocket.rs:354: NameCheck::Nobody | NameCheck::Callback { .. } => boringssl::ServerIdentity::Unchecked,
+src/bundler_jsc/analyze_jsc.rs:321: analyze::ModuleInfoString::Chars { chars, is_8bit } => {
+src/parsers/xml.rs:4161: TagStep::End { empty } => break empty,
+src/parsers/json.rs:144: IndexError::UnterminatedBlockComment { pos } | IndexError::UnexpectedSlash { pos } => {
+src/parsers/toml.rs:1581: LineStart::TableOpen { aot, pos } => {
+src/parsers/toml.rs:1662: InlineKey::Eof { pos } => {
+src/parsers/toml.rs:1971: ValueData::String { text, is_ascii } => Ok(self.string_expr(text, is_ascii, loc)),
+src/parsers/toml.rs:1998: ArrayItem::Eof { pos } => {
+src/parsers/json5.rs:264: Error::UnexpectedToken { .. } => b"Unexpected token",
+src/parsers/json5.rs:267: Error::UnterminatedComment { .. } => b"Unterminated multi-line comment",
+src/parsers/json5.rs:270: Error::UnterminatedEscape { .. } => b"Unexpected end of input in escape sequence",
+src/parsers/json5.rs:273: Error::InvalidHexNumber { .. } => b"Invalid hex number",
+=== bytechar
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/clap_macros/lib.rs:285: b'<' | b'>' => {
+src/clap_macros/lib.rs:297: b'>' => {
+src/clap_macros/lib.rs:300: b'{' => {
+src/clap_macros/lib.rs:306: b'<' => {
+src/parsers/xml.rs:924: b'\t' => "tab",
+src/parsers/xml.rs:1452: b'a'..=b'f' if hex => u32::from(c - b'a' + 10),
+src/parsers/xml.rs:1614: b'&' => {
+src/parsers/xml.rs:1644: b'\t' | b'\n' | b'\r' => {
+src/parsers/xml.rs:1689: b'%' => {
+src/parsers/xml.rs:1734: b'\r' if self.in_document() => {
+src/parsers/xml.rs:1875: b'\r' if self.in_document() => {
+=== slice
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/errno/windows_errno.rs:36: [UV_E2BIG => E2BIG] [UV_EACCES => EACCES] [UV_EADDRINUSE => EADDRINUSE]
+src/errno/windows_errno.rs:42: [UV_EBADF => EBADF] [UV_EBUSY => EBUSY] [UV_ECANCELED => ECANCELED]
+src/errno/windows_errno.rs:45: [UV_EDESTADDRREQ => EDESTADDRREQ] [UV_EEXIST => EEXIST] [UV_EFAULT => EFAULT]
+src/errno/windows_errno.rs:48: [UV_EISDIR => EISDIR] [UV_EMSGSIZE => EMSGSIZE] [UV_EMFILE => EMFILE]
+src/errno/windows_errno.rs:51: [UV_ENOMEM => ENOMEM] [UV_ENOENT => ENOENT] [UV_ENOPROTOOPT => ENOPROTOOPT]
+src/errno/windows_errno.rs:54: [UV_ENOTEMPTY => ENOTEMPTY] [UV_EOVERFLOW => EOVERFLOW] [UV_ENOTSUP => ENOTSUP]
+src/errno/windows_errno.rs:57: [UV_ESHUTDOWN => ESHUTDOWN] [UV_EROFS => EROFS] [UV_ESRCH => ESRCH]
+src/errno/windows_errno.rs:60: [UV_EHOSTDOWN => EHOSTDOWN] [UV_EMLINK => EMLINK] [UV_ENOTTY => ENOTTY]
+src/errno/windows_errno.rs:63: [UV_EUNATCH => EUNATCH] [UV_ENOEXEC => ENOEXEC]
+src/install/cache_pack.rs:129: [0xC2, superscript] => matches!(superscript, 0xB9 | 0xB2 | 0xB3),
+src/install/cache_pack.rs:1014: [file] if !file.is_empty() => file,
+=== bytestr
+src/install_types/resolver_hooks.rs:849: b"darwin" => DARWIN, b"android" => ANDROID, b"freebsd" => FREEBSD, b"openbsd" => OPENBSD,
+src/install_types/resolver_hooks.rs:963: b"ia32" => IA32, b"mips" => MIPS, b"s390" => S390,
+src/install_types/resolver_hooks.rs:1365: b"devDependencies" => Some(Self::DEV),
+src/parsers/xml.rs:3435: || eq_ascii(name, b"standalone") =>
+src/parsers/json_stage2.rs:1266: b"null" => Ok(Expr::init(E::Null {}, loc)),
+src/options_types/bundle_enums.rs:63: b"cjs" => Format::Cjs,
+src/options_types/bundle_enums.rs:120: b"commonjs" => ModuleType::Cjs,
+src/options_types/bundle_enums.rs:165: b"js" => api::Loader::js,
+src/options_types/bundle_enums.rs:168: b"cts" => api::Loader::ts,
+src/options_types/bundle_enums.rs:171: b"ts" => api::Loader::ts,
+src/options_types/bundle_enums.rs:174: b"file" => api::Loader::file,
+src/options_types/bundle_enums.rs:177: b"toml" => api::Loader::toml,
+=== const
+src/errno/windows_errno.rs:36: [UV_E2BIG => E2BIG] [UV_EACCES => EACCES] [UV_EADDRINUSE => EADDRINUSE]
+src/errno/windows_errno.rs:42: [UV_EBADF => EBADF] [UV_EBUSY => EBUSY] [UV_ECANCELED => ECANCELED]
+src/errno/windows_errno.rs:45: [UV_EDESTADDRREQ => EDESTADDRREQ] [UV_EEXIST => EEXIST] [UV_EFAULT => EFAULT]
+src/errno/windows_errno.rs:48: [UV_EISDIR => EISDIR] [UV_EMSGSIZE => EMSGSIZE] [UV_EMFILE => EMFILE]
+src/errno/windows_errno.rs:51: [UV_ENOMEM => ENOMEM] [UV_ENOENT => ENOENT] [UV_ENOPROTOOPT => ENOPROTOOPT]
+src/errno/windows_errno.rs:54: [UV_ENOTEMPTY => ENOTEMPTY] [UV_EOVERFLOW => EOVERFLOW] [UV_ENOTSUP => ENOTSUP]
+src/errno/windows_errno.rs:57: [UV_ESHUTDOWN => ESHUTDOWN] [UV_EROFS => EROFS] [UV_ESRCH => ESRCH]
+src/errno/windows_errno.rs:60: [UV_EHOSTDOWN => EHOSTDOWN] [UV_EMLINK => EMLINK] [UV_ENOTTY => ENOTTY]
+src/errno/windows_errno.rs:63: [UV_EUNATCH => EUNATCH] [UV_ENOEXEC => ENOEXEC]
+src/boringssl_sys/boringssl.rs:384: GEN_URI => name.d.uniformResourceIdentifier.as_ref()?,
+src/install/cache_pack.rs:792: KIND_DIRECTORY => {
+src/install/cache_pack.rs:798: KIND_SYMLINK => {
+=== str
+src/parsers/benches/xml_parse.rs:138: "pugixml" => {
+src/install/migration.rs:177: "pnpm-lock.yaml" => migrate_pnpm_lockfile(&mut *this, manager, log, data),
+src/css/lib.rs:246: "webkit" => VendorPrefix::WEBKIT,
+src/css/lib.rs:249: "o" => VendorPrefix::O,
+src/bun_core/comptime_string_map.rs:162: "nothing" => TestEnum::B,
+src/bun_core/comptime_string_map.rs:444: "ls" => "list",
+src/bun_core/result.rs:57: "ESRCH" => "No such process",
+src/bun_core/result.rs:60: "ENXIO" => "No such device or address",
+src/bun_core/result.rs:63: "EBADF" => "Bad file descriptor",
+src/bun_core/result.rs:66: "ENOMEM" => "Cannot allocate memory",
+src/bun_core/result.rs:69: "ENOTBLK" => "Block device required",
+src/bun_core/result.rs:72: "EXDEV" => "Invalid cross-device link",
+=== guard_mut
+src/lint/unicorn/rules/unicorn_import_style.rs:248: _ if to_js_string(expr, &mut name) => {}
+src/install/bin.rs:1385: if Self::is_behind_link(&mut self.is_behind_link, self.node_modules_path) =>
+src/install/bin.rs:1946: Some(bin_path) if see_names_in(bin_path.as_bytes(), &mut seen).is_err() => return,
+src/format/html/tailwind.rs:116: _ if std::mem::take(&mut is_ignored) => {}

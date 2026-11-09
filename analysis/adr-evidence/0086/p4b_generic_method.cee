@@ -1,0 +1,8 @@
+interface Visitor {
+    fn visit<T>(borrow mut this, x: T);
+}
+struct V { n: u32; }
+impl Visitor for V {
+    fn visit<T>(borrow mut this, x: T) { this.n += 1; }
+}
+fn main() { var v = V { n: 0 }; v.visit(1u8); }

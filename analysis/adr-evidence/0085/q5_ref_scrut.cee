@@ -1,0 +1,8 @@
+enum T { A(u32), B }
+fn show(t: borrow T) {
+    match (t) {
+        T.A(n) => { Console.writeLine(n); }
+        T.B => {}
+    }
+}
+fn main() { let t = T.A(4); show(t); }

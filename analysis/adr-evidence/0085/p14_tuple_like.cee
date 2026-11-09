@@ -1,0 +1,9 @@
+enum K { A(u8, u8) }
+fn main() {
+    let k = K.A(1, 2);
+    match (k) {
+        K.A(1, _) => { Console.writeLine("one"); }
+        K.A(_, 2) => { Console.writeLine("two"); }
+        _ => {}
+    }
+}

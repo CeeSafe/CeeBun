@@ -1,0 +1,11 @@
+// Bun: fn can_merge<const IS_TS: bool>(...) -- Zig comptime flags became const generics.
+fn pick<const TS: bool>(n: u32) -> u32 {
+    if (TS) {
+        return n + 1;
+    }
+    return n;
+}
+
+fn main() {
+    Console.writeLine(pick<true>(1));
+}

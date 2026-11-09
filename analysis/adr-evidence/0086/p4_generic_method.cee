@@ -1,0 +1,4 @@
+interface Visitor {
+    fn visit<T>(borrow mut this, x: T);
+}
+fn main() {}

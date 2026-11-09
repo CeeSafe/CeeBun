@@ -1,0 +1,8 @@
+struct Ts {
+    const TYPESCRIPT: bool = true;
+}
+fn main() {
+    if (Ts.TYPESCRIPT) {
+        Console.writeLine(1);
+    }
+}

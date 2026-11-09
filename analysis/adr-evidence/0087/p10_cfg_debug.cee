@@ -1,0 +1,3 @@
+fn main() {
+    if (cfg("BUN_DEBUG")) { Console.writeLine("debug"); } else { Console.writeLine("release"); }
+}

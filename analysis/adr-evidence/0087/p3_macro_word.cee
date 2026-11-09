@@ -1,0 +1,1 @@
+fn main() { let macro = 1; Console.writeLine(macro); }

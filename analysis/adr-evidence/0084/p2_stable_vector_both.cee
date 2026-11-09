@@ -1,0 +1,6 @@
+// Probe 2: StableVector.push takes `borrow this` (type-system §24.2). Is it Share for Thread.both?
+fn main() {
+    let sv = StableVector<u32>.create();
+    Thread.both(() => { let r = sv.push(1); }, () => { let r = sv.push(2); });
+    Console.writeLine(sv.length);
+}

@@ -1,0 +1,8 @@
+fn main() {
+    let x: bool? = Some(true);
+    match (x) {
+        Some(true) => { Console.writeLine("t"); }
+        Some(false) => { Console.writeLine("f"); }
+        null => { Console.writeLine("n"); }
+    }
+}

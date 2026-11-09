@@ -1,0 +1,5 @@
+const N: usize = 4;
+fn main() {
+    let a: [u8; N] = [0u8; N];
+    Console.writeLine(a.length);
+}

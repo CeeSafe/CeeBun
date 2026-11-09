@@ -1,0 +1,8 @@
+const LF: u8 = 10;
+fn main() {
+    let c: u8 = 10;
+    match (c) {
+        LF => { Console.writeLine("lf"); }
+        _ => { Console.writeLine("other"); }
+    }
+}

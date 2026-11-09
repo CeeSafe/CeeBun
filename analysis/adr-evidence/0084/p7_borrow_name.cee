@@ -1,0 +1,2 @@
+struct S { x: u32; fn borrow(borrow this) -> u32 => this.x; }
+fn main() { let s = S { x: 1 }; Console.writeLine(s.borrow()); }

@@ -1,0 +1,6 @@
+enum K { A, B(u32), C }
+fn main() {
+    let k = K.B(3);
+    let isB = match (k) { K.B(_) => true, _ => false };
+    Console.writeLine(isB);
+}

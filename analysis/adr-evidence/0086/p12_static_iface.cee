@@ -1,0 +1,4 @@
+interface Make {
+    fn make() -> u32;
+}
+fn main() {}

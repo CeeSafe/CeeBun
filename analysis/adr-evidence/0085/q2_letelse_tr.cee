@@ -1,0 +1,5 @@
+fn f(x: u32?) -> u32 {
+    let n = match (x) { Some(n) => n, null => { return 0; } };
+    return n + 1;
+}
+fn main() { Console.writeLine(f(Some(3))); Console.writeLine(f(null)); }

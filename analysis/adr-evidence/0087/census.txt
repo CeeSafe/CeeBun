@@ -1,0 +1,438 @@
+files 3186; invocations 36,282; distinct 657; macro_rules! definitions 697 (601 names); c".." literals 273
+invocations of names defined by macro_rules! in Bun: 17,116
+
+TOP 60 invocations (name count files defined-in-bun)
+  matches                          8106  1459 
+  format_args                      3106   414 B
+  write                            2284   318 B
+  debug_assert                     2104   511 
+  assert_eq                        1510    83 
+  vec                              1496   498 
+  t                                1201     1 B
+  assert                            929   177 
+  scoped_log                        857   147 B
+  format                            807   251 
+  unreachable                       749   283 
+  pretty_errorln                    451    89 B
+  cfg                               429   192 
+  pretty                            396    44 B
+  param                             394     6 B
+  no_state                          314   314 B
+  panic                             307   135 
+  log                               307    39 B
+  addr_of_mut                       272    74 
+  debug_assert_eq                   247   126 
+  parse_param                       231     2 B
+  cat                               218    15 B
+  zstr                              217    54 B
+  quote                             205     6 
+  debug                             203    22 B
+  prettyln                          201    41 B
+  pretty_fmt                        183    22 
+  declare_scope                     176   146 B
+  writeln                           175    38 
+  concat                            169    76 
+  smallvec                          167    67 
+  offset_of                         157    38 
+  throw                             146    39 
+  w                                 128    18 B
+  node_entry                        122     1 B
+  of                                116     1 B
+  mark_binding                      114    35 B
+  pretty_fmt_const                  113     1 B
+  note                              112    45 B
+  pretty_error                      110    22 B
+  new                               109     1 B
+  warn                              109    51 B
+  col_ref                           109     1 B
+  opaque_ffi                        105    82 B
+  comptime_string_map               102    72 
+  property_helper                   100     6 B
+  include_bytes                      99    22 
+  pf                                 99     2 B
+  pfmt                               97     3 B
+  cmd_strings_varargs                97     1 B
+  wr                                 95     1 B
+  sbuf                               90     5 B
+  bitflags                           86    64 
+  bail                               82     3 B
+  defer                              81    39 
+  release                            79     1 B
+  buffered                           75     1 B
+  stringify                          72    28 
+  addr_of                            71    41 
+  write_pretty                       70    20 B
+
+STD and third-party
+  format                  807   251
+  write                  2284   318
+  writeln                 175    38
+  print                     0     0
+  println                  31     7
+  eprint                    0     0
+  eprintln                 12     6
+  format_args            3106   414
+  vec                    1496   498
+  assert                  929   177
+  assert_eq              1510    83
+  assert_ne                10     7
+  debug_assert           2104   511
+  debug_assert_eq         247   126
+  debug_assert_ne           4     4
+  matches                8106  1459
+  unreachable             749   283
+  panic                   307   135
+  todo                      0     0
+  unimplemented             0     0
+  concat                  169    76
+  stringify                72    28
+  include_bytes            99    22
+  include_str              17     4
+  include                   6     5
+  cfg                     429   192
+  env                      15    11
+  option_env                0     0
+  offset_of               157    38
+  size_of                   0     0
+  line                      3     3
+  file                      3     3
+  column                    0     0
+  module_path               1     1
+  const_assert              0     0
+  static_assert             0     0
+  compile_error            11    10
+  thread_local             56    44
+  addr_of                  71    41
+  addr_of_mut             272    74
+  debug_unreachable         0     0
+  bitflags                 86    64
+  formatcp                  9     3
+  concatcp                 61    21
+  enum_map                  0     0
+  enum_set                  0     0
+  defer                    81    39
+  scopeguard                0     0
+  asm                      13     6
+  dbg                       0     0
+  try                       0     0
+  write_str                 0     0
+
+DERIVES (16,258 trait mentions)
+  Clone                          4275
+  Copy                           3802
+  PartialEq                      2082
+  Eq                             1977
+  Debug                          1543
+  Default                        1443
+  Hash                            288
+  IntoStaticStr                   234
+  Error                           134
+  PartialOrd                       69
+  Ord                              69
+  DefineEnumProperty               52
+  CellRefCounted                   42
+  ConstParamTy                     32
+  DeepClone                        25
+  ToCss                            25
+  CssEql                           23
+  Parse                            21
+  CssHash                          21
+  RefCounted                       16
+  EnumSetType                      15
+  Enum                             15
+  EnumString                       14
+  EnumTag                          13
+  JsAffine                         11
+  ThreadSafeRefCounted             10
+  FromRepr                          6
+  VariantNames                      1
+
+ATTRIBUTES (top 60)
+  inline                                11123
+  derive                                 5334
+  cfg                                    5090
+  repr                                   1080
+  error                                   955
+  cold                                    872
+  path                                    824
+  unsafe                                  584
+  allow                                   566
+  bun_jsc::host_fn                        504
+  test                                    488
+  strum                                   326
+  optimize                                289
+  link_name                               283
+  default                                 232
+  track_caller                            148
+  from                                    133
+  macro_export                            132
+  doc                                     124
+  warn                                    107
+  cfg_attr                                 97
+  css                                      64
+  must_use                                 55
+  feature                                  36
+  bun_jsc::JsClass                         36
+  expect                                   33
+  rustfmt::skip                            32
+  crate::host_fn                           29
+  bun_uws::uws_callback                    24
+  thread_local                             19
+  forbid                                   18
+  linkage                                  18
+  automatically_derived                    15
+  link                                     14
+  uws_callback                             14
+  enum_tag                                 13
+  proc_macro_derive                        13
+  deny                                     13
+  crate::host_call                         10
+  ref_count                                 9
+  bun_jsc::host_call                        9
+  proc_macro                                7
+  uws::uws_callback                         7
+  should_panic                              6
+  no_std                                    4
+  proc_macro_attribute                      4
+  global_allocator                          3
+  deprecated                                2
+  non_exhaustive                            2
+  panic_handler                             2
+  crate::JsClass                            2
+  ignore                                    1
+  no_main                                   1
+  rustc_std_internal_symbol                 1
+  enumset                                   1
+
+BUN macro_rules! by use (top 50 of 601)
+  format_args                      uses   3106 defs   1 in src/format/ir/macros.rs
+  write                            uses   2284 defs   1 in src/format/ir/macros.rs
+  t                                uses   1201 defs   1 in src/http_types/MimeType.rs
+  scoped_log                       uses    857 defs   1 in src/bun_core/output.rs
+  pretty_errorln                   uses    451 defs   1 in src/bun_core/output.rs
+  pretty                           uses    396 defs  10 in src/bun_core/output.rs
+  param                            uses    394 defs   1 in src/clap/lib.rs
+  no_state                         uses    314 defs   1 in src/lint/rule.rs
+  log                              uses    307 defs   3 in src/runtime/node/node_fs_stat_watcher.rs
+  parse_param                      uses    231 defs   1 in src/clap/lib.rs
+  cat                              uses    218 defs   1 in src/sema/check/mod.rs
+  zstr                             uses    217 defs   1 in src/bun_core/util.rs
+  debug                            uses    203 defs   4 in src/bun_core/output.rs
+  prettyln                         uses    201 defs   1 in src/bun_core/output.rs
+  declare_scope                    uses    176 defs   1 in src/bun_core/output.rs
+  w                                uses    128 defs   5 in src/bun_core/string/immutable.rs
+  node_entry                       uses    122 defs   1 in src/resolve_builtins/HardcodedModule.rs
+  of                               uses    116 defs   1 in src/lint/estree/schema.rs
+  mark_binding                     uses    114 defs   1 in src/bun_core/Global.rs
+  pretty_fmt_const                 uses    113 defs   1 in src/runtime/test_runner/pretty_format.rs
+  note                             uses    112 defs   2 in src/bun_core/output.rs
+  pretty_error                     uses    110 defs   1 in src/bun_core/output.rs
+  warn                             uses    109 defs   1 in src/bun_core/output.rs
+  new                              uses    109 defs   1 in src/bun_core/env_var.rs
+  col_ref                          uses    109 defs   1 in src/bundler/linker_context/scanImportsAndExports.rs
+  opaque_ffi                       uses    105 defs   1 in src/opaque/lib.rs
+  property_helper                  uses    100 defs   6 in src/css/properties/border.rs
+  pf                               uses     99 defs   9 in src/jsc/ConsoleObject.rs
+  pfmt                             uses     97 defs   3 in src/jsc/ConsoleObject.rs
+  cmd_strings_varargs              uses     97 defs   1 in src/runtime/valkey_jsc/js_valkey_functions.rs
+  wr                               uses     95 defs   1 in src/install/PackageManager.rs
+  sbuf                             uses     90 defs   2 in src/install/migration.rs
+  bail                             uses     82 defs   3 in src/install/pnpm.rs
+  release                          uses     79 defs   1 in src/runtime/dispatch.rs
+  buffered                         uses     75 defs   1 in src/sema/check/mod.rs
+  write_pretty                     uses     70 defs   1 in src/bun_core/output.rs
+  pass                             uses     63 defs   1 in src/react_compiler/pipeline.rs
+  env_set                          uses     60 defs   1 in src/bun_core/ci_info.rs
+  one                              uses     55 defs   1 in src/lint/ast/walk.rs
+  set                              uses     54 defs   1 in src/sema/bind/parents.rs
+  fail                             uses     54 defs   2 in src/install/lockfile/bun.lock.rs
+  cast_ptr                         uses     54 defs   2 in src/runtime/dispatch.rs
+  docs                             uses     52 defs   1 in src/format/css/doc.rs
+  new_feature_flag                 uses     50 defs   1 in src/bun_core/env_var.rs
+  from_field_ptr                   uses     50 defs   1 in src/bun_core/lib.rs
+  list                             uses     49 defs   3 in src/lint/ast/node.rs
+  bufs                             uses     48 defs   1 in src/resolver/resolver.rs
+  syslog                           uses     47 defs   1 in src/sys/lib.rs
+  match_ignore_ascii_case          uses     47 defs   1 in src/css/lib.rs
+  string_bytes                     uses     44 defs   1 in src/install/migration.rs
+  defined but never invoked: 17
+
+debug_assert*: 2355; maybe side effects: 60; assert* with: 140
+  src/ast/symbol.rs: { let prev = symbol.chunk_index.load(Ordering::Relaxed); prev == INVALID_CHUNK_INDEX || prev == self.chunk_index }, "",
+  src/bun_core/fmt.rs: (2..=36).contains(&radix)
+  src/bundler/Chunk.rs: { let exports_to_other_chunks = &chunks[chunk_index as usize] .content .javascript() .exports_to_other_chunks; imports_f
+  src/bundler/ParseTask.rs: unsafe { (*wrapper).check }, 42069
+  src/bundler/bundle_v2.rs: this.client_transpiler_ref() .unwrap() .options .server_components
+  src/bundler/bundle_v2.rs: unsafe { (*this.ssr_transpiler).options.server_components }
+  src/bundler/linker_context/doStep5.rs: { let j = part .symbol_uses .keys() .iter() .position(|k| *k == ref_) .unwrap(); part.symbol_uses.values()[j].count_esti
+  src/clap/args.rs: *a == b.unwrap()
+  src/install/PackageInstaller.rs: events.next().is_none()
+  src/install/yarn.rs: declared.next().is_none()
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { unicode_string_to_u16(&nt_name) }.starts_with(&NT_OBJECT_PREFIX)
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { unicode_string_to_u16(&nt_name) }.ends_with(bun_core::w!(""))
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { *ptr.add(1) } == 'c' as u16
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { *read_ptr } != 'c' as u16
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { *read_ptr.sub(1) } == 'c' as u16
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { *bin_path_start.sub(1) } == 'c' as u16
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { *bin_path_start.add(len) }, 'c' as u16
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { *write_ptr.sub(1) } == 'c' as u16
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { bun_core::ffi::wstr_units(spawn_command_line) } .starts_with(bun_core::w!(""))
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { bun_core::ffi::wstr_units(spawn_command_line) } .starts_with(bun_core::w!(""))
+  src/install/windows-shim/bun_shim_impl.rs: unsafe { bun_core::ffi::wstr_units(spawn_command_line) } .starts_with(bun_core::w!(""))
+  src/io/PipeReader.rs: !self.source.as_ref().unwrap().is_closed()
+  src/io/posix_event_loop.rs: unsafe { (*poll).next_to_free }.is_null()
+  src/io/windows_event_loop.rs: unsafe { (*poll).next_to_free }.is_null()
+  src/io/windows_event_loop.rs: unsafe { (*tail).next_to_free }.is_null()
+  src/jsc/EncodedSlice.rs: unsafe { bun_alloc::mimalloc::mi_is_in_heap_region(untagged) }
+  src/jsc/event_loop.rs: self.tasks.readable_length() == 0 && self.concurrent_tasks.is_empty(), ""
+  src/lint/runner.rs: order.is_sorted_by_key(|&key| { let (end, rank) = rest(key as u32); Span::new((key >> 32) as u32, end).sort_key(u16::fro
+  src/lint/linter/mod.rs: listening.as_ref().is_none_or(|listening_bits| { let numbers = crate::runner::listening::<S>(file, &prepared.on); (prepa
+  src/lsquic_sys/lib.rs: unsafe { us_nq_vtable_size() }, core::mem::size_of::<NqVtable>(), ""
+  src/lsquic_sys/lib.rs: unsafe { us_nq_tp_size() }, core::mem::size_of::<NqTransportParams>(), ""
+  src/parsers/yaml.rs: prev_context.is_some() && prev_context.unwrap() == context
+  src/ptr/ref_count.rs: unsafe { T::rc_has_one_ref(ptr.as_ptr()) }
+  src/react_compiler/validation/validate_context_variable_lvalues.rs: value_lvalues(value).next().is_none()
+  src/react_compiler/validation/validate_no_ref_access_in_render.rs: { let mut reported = Vec::new(); validate_no_ref_passed_to_function( &mut reported, ref_env, place, place.loc, ); valida
+  src/runtime/bake/dev_server/bundle.rs: unsafe { (*current).debug_mutex.try_lock() }
+  src/runtime/bake/dev_server/hot_reload_event.rs: unsafe { (*dev).magic } == Magic::Valid
+  src/runtime/bake/dev_server/hot_reload_event.rs: unsafe { (*first).debug_mutex.try_lock() }
+  src/runtime/bake/dev_server/hot_reload_event.rs: unsafe { (*first).contention_indicator.load(Ordering::SeqCst) } == 0
+  src/runtime/bake/dev_server/hot_reload_event.rs: unsafe { (*current).debug_mutex.try_lock() }
+  src/runtime/bake/dev_server/render.rs: matches!( unsafe { &(*route_bundle).data }, route_bundle::Data::Framework(_) )
+  src/runtime/bake/dev_server/render.rs: matches!( unsafe { &(*route_bundle).data }, route_bundle::Data::Html(_) )
+  src/runtime/bake/dev_server/source_map_store.rs: unsafe { (*store.owner()).magic } == Magic::Valid
+  src/runtime/napi/napi_body.rs: core::ptr::eq(loop_.global.unwrap().as_ptr(), env.to_js())
+  src/runtime/napi/napi_body.rs: core::ptr::eq(loop_.global.unwrap().as_ptr(), env.to_js())
+  src/runtime/shell/interpreter.rs: *cwd_arr.last().unwrap(), 0
+  src/runtime/shell/interpreter.rs: *self.__cwd.last().unwrap(), 0
+  src/runtime/shell/interpreter.rs: *self.__prev_cwd.last().unwrap(), 0
+  src/runtime/shell/subproc.rs: self.reader.source.is_none() || self.reader.source.as_ref().unwrap().is_closed()
+  src/runtime/test_runner/Execution.rs: unsafe { sequence_ptr.as_ref() }.active_entry.is_some()
+  src/runtime/test_runner/Order.rs: unsafe { current.as_ref().base.has_callback == current.as_ref().callback.is_some() }
+  src/runtime/timer/Timer.rs: unsafe { (*value).tag } == EventLoopTimerTag::TimeoutObject
+  src/runtime/timer/mod.rs: unsafe { (*timer).tag } == EventLoopTimerTag::WTFTimer
+  src/runtime/timer/mod.rs: unsafe { (*timer).tag } == EventLoopTimerTag::WTFTimer
+  src/runtime/webcore/FileReader.rs: self.reader().buffer().as_ptr() != out.as_ptr()
+  src/runtime/webcore/blob/write_file.rs: core::ptr::eq( this, unsafe { (*req).data }.cast::<WriteFileWindows>() )
+  src/runtime/webcore/blob/write_file.rs: core::ptr::eq( this, unsafe { (*req).data }.cast::<WriteFileWindows>() )
+  src/spawn/process.rs: uv_proc.exit_cb.map(|cb| cb as usize), Some( Process::on_exit_uv as unsafe extern "" fn(*mut uv::uv_process_t, i64, c_in
+  src/sys/Error.rs: (0..=c_int::from(u16::MAX)).contains(&errno)
+  src/sys/lib.rs: unsafe { *s.as_ptr().add(s.len()) } == 0
+
+include_bytes/include_str: 116
+   src/bun_core/util.rs include_str ::core::concat!(::core::env!(""), "", $sub)
+   src/bun_core/util.rs include_str ::core::concat!( ::core::env!(""), "", $sub )
+   src/bundler/ParseTask.rs include_str ""
+   src/install/lockfile.rs include_bytes ""
+   src/install/PackageManager/security_scanner.rs include_bytes ""
+   src/install/windows-shim/BinLinkingShim.rs include_bytes concat!(env!(""), "")
+   src/lint/oxlint_help.rs include_bytes ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/driver/evaluate.rs include_str ""
+   src/lint/js_plugin/schema.rs include_bytes ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/js_plugin/schema.rs include_str ""
+   src/lint/linter/registry.rs include_bytes ""
+   src/lint/linter/config/presets.rs include_bytes ""
+   src/lint/linter/schema/mod.rs include_bytes ""
+   src/resolver/node_fallbacks.rs include_bytes ::core::concat!( ::core::env!(""), "", $code_path, "" )
+   src/runtime/jsc_hooks.rs include_bytes ""
+   src/runtime/cli/fuzzilli_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/init_command.rs include_bytes ""
+   src/runtime/cli/install_completions_command.rs include_bytes ""
+   src/runtime/cli/shell_completions.rs include_bytes ""
+   src/runtime/cli/shell_completions.rs include_bytes ""
+   src/runtime/cli/shell_completions.rs include_bytes ""
+   src/runtime/cli/typescript_libs.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/cli/create/SourceFileProjectGenerator.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/ffi/ffi_body.rs include_bytes ""
+   src/runtime/server/DevErrorPage.rs include_bytes ""
+   src/runtime/server/RequestContext.rs include_bytes ""
+   src/runtime/socket/bundled_root_certs.rs include_bytes ""
+   src/sema/messages.rs include_bytes ""
+   src/zstd/lib.rs include_bytes ::core::concat!( ::core::env!(""), "", $sub, "" )
+   src/zstd/lib.rs include_bytes ::core::concat!( ::core::env!(""), "", $($name,)+ "" )

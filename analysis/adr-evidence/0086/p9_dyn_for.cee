@@ -1,0 +1,9 @@
+interface Iter<T> {
+    fn next(borrow mut this) -> T?;
+}
+fn total(it: borrow mut dyn Iter<u32>) -> u32 {
+    var t = 0u32;
+    for (x in it) { t += x; }
+    return t;
+}
+fn main() {}

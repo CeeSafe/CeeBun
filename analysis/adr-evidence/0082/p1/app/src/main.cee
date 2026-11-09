@@ -1,0 +1,3 @@
+fn main() {
+    Console.writeLine(alpha.run(2) + beta.run(3));
+}

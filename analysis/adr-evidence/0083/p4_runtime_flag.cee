@@ -1,0 +1,9 @@
+fn pick(ts: bool, n: u32) -> u32 {
+    if (ts) {
+        return n + 1;
+    }
+    return n;
+}
+fn main() {
+    Console.writeLine(pick(true, 1));
+}

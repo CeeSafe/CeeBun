@@ -1,0 +1,14 @@
+enum Tok { A, B, C(u32) }
+fn main() {
+    let c: u8 = 'x';
+    match (c) {
+        'a' => { Console.writeLine("a"); }
+        _ => { Console.writeLine("other"); }
+    }
+    let t = Tok.C(4);
+    match (t) {
+        Tok.C(4) => { Console.writeLine("c4"); }
+        Tok.C(n) => { Console.writeLine("c"); }
+        _ => {}
+    }
+}

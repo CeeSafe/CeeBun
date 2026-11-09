@@ -1,0 +1,9 @@
+/// Safety: the literal ends with a NUL, so strlen stays inside it.
+fn main() {
+    let text = "hey\0";
+    let n = unsafe { sys.strlen(text.ptr as *CChar) };
+    Console.writeLine(n);
+}
+extern "C" {
+    fn strlen(s: *CChar) -> usize;
+}

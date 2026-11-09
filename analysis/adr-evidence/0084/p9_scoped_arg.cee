@@ -1,0 +1,10 @@
+// Probe 9: may a generic struct hold a reference or a view (the variance question for Cell<borrow T>)?
+struct W<T> {
+    value: T;
+}
+
+fn main() {
+    let n: u32 = 4;
+    let a = W<StringView> { value: "x" };
+    let b = W<borrow u32> { value: borrow n };
+}

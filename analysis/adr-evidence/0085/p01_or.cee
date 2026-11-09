@@ -1,0 +1,7 @@
+fn main() {
+    let c: u8 = 'x';
+    match (c) {
+        ' ' | '\t' => { Console.writeLine("ws"); }
+        _ => { Console.writeLine("other"); }
+    }
+}

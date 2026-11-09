@@ -1,0 +1,9 @@
+interface Iter<T> {
+    fn next(borrow mut this) -> T?;
+}
+fn count<T, I: Iter<T>>(it: I) -> u32 {
+    var t = 0u32;
+    for (x in it) { t += 1; }
+    return t;
+}
+fn main() {}

@@ -1,0 +1,24 @@
+// The existing workaround: a type parameter whose interface answers a constant.
+interface Flavor {
+    fn typescript(borrow this) -> bool;
+}
+struct Ts {}
+struct Js {}
+impl Flavor for Ts {
+    fn typescript(borrow this) -> bool => true;
+}
+impl Flavor for Js {
+    fn typescript(borrow this) -> bool => false;
+}
+fn pick<F: Flavor>(f: borrow F, n: u32) -> u32 {
+    if (f.typescript()) {
+        return n + 1;
+    }
+    return n;
+}
+fn main() {
+    let t = Ts {};
+    let j = Js {};
+    Console.writeLine(pick(t, 1));
+    Console.writeLine(pick(j, 1));
+}

@@ -1,0 +1,7 @@
+fn main() {
+    let c: u8 = 'x';
+    match (c) {
+        'a'..='z' => { Console.writeLine("lower"); }
+        _ => { Console.writeLine("other"); }
+    }
+}

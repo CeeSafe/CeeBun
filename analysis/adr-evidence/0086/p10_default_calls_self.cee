@@ -1,0 +1,9 @@
+interface Writer {
+    fn writeByte(borrow mut this, b: u8);
+}
+fn writeAll<W: Writer>(w: borrow mut W, s: Slice<u8>) {
+    for (b in s) { w.writeByte(b); }
+}
+struct Buf { n: u32; }
+impl Writer for Buf { fn writeByte(borrow mut this, b: u8) { this.n += 1; } }
+fn main() { var b = Buf { n: 0 }; writeAll(mut b, "abc".bytes()); Console.writeLine(b.n); }

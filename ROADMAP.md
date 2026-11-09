@@ -46,13 +46,16 @@ Measured over the hand-written Rust:
 | Generic functions and types | 15,088 | 11.0 |
 | Trait impls / trait definitions | 5,082 / 540 | 3.7 / 0.4 |
 | `dyn` uses / `Box<dyn Fn>` and `impl Fn` | 717 / 1,009 | |
-| Macro invocations (671 distinct macros) | 37,247 | 27.2 |
-| `macro_rules!` definitions | 707 | |
-| Const generics and `const fn` | 1,607 | |
-| `Cell` / `RefCell` | 1,016 | |
+| Macro invocations (657 distinct macros) | 36,282 | 26.1 |
+| `macro_rules!` definitions | 697 | |
+| Const generic parameters / `const fn` | 1,409 / 762 | |
+| `Cell` / `RefCell` | 791 / 128 | |
 | Thread and atomic sites | 1,516 | |
 | async/await | 2 | none in practice |
 | SIMD / inline asm | 18 / 15 | |
+
+The macro, const generic and cell rows were measured again for ADRs 0083, 0084 and 0087 (the scripts are in
+`analysis/adr-evidence/`). The first count included comments, and counted const generics and `const fn` together.
 
 The code is a faithful port from Zig, with the same architecture and data structures, and it was made with AI agents.
 That shows in the heavy use of `unsafe` and raw pointers.
@@ -126,8 +129,8 @@ Make CeeSafe able to take the port. These are the gaps the measurements above fo
 |---|---|
 | **Compiler scale test:** generate a 120-package, ~1.5M-line program and measure `ceesafec check` and `build` (time, memory, C output size). Fix whatever breaks. | The port is 20× the largest CeeSafe program, and this is the biggest unknown. |
 | Per-package incremental checking, with JSON diagnostics grouped by file | Compiler errors become a work queue for many agents at once, as with Bun's `cargo check` per crate. |
-| Const generics (or an equivalent compile-time flag) | 1,607 uses, mostly hot parser paths inherited from Zig's `comptime`. |
-| Interior mutability (`Cell`, and a checked `RefCell` equivalent) | 1,016 uses. |
+| Const generics (or an equivalent compile-time flag) | 1,409 const generic parameters (64% `bool`), mostly hot parser paths inherited from Zig's `comptime`. |
+| Interior mutability (`Cell`, and a checked `RefCell` equivalent) | 791 `Cell`, 128 `RefCell`. |
 | Pattern guards; default interface methods; decide on associated types and an iterator trait | Common in the translated code. Without them, every use gets rewritten by hand. |
 | **Macro plan:** translation rules for the standard macros (`matches!`, `format!`/`write!`, `assert!`/`debug_assert!`, `vec!`, `unreachable!`, …), plus code generation for derives and Bun's own macros (`scoped_log!`, `pretty!`, `zstr!`, `declare_scope!`, host-function and binding attributes, …) | 37,247 invocations of 671 distinct macros. Watch for side effects inside `debug_assert!`, which caused one of Bun's regressions. |
 | Threads alongside JavaScriptCore's garbage collector: check CeeSafe's data-race rules (ADR 0016) against Bun's thread pool and GC marker thread patterns | Threads in CeeSafe are new (accepted 2026-10-28). |
@@ -142,6 +145,14 @@ translation rule.
 - **Fixed in the compiler (`fe4d0ca`):** three quadratic passes (C generation at 300k lines: 115 s → 16 s).
 - **Open:** the single-file C build (one core: 21 minutes and 7.9 GB at 700k lines), split output that does not scale
   yet, and C functions declared in more than one package (128 in Bun).
+- **The gaps' ADRs (2026-11-09, Proposed):** `~/dev/CeeSafe/spec/decisions/0081`–`0087`.
+  - **What they cover:** C declarations shared between packages, separate compilation at scale, const generic
+    parameters, interior mutability, patterns, interfaces, and macros.
+  - **How they were made:** each draft was written from Bun's measured usage and probes of the compiler. Two
+    adversarial reviews and a fixer pass followed, with the evidence in `analysis/adr-evidence/`.
+  - **Proposed releases:** 0.24.3, then 0.25.0 to 0.27.0.
+- **Fixed in the compiler (`b7c9f41`):** a data race in safe code (`Share` was every `Send` type) and interface method
+  bodies that were never checked. Both were found while drafting the ADRs.
 
 ### M1: Porting guide and trial (1 week)
 

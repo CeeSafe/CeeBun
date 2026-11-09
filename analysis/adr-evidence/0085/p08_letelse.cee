@@ -1,0 +1,5 @@
+fn f(x: u32?) -> u32 {
+    let Some(n) = x else { return 0; };
+    return n;
+}
+fn main() { Console.writeLine(f(Some(3))); }

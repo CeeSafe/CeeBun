@@ -1,0 +1,10 @@
+interface I {
+    fn f(borrow this) -> u32;
+}
+struct P { x: u32; }
+impl I for P { fn f(borrow this) -> u32 => this.x; }
+fn need<T: Share>(t: borrow T) {}
+fn main() {
+    let b: Box<dyn I + Send> = Box.create(P { x: 1 }) as Box<dyn I + Send>;
+    need(borrow b);
+}

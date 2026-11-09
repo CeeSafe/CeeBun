@@ -1,0 +1,8 @@
+fn main() {
+    let a: [u8; 3] = [97, 98, 99];
+    let s = a[..];
+    match (s) {
+        b"abc" => { Console.writeLine("abc"); }
+        _ => {}
+    }
+}

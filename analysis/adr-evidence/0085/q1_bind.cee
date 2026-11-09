@@ -1,0 +1,7 @@
+fn main() {
+    let c: u8 = 7;
+    match (c) {
+        1 => { Console.writeLine("one"); }
+        n => { Console.writeLine(n); }
+    }
+}

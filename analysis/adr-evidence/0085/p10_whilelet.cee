@@ -1,0 +1,4 @@
+fn main() {
+    var x: u32? = Some(3);
+    while (let Some(n) = x) { x = null; Console.writeLine(n); }
+}

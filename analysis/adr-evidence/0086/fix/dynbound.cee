@@ -1,0 +1,9 @@
+interface I { fn get(borrow this) -> u32; }
+struct A { v: u32; }
+impl I for A { fn get(borrow this) -> u32 => this.v; }
+fn g<T: I>(x: borrow T) -> u32 => x.get();
+fn h(d: borrow dyn I) -> u32 => g(d);
+fn main() {
+    let a = A { v: 7 };
+    Console.writeLine(h(borrow a));
+}

@@ -1,0 +1,12 @@
+// Probe 4: safe code only. Two threads push to one StableVector through shared captures. Expect 400000.
+fn fill(sv: borrow StableVector<u32>) {
+    for (i in 0..200000) {
+        let r = sv.push(1);
+    }
+}
+
+fn main() {
+    let sv = StableVector<u32>.create();
+    Thread.both(() => { fill(sv); }, () => { fill(sv); });
+    Console.writeLine(sv.length);
+}

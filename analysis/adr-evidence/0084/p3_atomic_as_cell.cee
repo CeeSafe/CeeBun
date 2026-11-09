@@ -1,0 +1,18 @@
+// Probe 3: today's nearest safe spelling of Cell<u32> and Cell<bool>: atomics, written through `borrow this`.
+struct Timer {
+    hits: AtomicU32;
+    inCallback: AtomicBool;
+}
+
+fn fire(t: borrow Timer) {
+    t.inCallback.store(true);
+    t.hits.fetchAdd(1);
+    t.inCallback.store(false);
+}
+
+fn main() {
+    let t = Timer { hits: AtomicU32.create(0), inCallback: AtomicBool.create(false) };
+    fire(t);
+    fire(t);
+    Console.writeLine(t.hits.load());
+}

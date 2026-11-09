@@ -1,0 +1,23 @@
+struct W<T> {
+    v: T;
+}
+
+@noncopy
+struct N<T> {
+    v: T;
+}
+
+impl<T> N<T> {
+    fn get(borrow this) -> borrow T => borrow this.v;
+}
+
+fn main() {
+    let a = W { v: 1u32 };
+    let b = a;
+    let c = a;
+    let s = c.v + b.v;
+    let n = N { v: 2u32 };
+    let t = *n.get();
+    let m = n;
+    let k = n;
+}

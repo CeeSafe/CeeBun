@@ -1,0 +1,12 @@
+interface Named {
+    fn name(borrow this) -> StringView;
+    fn greet(borrow this) -> u32 {
+        return "not a number";
+    }
+}
+struct A { n: u32; }
+impl Named for A {
+    fn name(borrow this) -> StringView => "a";
+    fn greet(borrow this) -> u32 => 1;
+}
+fn main() { let a = A { n: 1 }; Console.writeLine(a.greet()); }

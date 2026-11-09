@@ -1,0 +1,13 @@
+fn twice<T: Copy>(x: T, f: fn(T) -> T) -> T => f(f(x));
+
+fn pick<T: Copy>(a: T, b: T, first: bool) -> T => if (first) a else b;
+
+fn inc(n: u64) -> u64 => n + 1;
+
+fn main() {
+    let a = pick<u64>(1, 2, true);
+    let b = pick<i32>(3, 4, false);
+    let c = twice<u64>(5, inc);
+    Console.writeLine(a + c);
+    Console.writeLine(b);
+}

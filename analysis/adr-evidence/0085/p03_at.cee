@@ -1,0 +1,7 @@
+fn main() {
+    let x: u32? = Some(5);
+    match (x) {
+        Some(n @ 5) => { Console.writeLine("five"); }
+        _ => {}
+    }
+}

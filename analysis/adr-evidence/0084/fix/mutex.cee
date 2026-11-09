@@ -1,0 +1,4 @@
+fn main() {
+    let x: u32 = 1;
+    let m = Mutex<borrow u32>.create(borrow x);
+}

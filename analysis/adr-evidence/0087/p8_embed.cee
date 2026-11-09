@@ -1,0 +1,2 @@
+const DATA: Slice<u8> = embed("p1_struct_eq.cee");
+fn main() { Console.writeLine(DATA.length); }

@@ -1,0 +1,3 @@
+interface A { fn a(borrow this) -> u32; }
+interface B: A { fn b(borrow this) -> u32; }
+fn main() {}

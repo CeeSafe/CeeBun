@@ -1,0 +1,4 @@
+interface Cloneish {
+    fn copyOf(borrow this) -> Self;
+}
+fn main() {}

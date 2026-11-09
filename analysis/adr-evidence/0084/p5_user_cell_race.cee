@@ -1,0 +1,27 @@
+// Probe 5: a user-written cell (unsafe inside, safe outside) is inferred Share, so Thread.both accepts it. Expect 400000.
+@noncopy
+struct UCell<T: Copy> {
+    value: T;
+}
+
+impl<T: Copy> UCell<T> {
+    fn get(borrow this) -> T => this.value;
+
+    /// Safety: none possible across threads; that is the probe's point.
+    fn set(borrow this, v: T) {
+        let p = borrow this.value as *T as *mut T;
+        unsafe { p.write(v); }
+    }
+}
+
+fn fill(c: borrow UCell<u32>) {
+    for (i in 0..200000) {
+        c.set(c.get() + 1);
+    }
+}
+
+fn main() {
+    let c = UCell<u32> { value: 0 };
+    Thread.both(() => { fill(c); }, () => { fill(c); });
+    Console.writeLine(c.get());
+}

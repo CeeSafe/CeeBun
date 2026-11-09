@@ -1,0 +1,5 @@
+fn main() {
+    let c: u8 = 'x';
+    let b = matches(c, 'a');
+    Console.writeLine(b);
+}

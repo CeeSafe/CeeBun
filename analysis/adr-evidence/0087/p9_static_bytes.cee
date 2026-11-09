@@ -1,0 +1,3 @@
+static TABLE: [u8; 4] = [1, 2, 3, 4];
+const NAMES: [StringView; 2] = ["a", "b"];
+fn main() { Console.writeLine(TABLE.length); Console.writeLine(NAMES[1]); }

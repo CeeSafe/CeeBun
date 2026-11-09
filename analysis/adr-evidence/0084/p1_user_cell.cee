@@ -1,0 +1,33 @@
+// Probe 1: a user-written Cell over unsafe code, and whether it is (wrongly) Share across Thread.both.
+@noncopy
+struct UCell<T: Copy> {
+    value: T;
+}
+
+impl<T: Copy> UCell<T> {
+    fn get(borrow this) -> T => this.value;
+
+    /// Safety: (the probe's question) a write through a shared borrow.
+    fn set(borrow this, v: T) {
+        let p = borrow this.value as *T as *mut T;
+        unsafe { p.write(v); }
+    }
+}
+
+struct Counter {
+    hits: UCell<u32>;
+}
+
+fn bump(c: borrow Counter) {
+    c.hits.set(c.hits.get() + 1);
+}
+
+fn main() {
+    let c = Counter { hits: UCell<u32> { value: 0 } };
+    bump(c);
+    bump(c);
+    Console.writeLine(c.hits.get());
+    // Both threads write c.hits through a shared capture: a data race, if accepted.
+    Thread.both(() => { bump(c); }, () => { bump(c); });
+    Console.writeLine(c.hits.get());
+}

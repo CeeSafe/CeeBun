@@ -1,0 +1,938 @@
+files 3238 lines 1743082
+match            24786
+arm              95140
+guard            6780
+guard_mut        4
+guard_bare       1183
+guard_lexparse   625
+guard_side_effect 3
+tuple_arm        4027
+or_arm           5497
+range_arm        372
+byte_char_arm    2796
+at_arm           373
+slice_arm        723
+slice_let        383
+bytestr_arm      7161
+str_arm          913
+struct_arm       4379
+let_else         7806
+if_let           14903
+while_let        1670
+let_chain        1881
+matches_macro    7959
+matches_guard    1138
+if_let_or        163
+guard kinds: {'flag/other': 968, 'method test (is_*/contains/starts_with/len)': 2574, 'equality': 1719, 'other call': 1013, 'matches!': 297, 'ordering': 209}
+[(3163, 'guard_area:lint'), (1515, 'guard_area:sema'), (895, 'guard_area:format'), (343, 'guard_area:runtime'), (231, 'guard_area:install'), (97, 'guard_area:parsers'), (72, 'guard_area:glob'), (60, 'guard_area:react_compiler'), (37, 'guard_area:css'), (34, 'guard_area:shell_parser'), (32, 'guard_area:js_parser'), (30, 'guard_area:sql_jsc'), (24, 'guard_area:http'), (22, 'guard_area:sys'), (22, 'guard_area:bun_core')]
+=== if_let
+src/bun.js.rs:39: if let Some(mut p) = vm.log {
+src/http_jsc/websocket_client.rs:293: if let Transport::Tunnel(tunnel) = self.transport.replace(Transport::Socket) {
+src/http_jsc/websocket_client.rs:674: if let Some(initial_data) = self.initial_data.take() {
+src/http_jsc/websocket_client.rs:753: let header_bytes = if let Some(header_fragment) = self.header_fragment.take() {
+src/http_jsc/websocket_client.rs:828: if let Step::Terminated = self.validate_payload_length(cursor) {
+src/http_jsc/websocket_client.rs:1098: if let Some(ws) = self.cpp_websocket() {
+src/http_jsc/websocket_client.rs:1330: if let Some(ws) = self.cpp_websocket() {
+src/http_jsc/websocket_client.rs:1356: if let Some(ws) = self.cpp_websocket() {
+src/http_jsc/websocket_client.rs:1422: if let Some(tunnel) = self.tunnel() {
+src/http_jsc/websocket_client.rs:1429: if let Some(tunnel) = self.tunnel() {
+src/http_jsc/websocket_client.rs:1553: if let Some(reason_bytes) = payload.get_mut(2..2 + reason.len()) {
+src/http_jsc/websocket_client.rs:1794: if let Some(tunnel) = this.tunnel() {
+src/http_jsc/websocket_client.rs:2557: if let Some(mask) = parts.mask {
+src/http_jsc/headers_jsc.rs:43: if let Some(body_ct) = body_content_type {
+src/http_jsc/headers_jsc.rs:90: if let Some(h) = fetch_headers {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:257: if let Some(ssl_ptr) = ssl {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:258: if let Some(hostname) = this.sni_hostname.as_deref() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:327: if let Some(ws) = connected_websocket {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:333: if let Some(client) = upgrade_client {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:393: if let Some(ws) = connected_websocket {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:466: if let Some(w) = this.wrapper.get() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:492: if let Some(ws) = this.connected_websocket.get() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:501: if let Some(ws) = this.connected_websocket.get() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:514: if let Some(w) = this.wrapper.get() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:533: if let Some(w) = this.wrapper.get() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:547: if let Some(w) = this.wrapper.get() {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:558: if let Some(w) = this.wrapper.get() {
+src/http_jsc/websocket_client/WebSocketDeflate.rs:165: if let Some(decompressor) = decompressor {
+src/http_jsc/websocket_client/WebSocketProxy.rs:69: if let Some(tunnel) = self.tunnel.take() {
+src/http_jsc/websocket_client/CppWebSocket.rs:405: if let Some(client) = client {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:433: if let Some(config) = socket_config {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:649: if let Some((ws, _cpp_ref)) = this.outgoing_websocket.replace(None) {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:817: if let Some(ssl) = socket.ssl_mut() {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:918: if let Some(tunnel) = tunnel {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:946: if let Some(tunnel) = tunnel {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1180: if let Some(ciphers) = vm.tls_default_ciphers() {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1210: if let Some(tunnel) = unattached {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1360: if let Some(ws) = self.cpp_websocket() {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1450: if let Some(tunnel) = tunnel {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1521: if let uws::InternalSocket::Connected(native_socket) = socket.socket {
+=== match
+src/http_jsc/error.rs:12: match self {
+src/http_jsc/websocket_client.rs:141: match self {
+src/http_jsc/websocket_client.rs:241: match self.transport.get() {
+src/http_jsc/websocket_client.rs:249: match self.io() {
+src/http_jsc/websocket_client.rs:272: match self.options.max_payload_length {
+src/http_jsc/websocket_client.rs:318: match this.io() {
+src/http_jsc/websocket_client.rs:343: match tunnel {
+src/http_jsc/websocket_client.rs:367: match outcome {
+src/http_jsc/websocket_client.rs:485: let result = match self.deflate.borrow_mut().as_mut() {
+src/http_jsc/websocket_client.rs:494: .map_err(|err| match err {
+src/http_jsc/websocket_client.rs:502: match result {
+src/http_jsc/websocket_client.rs:522: match kind {
+src/http_jsc/websocket_client.rs:535: let utf16_bytes = match strings::to_utf16_alloc(data, true, false) {
+src/http_jsc/websocket_client.rs:546: let text = match utf16_bytes {
+src/http_jsc/websocket_client.rs:699: let step = match cursor.state {
+src/http_jsc/websocket_client.rs:715: match step {
+src/http_jsc/websocket_client.rs:763: let header = match parse_websocket_header(header_bytes, self.options.is_server) {
+src/http_jsc/websocket_client.rs:774: match header.opcode {
+src/http_jsc/websocket_client.rs:817: match header.opcode {
+src/http_jsc/websocket_client.rs:875: cursor.body_remain = match byte_size {
+src/http_jsc/websocket_client.rs:898: match cursor.state {
+src/http_jsc/websocket_client.rs:923: let payload_state = match next {
+src/http_jsc/websocket_client.rs:1080: let received = match payload.split_first_chunk::<2>() {
+src/http_jsc/websocket_client.rs:1116: match self.write_to_transport(bytes) {
+src/http_jsc/websocket_client.rs:1125: match self.io() {
+src/http_jsc/websocket_client.rs:1128: Io::Tunnel(tunnel) => match WebSocketProxyTunnel::write(tunnel, bytes) {
+src/http_jsc/websocket_client.rs:1158: let content_to_compress: &[u8] = match bytes {
+src/http_jsc/websocket_client.rs:1251: match wrote {
+src/http_jsc/websocket_client.rs:1290: match self.io() {
+src/http_jsc/websocket_client.rs:1326: match self.io() {
+src/http_jsc/websocket_client.rs:1407: match self.tunnel() {
+src/http_jsc/websocket_client.rs:1415: match self.tunnel() {
+src/http_jsc/websocket_client.rs:1489: match self.io() {
+src/http_jsc/websocket_client.rs:2197: let (message, code, close_code) = match self {
+src/http_jsc/websocket_client.rs:2366: let next = match opcode {
+src/http_jsc/websocket_client.rs:2367: Opcode::Text | Opcode::Continue | Opcode::Binary => match payload_len {
+src/http_jsc/websocket_client.rs:2455: match length_byte_count {
+src/http_jsc/websocket_client.rs:2482: let byte_len = match self {
+src/http_jsc/websocket_client.rs:2537: match self {
+src/http_jsc/websocket_client.rs:2550: match parts.mask {
+=== arm
+src/http_jsc/error.rs:13: Self::InvalidOptions => "InvalidOptions",
+src/http_jsc/error.rs:14: Self::ConnectionClosed => "ConnectionClosed",
+src/http_jsc/websocket_client.rs:142: CloseMode::Fin => socket.close_now(),
+src/http_jsc/websocket_client.rs:143: CloseMode::Reset => socket.close(uws::CloseKind::Failure),
+src/http_jsc/websocket_client.rs:242: Transport::Socket => Io::Socket,
+src/http_jsc/websocket_client.rs:243: Transport::Tunnel(tunnel) => Io::Tunnel(tunnel.this_ptr()),
+src/http_jsc/websocket_client.rs:244: Transport::Stream => Io::Stream,
+src/http_jsc/websocket_client.rs:250: Io::Tunnel(tunnel) => Some(tunnel),
+src/http_jsc/websocket_client.rs:251: Io::Socket | Io::Stream => None,
+src/http_jsc/websocket_client.rs:273: 0 => usize::MAX,
+src/http_jsc/websocket_client.rs:274: max => max,
+src/http_jsc/websocket_client.rs:319: Io::Stream => {
+src/http_jsc/websocket_client.rs:323: Io::Socket if this.options.ws_mode => {
+src/http_jsc/websocket_client.rs:327: Io::Tunnel(tunnel) if this.options.ws_mode => {
+src/http_jsc/websocket_client.rs:333: Io::Socket | Io::Tunnel(_) => this.finish(Outcome::Closed),
+src/http_jsc/websocket_client.rs:344: Some(tunnel) => tunnel.close_socket(mode),
+src/http_jsc/websocket_client.rs:345: None => mode.close(self.tcp.get()),
+src/http_jsc/websocket_client.rs:368: Outcome::Failed(code, detail) => {
+src/http_jsc/websocket_client.rs:371: Outcome::Closed => {
+src/http_jsc/websocket_client.rs:486: None => Err(ErrorCode::UnexpectedRsv1),
+src/http_jsc/websocket_client.rs:487: Some(deflate) => deflate
+src/http_jsc/websocket_client.rs:495: websocket_deflate::Error::InflateFailed => ErrorCode::InvalidCompressedData,
+src/http_jsc/websocket_client.rs:496: websocket_deflate::Error::TooLarge => ErrorCode::MessageTooBig,
+src/http_jsc/websocket_client.rs:497: websocket_deflate::Error::OutOfMemory => ErrorCode::FailedToAllocateMemory,
+src/http_jsc/websocket_client.rs:503: Ok(()) => self.dispatch_data(&decompressed, kind),
+src/http_jsc/websocket_client.rs:504: Err(code) => self.fail(code),
+src/http_jsc/websocket_client.rs:523: Opcode::Text if self.options.ws_mode => {
+src/http_jsc/websocket_client.rs:531: Opcode::Text => {
+src/http_jsc/websocket_client.rs:536: Ok(v) => v,
+src/http_jsc/websocket_client.rs:537: Err(strings::ToUTF16Error::InvalidByteSequence) => {
+src/http_jsc/websocket_client.rs:541: Err(strings::ToUTF16Error::OutOfMemory) => {
+src/http_jsc/websocket_client.rs:547: Some(utf16) => BunString::create_external_globally_allocated_utf16(utf16),
+src/http_jsc/websocket_client.rs:548: None => BunString::clone_latin1(data),
+src/http_jsc/websocket_client.rs:553: Opcode::Binary | Opcode::Ping | Opcode::Pong => {
+src/http_jsc/websocket_client.rs:557: _ => {
+src/http_jsc/websocket_client.rs:700: ReceiveState::NeedHeader => self.recv_frame_header(&mut cursor),
+src/http_jsc/websocket_client.rs:701: ReceiveState::ExtendedPayloadLength16 => {
+src/http_jsc/websocket_client.rs:704: ReceiveState::ExtendedPayloadLength64 => {
+src/http_jsc/websocket_client.rs:707: ReceiveState::Ping => self.recv_ping_or_pong(&mut cursor, Opcode::Ping),
+src/http_jsc/websocket_client.rs:708: ReceiveState::Pong => self.recv_ping_or_pong(&mut cursor, Opcode::Pong),
+=== or_arm
+src/http_jsc/websocket_client.rs:251: Io::Socket | Io::Stream => None,
+src/http_jsc/websocket_client.rs:333: Io::Socket | Io::Tunnel(_) => this.finish(Outcome::Closed),
+src/http_jsc/websocket_client.rs:553: Opcode::Binary | Opcode::Ping | Opcode::Pong => {
+src/http_jsc/websocket_client.rs:788: Opcode::Text | Opcode::Binary => {
+src/http_jsc/websocket_client.rs:818: Opcode::Text | Opcode::Binary => {
+src/http_jsc/websocket_client.rs:905: ReceiveState::Ping | ReceiveState::Pong | ReceiveState::Close => {
+src/http_jsc/websocket_client.rs:924: ReceiveState::ExtendedPayloadLength16 | ReceiveState::ExtendedPayloadLength64 => {
+src/http_jsc/websocket_client.rs:2367: Opcode::Text | Opcode::Continue | Opcode::Binary => match payload_len {
+src/http_jsc/websocket_client/CppWebSocket.rs:354: NameCheck::Nobody | NameCheck::Callback { .. } => boringssl::ServerIdentity::Unchecked,
+src/http_jsc/websocket_client/CppWebSocket.rs:377: (NameCheck::Nobody, _) | (NameCheck::Callback { .. }, TlsHandshake::Renegotiation) => {
+src/js_parser_jsc/Macro.rs:669: T::ToJSON | T::JSON => self.coerce(T::JSON, value),
+src/js_parser_jsc/expr_jsc.rs:16: JsError::Thrown | JsError::Terminated => ToJSError::JSError,
+src/js_parser_jsc/expr_jsc.rs:81: ExprData::EBoolean(boolean) | ExprData::EBranchBoolean(boolean) => Ok(if boolean.value {
+src/js_parser_jsc/expr_jsc.rs:95: | ExprData::ECommonjsExportIdentifier(_) => Err(ToJSError::CannotConvertIdentifierToJS),
+src/install_types/resolver_hooks.rs:357: (URI::Local(l), URI::Local(r)) | (URI::Remote(l), URI::Remote(r)) => {
+src/bundler_jsc/analyze_jsc.rs:146: RecordKind::ImportInfoSingle | RecordKind::ImportInfoSingleTypeScript => {
+src/bundler_jsc/analyze_jsc.rs:175: RecordKind::ImportInfoNamespace | RecordKind::ImportInfoNamespaceDefer => {
+src/errno/windows_errno.rs:838: NTSTATUS::OBJECT_PATH_NOT_FOUND | NTSTATUS::OBJECT_NAME_NOT_FOUND => E::NOENT,
+src/clap_macros/lib.rs:285: b'<' | b'>' => {
+src/lint/docs.rs:11: Plugin::ReactHooks | Plugin::React => "react",
+src/lint/paths.rs:144: b"" | b"." => {}
+src/lint/literal.rs:131: NameKind::StringLiteral | NameKind::ComputedString => true,
+src/lint/literal.rs:133: NameKind::NumericLiteral | NameKind::ComputedNumber | NameKind::Jsx => false,
+src/lint/runner.rs:226: hir::ExprKind::Dot { chain, .. } | hir::ExprKind::Index { chain, .. } => chain,
+src/lint/language.rs:35: b"true" | b"writeable" | b"writable" => Global::Writable,
+src/lint/language.rs:36: b"false" | b"readable" | b"readonly" => Global::Readonly,
+src/lint/language.rs:44: Json::Null | Json::Bool(false) => Some(Global::Readonly),
+src/lint/language.rs:85: InferGlobals::Besides | InferGlobals::Instead => true,
+src/lint/language.rs:117: Tables::Today | Tables::Eslint8 if name == b"es6" => b"es2015",
+src/lint/language.rs:268: None | Some(Json::Null | Json::Bool(false)) => false,
+src/lint/language.rs:337: None | Some(Json::Number(_)) => {}
+src/lint/language.rs:445: None | Some(b"espree") => Parser::Espree,
+src/lint/language.rs:602: Parser::TypeScript | Parser::Other => match by_name {
+src/lint/language.rs:628: Parser::TypeScript | Parser::Other => Dialect::typescript_estree(is_script),
+src/lint/oxlint_help.rs:68: (One(line), Part::Help) | (Texts::FixDescription { note: line, .. }, Part::Note) => {
+src/lint/fix.rs:62: Some([]) | None => Some(0),
+src/lint/fix.rs:386: Some(0) | None => {
+src/lint/rule.rs:266: UnderEslint::Always | UnderEslint::Here | UnderEslint::Package => false,
+src/lint/rule.rs:278: UnderEslint::Replaces(_, version) | UnderEslint::Languages(_, version) => Some(version),
+src/lint/rule.rs:279: UnderEslint::Always | UnderEslint::Here | UnderEslint::Package => None,
+=== guard
+src/http_jsc/websocket_client.rs:323: Io::Socket if this.options.ws_mode => {
+src/http_jsc/websocket_client.rs:327: Io::Tunnel(tunnel) if this.options.ws_mode => {
+src/http_jsc/websocket_client.rs:523: Opcode::Text if self.options.ws_mode => {
+src/http_jsc/websocket_client.rs:801: op if op.is_control() && header.is_fragmented => {
+src/http_jsc/websocket_client.rs:1117: Some(wrote) if wrote == bytes.len() => {}
+src/http_jsc/websocket_client.rs:1252: Some(wrote) if wrote == slice_len && wrote < buf.readable_length() => {
+src/http_jsc/websocket_client/CppWebSocket.rs:340: None if enforce => NameCheck::BuiltIn,
+src/http_jsc/websocket_client/CppWebSocket.rs:369: TlsHandshake::Renegotiation if WebSocket__isProxyTLS(self) => TlsPeer::Proxy,
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:876: Ok(response) if matches!(response.status_code, 100 | 102..=199) => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:895: if !b"HTTP/1.".starts_with(&window[..window.len().min(7)]) =>
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:899: Err(picohttp::ParseResponseError::ShortRead) if unparsed.len() > cap => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1291: len if len == b"Connection".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1300: len if len == b"Upgrade".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1310: len if len == b"Sec-WebSocket-Version".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1320: len if len == b"Sec-WebSocket-Accept".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1330: len if len == b"Sec-WebSocket-Protocol".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1371: len if len == b"Sec-WebSocket-Extensions".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1858: (b"server_no_context_takeover", None) if params.server_no_context_takeover == 0 => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1861: (b"client_no_context_takeover", None) if params.client_no_context_takeover == 0 => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1864: (b"server_max_window_bits", Some(_)) if server_bits.is_none() => server_bits = bits,
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1865: (b"client_max_window_bits", Some(_)) if client_bits.is_none() => client_bits = bits,
+src/lint/paths.rs:29: [drive, b':', ..] if drive.is_ascii_alphabetic() => Style::Windows,
+src/lint/paths.rs:163: Some(rest) if base.ends_with(b"/") => Some(rest),
+src/lint/paths.rs:277: [drive, b':'] if drive.is_ascii_alphabetic() => [path, b"/"].concat(),
+src/lint/runner.rs:282: Some(&class) if class != Classes::UNKNOWN => class,
+src/lint/runner.rs:1206: true if kind == ExprTag::Call as usize => {
+src/lint/source.rs:131: _ if is_plain => return bun_core::strings::line_starts(text),
+src/lint/source.rs:197: Some(&next) if next <= offset => (at, start) = (at + 1, next),
+src/lint/json.rs:237: Data::ENumber(it) if !it.value().is_nan() => Json::Number(it.value()),
+src/lint/json.rs:238: Data::EString(it) if it.is_utf16 => Json::String(string_from_code_points(
+src/lint/rule_set.rs:93: Some(it) if it.requires_types && matches!(it.plugin, Plugin::TypeScript) => it,
+src/lint/modules.rs:390: StmtKind::ExportNamed(export) if export.spec().is_none() => Some(export.items()),
+src/lint/language.rs:117: Tables::Today | Tables::Eslint8 if name == b"es6" => b"es2015",
+src/lint/language.rs:327: Some(Json::Number(n)) if *n == 3.0 || *n == 5.0 || *n >= 2015.0 => *n as u32,
+src/lint/language.rs:328: Some(Json::Number(n)) if *n >= 0.0 => *n as u32 + 2009,
+src/lint/language.rs:338: Some(Json::String(version)) if version == b"latest" => {}
+src/lint/language.rs:581: Parser::TypeScript if self.has_no_foreign_config => self.source_type,
+src/lint/language.rs:612: Some(_) if self.eslint_8.is_none() => None,
+src/lint/oxlint_help.rs:77: false if with_values >> (part as u8) & 1 != 0 => Found::WithData(text),
+src/lint/fix.rs:95: if is_blank_line(line) && (after.is_empty() || next.starts_with(b"}")) =>
+=== let_else
+src/http_jsc/websocket_client.rs:356: let Some((ws, _cpp_ref)) = self.outgoing_websocket.replace(None) else {
+src/http_jsc/websocket_client.rs:393: let Some(ws) = self.cpp_websocket() else {
+src/http_jsc/websocket_client.rs:397: let Some(close_code) = code.info().close_code else {
+src/http_jsc/websocket_client.rs:421: let Some(ws) = self.cpp_websocket() else {
+src/http_jsc/websocket_client.rs:517: let Some(out) = self.cpp_websocket() else {
+src/http_jsc/websocket_client.rs:1026: let Some((payload, payload_len)) = self.buffer_control_payload(cursor) else {
+src/http_jsc/websocket_client.rs:1075: let Some((payload, payload_len)) = self.buffer_control_payload(cursor) else {
+src/http_jsc/websocket_client.rs:1863: let Some((ip, remote_port)) = remote else {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:347: let Some(upgrade_client) = this.upgrade_client.get() else {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:368: let Some(upgrade_client) = this.upgrade_client.get() else {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:399: let Some(upgrade_client) = upgrade_client else {
+src/http_jsc/websocket_client/CppWebSocket.rs:474: let Some(cert) = ssl.peer_leaf_certificate() else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:391: let connect_port = if using_proxy { proxy_port } else { port };
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:443: let Some(ctx) = ctx else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:584: let Some(wrote) = write(&buf[buf.len() - pending..]) else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:724: let Some(ws) = this.cpp_websocket() else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:759: let Some(ws) = self.cpp_websocket() else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:972: let Some(ws) = this.cpp_websocket() else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:992: let body: &[u8] = if is_101 { &[] } else { rest };
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1002: let HandshakeVerdict::Accepted { deflate } = verdict else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1030: let (Some(mut body), Some(ws)) = (this.response_body.get(), this.cpp_websocket()) else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1111: let Some(target_https) = this.proxy.get().as_ref().map(|p| p.is_target_https()) else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1167: let Some(tunnel) = tunnel else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1232: let Some((request_buf, tunnel)) = step else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1250: let Some(tunnel) = tunnel else {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1345: let Some(protocol) = iterator.next() else {
+src/js_parser_jsc/Macro.rs:621: let Some(&macro_callback) = vm.macros.get(&id) else {
+src/install_types/resolver_hooks.rs:664: let Some(field) = T::lookup_name(&str[offset..]) else {
+src/bundler_jsc/options_jsc.rs:29: let Some(v) = bun_ast::Loader::from_string(slice.slice()) else {
+src/bundler_jsc/options_jsc.rs:73: let Ok(target_parsed) = CompileTarget::try_from(slice) else {
+src/errno/windows_errno.rs:617: let Ok(code) = u16::try_from(code) else {
+src/clap_macros/lib.rs:224: let Some(len) = line.iter().position(|&b| b == b'>') else {
+src/lint/paths.rs:333: let Some([b'/' | b'\\', inside @ ..]) = after else {
+src/lint/runner.rs:74: let kinds = 0..if Self::KINDS <= 64 { Self::KINDS } else { 0 };
+src/lint/source.rs:379: let Some(&start) = starts.get((line as usize).wrapping_sub(1)) else {
+src/lint/source.rs:428: let Some(lines) = self.lazy.lines.get() else {
+src/lint/json.rs:211: let Some(root) = root else {
+src/lint/json.rs:252: let (Some(key), Some(value)) = (&property.key, &property.value) else {
+src/lint/language.rs:351: let Some(globals) = globals.as_object() else {
+src/lint/oxlint_help.rs:61: let Some(&(_, texts, with_values)) = self.entry() else {
+=== matches_macro
+src/http_jsc/websocket_client.rs:362: let is_stream = matches!(self.io(), Io::Stream);
+src/http_jsc/websocket_client.rs:810: && (!matches!(header.opcode, Opcode::Text | Opcode::Binary)
+src/http_jsc/websocket_client.rs:1232: if matches!(self.io(), Io::Socket) {
+src/http_jsc/websocket_client.rs:1392: if self.cpp_websocket().is_none() || matches!(self.io(), Io::Stream) {
+src/http_jsc/websocket_client.rs:1777: if matches!(this.io(), Io::Stream) {
+src/http_jsc/websocket_client.rs:2423: let deflate = if !fin || !matches!(opcode, Opcode::Text | Opcode::Binary) {
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:566: !matches!(self.socket.get(), SocketUnion::None)
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:123: if matches!(response.status_code, 101 | 204 | 304) {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:177: matches!(self, Self::Length(0) | Self::UntilClose)
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:876: Ok(response) if matches!(response.status_code, 100 | 102..=199) => {
+src/js_parser_jsc/Macro.rs:1163: || matches!(
+src/bundler_jsc/analyze_jsc.rs:87: matches!(
+src/bundler_jsc/options_jsc.rs:36: if matches!(
+src/brotli_sys/brotli_c.rs:173: matches!(
+src/lint/oxlint_messages.rs:16: if !matches!(meta.plugin, Plugin::Eslint | Plugin::TypeScript) {
+src/lint/paths.rs:167: && strings::split(rest, b"/").all(|name| !matches!(name, b"" | b"." | b".."))
+src/lint/literal.rs:119: matches!(self.text().get(pos as usize), Some(b'"' | b'\''))
+src/lint/literal.rs:141: matches!(
+src/lint/literal.rs:193: && matches!(key.kind(), KeyKind::String(_) | KeyKind::ComputedString(_))
+src/lint/literal.rs:201: matches!(key.kind(), KeyKind::String(_) | KeyKind::ComputedString(_))
+src/lint/literal.rs:316: matches!(key.kind(), KeyKind::Number(_) | KeyKind::ComputedNumber(_))
+src/lint/literal.rs:321: && matches!(key.kind(), KeyKind::Number(_) | KeyKind::ComputedNumber(_))
+src/lint/runner.rs:1543: && !matches!(node, Node::File(_))
+src/lint/json.rs:105: && matches!(unit(at + 8)?, 0xdc00..=0xdfff);
+src/lint/json.rs:134: if matches!(text.get(at), Some(b'e' | b'E')) {
+src/lint/json.rs:135: at = digits(at + 1 + usize::from(matches!(text.get(at + 1), Some(b'+' | b'-'))))?;
+src/lint/rule_set.rs:93: Some(it) if it.requires_types && matches!(it.plugin, Plugin::TypeScript) => it,
+src/lint/rule_set.rs:107: matches!(it.plugin, Plugin::Eslint) && const_str_eq(base, it.name)
+src/lint/modules.rs:341: if matches!(rest.trim_ascii_start().first(), Some(b'(' | b'.' | b'/')) {
+src/lint/oxlint_help.rs:97: matches!(self.entry(), Some((_, Texts::FixDescription { .. }, _)))
+src/lint/fix.rs:44: line.iter().all(|byte| matches!(byte, b' ' | b'\t' | b'\r'))
+src/lint/fix.rs:49: let is_space_or_tab = |byte: &&u8| matches!(byte, b' ' | b'\t');
+src/lint/fix.rs:58: starts_line: matches!(before.get(..start), Some([] | [.., b'\n' | b'\r'])),
+src/lint/fix.rs:118: byte.is_ascii_alphanumeric() || matches!(byte, b'_' | b'$' | 0x80..)
+src/lint/fix.rs:151: let ends_a_word = |byte: &u8| byte.is_ascii_whitespace() || matches!(byte, b'*');
+src/lint/fix.rs:157: let is_part = |byte: &&u8| byte.is_ascii_alphanumeric() || matches!(byte, b'-');
+src/lint/fix.rs:167: && before.is_none_or(|byte| ends_a_word(byte) || matches!(byte, b'/'))
+src/lint/fix.rs:178: let is_star = |byte: &&u8| matches!(byte, b'*') || byte.is_ascii_whitespace();
+src/lint/fix.rs:252: let is_before_content = |byte: &&u8| matches!(byte, b'/' | b'*') || byte.is_ascii_whitespace();
+src/lint/oxlint_order.rs:147: Plugin::Import => matches!(
+=== at_arm
+src/http_jsc/websocket_client.rs:765: Err(code @ ErrorCode::UnsupportedControlFrame) => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1832: [d @ b'0'..=b'9'] => d - b'0',
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/lint/paths.rs:162: Some([b'/', rest @ ..]) => Some(rest),
+src/lint/ignore.rs:418: [b'\\', rest @ ..] if matches!(rest, [b'!' | b'#', ..]) => rest,
+src/lint/types/tsutils.rs:374: [b'1'..=b'9', rest @ ..] => rest.iter().all(u8::is_ascii_digit),
+src/lint/linter/registry.rs:200: Some([b'-', rest @ ..]) => return Cow::Owned([scope, b"/", rest].concat()),
+src/lint/linter/comment.rs:105: [b'\'', inner @ .., b'\''] | [b'"', inner @ .., b'"'] => inner,
+src/lint/linter/json_v8.rs:243: Some(c @ (b'"' | b'\\' | b'/')) => u16::from(c),
+src/lint/linter/levn.rs:187: [b'\'', inner @ .., b'\''] => (b'\'', inner),
+src/lint/linter/levn.rs:188: [b'"', inner @ .., b'"'] => (b'"', inner),
+src/lint/linter/config/oxlint_options.rs:756: [mode @ Json::String(_)] => (mode, None),
+src/lint/linter/config/oxlint_options.rs:757: [mode @ Json::String(_), more @ Json::Object(_)] => (mode, Some(more)),
+src/lint/linter/config/oxlint_options.rs:824: Some(value @ Json::String(_)) => word(name, value, fixes, false)?,
+src/lint/linter/config/mod.rs:142: [b'{', texts @ .., b'}'] => bun_core::strings::split(texts, b",").collect(),
+src/lint/linter/config/mod.rs:191: Some([b'{', words @ .., b'}']) if bun_core::strings::contains_char(words, b',') => {
+src/lint/linter/config/mod.rs:207: [b'.', b'/', rest @ ..] => rest.to_vec(),
+src/lint/linter/config/mod.rs:208: [b'!', b'.', b'/', rest @ ..] => [b"!", rest].concat(),
+src/lint/linter/config/rust_regex.rs:812: c @ ('&' | '-' | '~') if self.peek() == Some(c) => {
+src/lint/linter/config/eslintrc.rs:252: (b"no-unused-vars" | b"@typescript-eslint/no-unused-vars", vars @ Json::String(_)) => {
+src/lint/linter/schema/mod.rs:331: Some(schema @ Json::Object(_)) => schema.clone(),
+src/lint/linter/schema/plain.rs:37: [first @ .., last] => [&first.join(&b", "[..])[..], b", or ", last].concat(),
+src/lint/linter/schema/validate.rs:491: Some(item_schema @ Json::Object(_)) => {
+src/lint/linter/syntax/typescript_estree.rs:1190: Some([b'\\', b'u', digits @ ..]) => {
+src/lint/linter/syntax/espree.rs:1026: [b'\\', b'u', b'{', rest @ ..] => {
+src/lint/linter/syntax/espree.rs:1030: [b'\\', b'u', rest @ ..] => {
+src/lint/linter/syntax/espree.rs:1046: [b'#', rest @ ..] => (at + 1, rest),
+src/lint/linter/syntax/espree/editions.rs:88: [b'\\', 0xE2, 0x80, 0xA8 | 0xA9, after @ ..] | [b'\\', _, after @ ..] => after,
+src/lint/linter/syntax/espree/editions.rs:92: [_, after @ ..] => after,
+src/lint/linter/syntax/espree/editions.rs:107: edition @ (3 | 5) => edition,
+src/lint/linter/syntax/espree/early.rs:36: [b'{', rest @ ..] => {
+src/lint/plugins/import_export_record.rs:110: [before @ .., b'i', b'm'] => (before, true),
+src/lint/plugins/import_export_record.rs:111: [before @ .., b'e', b'x'] => (before, false),
+src/lint/plugins/import_resolve.rs:152: Some(iterable @ (Json::Array(_) | Json::String(_))) => Some(iterable),
+src/lint/plugins/oxlint/exhaustive_deps.rs:296: declaration @ Declaration::Var(_) if !declaration.is_catch_parameter() => {
+src/lint/plugins/oxlint/exhaustive_deps.rs:977: [b'[', rest @ ..] if !is_first => {
+src/lint/plugins/rules/bun_react_prefer_updater_function.rs:43: (Some([first, rest @ ..]), [state_first, state_rest @ ..]) => {
+src/lint/plugins/rules/bun_react_no_local_render_helpers.rs:29: declaration @ Declaration::Var(_) => match declaration.node()? {
+src/lint/plugins/rules/react_hooks_exhaustive_deps.rs:581: declaration @ Declaration::Var(pat) if !declaration.is_catch_parameter() => match declaration.node()? {
+src/lint/plugins/rules/import_no_restricted_paths.rs:68: Some([b'/', rest @ ..]) => !rest.starts_with(b".."),
+=== guard_bare
+src/http_jsc/websocket_client.rs:801: op if op.is_control() && header.is_fragmented => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1291: len if len == b"Connection".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1300: len if len == b"Upgrade".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1310: len if len == b"Sec-WebSocket-Version".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1320: len if len == b"Sec-WebSocket-Accept".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1330: len if len == b"Sec-WebSocket-Protocol".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1371: len if len == b"Sec-WebSocket-Extensions".len() => {
+src/lint/runner.rs:1206: true if kind == ExprTag::Call as usize => {
+src/lint/source.rs:131: _ if is_plain => return bun_core::strings::line_starts(text),
+src/lint/oxlint_help.rs:77: false if with_values >> (part as u8) & 1 != 0 => Found::WithData(text),
+src/lint/oxlint_order.rs:414: _ if has_position == 0 => Some(not_found),
+src/lint/glob.rs:392: _ if is_in_range => {
+src/lint/context.rs:303: true if !wants_text && !wants_help => message,
+src/lint/context.rs:309: false if language.eslint_8.is_some() => {
+src/lint/context.rs:348: _ if whole < 0.0 || whole.is_infinite() => {
+src/lint/context.rs:352: _ if whole > crate::fix::MAX_STRING_LENGTH as f64 => b"Invalid string length".to_vec(),
+src/lint/ignore.rs:459: name if !is_anchored && first_len.is_none() && is_literal(name) => {
+src/lint/ignore.rs:470: path if is_anchored && is_literal(path) => {
+src/lint/selector/matcher.rs:281: _ if !self.stack.is_safe_to_recurse() => {
+src/lint/selector/value.rs:302: _ if literal.is_number => self.with_string(bun_core::fmt::js_string_to_number),
+src/lint/selector/program.rs:328: text if text::number_to_string(number) == text => Names::Number,
+src/lint/linter/mod.rs:634: _ if matches!(id, RuleId::Js(_)) => (running_js.iter()).any(|it| {
+src/lint/linter/mod.rs:963: _ if diagnostics.is_empty() => Vec::new(),
+src/lint/linter/mod.rs:964: _ if in_run_order => by_run,
+src/lint/linter/mod.rs:1445: _ if lacks_it || is_about_layout => None,
+src/lint/linter/resolved.rs:534: false if self.dialect.is_some() => Route::Language,
+src/lint/linter/levn.rs:82: byte if is_special(byte) => Some(1),
+src/lint/linter/levn.rs:220: _ if escaped == quote => out.push(quote),
+src/lint/linter/levn.rs:257: number if number.is_nan() => Json::String(unquote(text)),
+src/lint/linter/config/oxlint_options.rs:694: ty if matches_type(ty) => return Ok(()),
+src/lint/linter/config/flat.rs:508: _ if is_foreign => None,
+src/lint/linter/config/flat.rs:509: _ if self.has_every_rule => self.native_rule(id).map(|it| it.meta.plugin),
+src/lint/linter/config/flat.rs:598: item if is_matcher(item) => None,
+src/lint/linter/config/mod.rs:277: true if matches!(name, b"." | b"..") => None,
+src/lint/linter/config/mod.rs:857: _ if config.is_outside(path) => FileConfig::External,
+src/lint/linter/config/mod.rs:1685: plugin if plugins.contains(&plugin) => None,
+src/lint/linter/config/mod.rs:1687: if Plugin::from_prefix(plugin).is_some_and(Plugin::is_always_available) =>
+src/lint/linter/config/rust_regex.rs:603: false if is_byte => self.defer_error_unless_unicode(span, INVALID_UTF8),
+src/lint/linter/config/rust_regex.rs:604: false if is_in_class => self.defer_error_unless_unicode(span, NO_UNICODE),
+src/lint/linter/config/eslintrc.rs:289: _ if scoped.is_empty() || scoped.starts_with(b"/") => None,
+=== while_let
+src/http_jsc/websocket_client.rs:1767: while let Some(pending) = this.initial_data.take() {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:380: while let Some(protocol) = it.next() {
+src/js_parser_jsc/Macro.rs:785: while let Some(item) = iter.next()? {
+src/js_parser_jsc/Macro.rs:838: while let Some((prop, prop_value)) = object_iter.next()? {
+src/js_parser_jsc/expr_jsc.rs:275: while let Some(part) = next {
+src/lint/runner.rs:1541: while let Some(&(end, kind, node)) = open.last()
+src/lint/runner.rs:1551: while let Some((_, kind, node)) = open.pop() {
+src/lint/runner.rs:1824: while let Some(position) = next {
+src/lint/source.rs:70: while let Some(found) = text.get(at..).and_then(bun_core::strings::first_non_ascii) {
+src/lint/source.rs:136: while let Some(found) = text
+src/lint/json.rs:149: while let Some(&byte) = text.get(at) {
+src/lint/modules.rs:339: while let Some(at) = strings::index_of(rest, b"import") {
+src/lint/modules.rs:498: while let Some((start, len)) = text
+src/lint/oxlint_help.rs:130: while let Some((before, [escaped, after @ ..])) = strings::split_once_char(line, b'\\') {
+src/lint/fix.rs:153: while let Some(at) = strings::index_of_char_usize(content.get(from..).unwrap_or_default(), b'@')
+src/lint/fix.rs:332: while let Some(comment) = comments.next() {
+src/lint/oxlint_order.rs:243: while let Some((call, turn)) = self.calls.get(self.seen)
+src/lint/oxlint_order.rs:281: while let ([first_of_a, after_a @ ..], [first_of_b, after_b @ ..]) = (rest_of_a, rest_of_b) {
+src/lint/glob.rs:19: while let Some(&byte) = pattern.get(at) {
+src/lint/glob.rs:54: while let Some(&byte) = pattern.get(at) {
+src/lint/glob.rs:99: while let Some(&byte) = pattern.get(at) {
+src/lint/glob.rs:145: while let Some(&byte) = rest.next() {
+src/lint/glob.rs:287: while let Some(&byte) = body.get(at) {
+src/lint/glob.rs:421: while let Some(&byte) = pattern.get(at) {
+src/lint/context.rs:897: while let Some(found) = bun_core::strings::index_of_char_usize(&bytes[at..], b'{') {
+src/lint/ignore.rs:74: while let Some(rest) = stripped.strip_prefix(b"**/") {
+src/lint/ignore.rs:152: while let Some(rest) = stripped.strip_prefix(b"**/") {
+src/lint/ignore.rs:165: while let Some(&byte) = stripped.get(at) {
+src/lint/ignore.rs:334: while let Some(open) = strings::index_of_char_usize(rest, b'[') {
+src/lint/ignore.rs:662: while let [rest @ .., b'/'] = path {
+src/lint/ignore.rs:676: while let Some(slash) = path
+src/lint/selector/matcher.rs:233: while let Some(innermost) = open.last_mut().filter(|_| self.should_continue()) {
+src/lint/selector/parse.rs:349: while let Some(selector) = next.take() {
+src/lint/selector/parse.rs:399: while let Some(atom) = self.atom() {
+src/lint/linter/comment.rs:52: while let Some(found) = strings::index_of(&text[from..], b"--") {
+src/lint/linter/disable_oxlint.rs:84: while let Some(&byte) = text.get(at) {
+src/lint/linter/disable_oxlint.rs:328: while let Some(&(name, _)) = index.entries.get(start) {
+src/lint/linter/levn.rs:16: while let Some(&byte) = text.get(at) {
+src/lint/linter/levn.rs:162: while let Some(token) = self.peek()
+src/lint/linter/disable.rs:100: while let Some(found) = strings::index_of(&list[from..], name) {
+=== range_arm
+src/http_jsc/websocket_client.rs:2368: 0..=125 => ReceiveState::NeedBody,
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:876: Ok(response) if matches!(response.status_code, 100 | 102..=199) => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1832: [d @ b'0'..=b'9'] => d - b'0',
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/lint/json.rs:103: 0xd800..=0xdbff => {
+src/lint/json.rs:108: 0xdc00..=0xdfff => return None,
+src/lint/json.rs:111: (b'\\' | 0..=0x1f, _) => return None,
+src/lint/json.rs:152: (b'-' | b'0'..=b'9', _) => end_of_strict_number(text, at)?,
+src/lint/json.rs:162: (b'a'..=b'z', _) => at + 1,
+src/lint/selector/parse.rs:870: 0x01..=0x08 | 0x0B | 0x0C | 0x0E | 0x0F => {
+src/lint/selector/parse.rs:873: 0x10..=0x1F | 0x7F..=0x9F => out.extend_from_slice(format!("\\x{c:X}").as_bytes()),
+src/lint/types/tsutils.rs:374: [b'1'..=b'9', rest @ ..] => rest.iter().all(u8::is_ascii_digit),
+src/lint/linter/json_v8.rs:66: b'-' | b'0'..=b'9' => Token::Number,
+src/lint/linter/config/oxlint_options.rs:637: Json::Number(it) if is_integer(*it) && (least..=greatest).contains(it) => Ok(()),
+src/lint/linter/config/oxlint_options.rs:724: if !(*least..=*greatest).contains(it) =>
+src/lint/linter/config/rust_regex.rs:595: '0'..='9' => {
+src/lint/linter/config/serde_json.rs:121: b'0'..=b'9' => self.number(),
+src/lint/linter/config/serde_json.rs:174: Some(b'1'..=b'9') => _ = self.digits(),
+src/lint/linter/config/serde_json.rs:214: Some(0..=0x1F) => {
+src/lint/linter/config/serde_json.rs:229: 0xDC00..=0xDFFF => self.error(LONE_SURROGATE),
+src/lint/linter/config/serde_json.rs:230: 0xD800..=0xDBFF => {
+src/lint/linter/config/serde_json.rs:241: 0xDC00..=0xDFFF => Ok(()),
+src/lint/linter/syntax/oxc.rs:617: [b'0', b'0'..=b'9', ..] if !has_any(b"89.eEn") => "octal",
+src/lint/linter/syntax/oxc.rs:627: [b'0'..=b'9', .., b'n'] => format!("{} bigint", number()),
+src/lint/linter/syntax/oxc.rs:628: [b'0'..=b'9', ..] | [b'.', b'0'..=b'9', ..] => number().to_owned(),
+src/lint/linter/syntax/oxc.rs:1236: Some(b'0'..=b'9' | b'a'..=b'f' | b'A'..=b'F') => after_number(label),
+src/lint/linter/syntax/oxc.rs:1340: [b')' | b']'] | [b'0'..=b'9' | b'"' | b'\'' | b'`', ..] => true,
+src/lint/linter/syntax/oxc.rs:1715: Some(b'"' | b'\'' | b'0'..=b'9') => true,
+src/lint/linter/syntax/espree.rs:879: [b'0', b'0'..=b'9', ..] | [b'0'] => {
+src/lint/linter/syntax/espree.rs:1558: ..=8 => (names.iter().enumerate())
+src/lint/linter/syntax/oxc/keywords.rs:97: [b'"' | b'\'' | b'.' | b'0'..=b'9', ..] => token != b"." && token != b"...",
+src/lint/driver/fmt/config.rs:580: Some(1..=320) => Ok(()),
+src/lint/driver/fmt/config.rs:589: Some(0..=24) => Ok(()),
+src/lint/driver/fmt/files.rs:397: letter @ (b'a'..=b'z' | b'A'..=b'Z') => 100 + letter.to_ascii_lowercase() as u16,
+src/lint/markdown/util.rs:82: [b'a'..=b'z' | b'A'..=b'Z' | b'0'..=b'9', ..] => 1,
+src/lint/markdown/rules/no_bare_urls.rs:76: 2..=4 => {
+src/lint/typescript/rules/prefer_includes.rs:217: b'0'..=b'9' | b'x' | b'u' | b'\n' | b'\r' | 0x80..=0xFF => return None,
+src/lint/oxlint/codegen.rs:14: (0x00, [b'0'..=b'9', ..]) => (b"\\x00", 1),
+src/lint/oxlint/codegen.rs:37: (0xED, [second @ 0xA0..=0xBF, third @ 0x80..=0xBF, ..]) => {
+src/lint/oxlint/hash_order.rs:20: 0..=3 => len == 3,
+=== tuple_arm
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:293: (Some(upgrade_client), Some(hostname)) => {
+src/http_jsc/websocket_client/CppWebSocket.rs:377: (NameCheck::Nobody, _) | (NameCheck::Callback { .. }, TlsHandshake::Renegotiation) => {
+src/http_jsc/websocket_client/CppWebSocket.rs:380: (NameCheck::BuiltIn, _) => ssl.is_some_and(|ssl| {
+src/http_jsc/websocket_client/CppWebSocket.rs:383: (NameCheck::Callback { callback, enforce }, TlsHandshake::First { context, .. }) => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1858: (b"server_no_context_takeover", None) if params.server_no_context_takeover == 0 => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1861: (b"client_no_context_takeover", None) if params.client_no_context_takeover == 0 => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1864: (b"server_max_window_bits", Some(_)) if server_bits.is_none() => server_bits = bits,
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1865: (b"client_max_window_bits", Some(_)) if client_bits.is_none() => client_bits = bits,
+src/install_types/resolver_hooks.rs:357: (URI::Local(l), URI::Local(r)) | (URI::Remote(l), URI::Remote(r)) => {
+src/lint/paths.rs:137: ([b'/', b'/', ..], _) => 2,
+src/lint/paths.rs:138: (_, Style::Windows) => 1,
+src/lint/paths.rs:139: (_, Style::Posix) => 0,
+src/lint/paths.rs:214: (false, _) => None,
+src/lint/paths.rs:215: (true, true) => Some(rest),
+src/lint/paths.rs:216: (true, false) => rest.strip_prefix(b"/"),
+src/lint/paths.rs:339: (Some(b'@'), Some(scope)) => end_of_part(scope + 1),
+src/lint/paths.rs:340: (_, end) => end,
+src/lint/runner.rs:888: (Some(by_name), _) => by_name.has_any_of(groups),
+src/lint/runner.rs:889: (None, true) => !self.exprs_of(kind).is_empty(),
+src/lint/runner.rs:890: (None, false) => !self.others(kind).is_empty(),
+src/lint/runner.rs:924: (true, _) => self.named(kind, groups, self.may_have_names_of(on)),
+src/lint/runner.rs:925: (false, true) => self.exprs_of(kind).to_vec(),
+src/lint/runner.rs:926: (false, false) => Vec::new(),
+src/lint/json.rs:100: (b'"', _) => return Some(at + 1),
+src/lint/json.rs:101: (b'\\', Some(b'"' | b'\\' | b'/' | b'b' | b'f' | b'n' | b'r' | b't')) => at += 2,
+src/lint/json.rs:102: (b'\\', Some(b'u')) => match unit(at + 2)? {
+src/lint/json.rs:111: (b'\\' | 0..=0x1f, _) => return None,
+src/lint/json.rs:151: (b'"', _) => end_of_strict_string(text, at)?,
+src/lint/json.rs:152: (b'-' | b'0'..=b'9', _) => end_of_strict_number(text, at)?,
+src/lint/json.rs:153: (b'#', _) => {
+src/lint/json.rs:158: (b'/', Some(b'/')) => line_end(at),
+src/lint/json.rs:159: (b'/', Some(b'*')) => at + 4 + strings::index_of(&text[at + 2..], b"*/")?,
+src/lint/json.rs:160: (b' ' | b'\t' | b'\n' | b'\r' | b'{' | b'}' | b'[' | b']' | b':' | b',', _) => at + 1,
+src/lint/json.rs:162: (b'a'..=b'z', _) => at + 1,
+src/lint/rule_set.rs:105: (Some(name), _) => const_str_eq(name, with_types.name),
+src/lint/rule_set.rs:106: (None, Some(base)) => {
+src/lint/rule_set.rs:109: (None, None) => false,
+src/lint/oxlint_help.rs:65: (Texts::FixDescription { removes, edits, .. }, Part::Help) => {
+src/lint/oxlint_help.rs:68: (One(line), Part::Help) | (Texts::FixDescription { note: line, .. }, Part::Note) => {
+src/lint/oxlint_help.rs:71: (Three(first), part) => first + part as u16,
+=== let_chain
+src/http_jsc/websocket_client/WebSocketProxyTunnel.rs:519: && let Some(ws) = this.connected_websocket.get()
+src/lint/runner.rs:346: && let Some(slot) = list_indexes.get_mut(*at as usize)
+src/lint/runner.rs:1458: && let Some(run) = order.get_mut(first..at)
+src/lint/source.rs:332: && let (Some(before_start), Some(before_end)) =
+src/lint/source.rs:496: && let Some(before_line) = self.units_before(line.start)
+src/lint/source.rs:497: && let Some(Some([blocks @ .., _])) =
+src/lint/source.rs:511: && let Some(&before) = blocks.get(block)
+src/lint/modules.rs:310: && let Some(source) = args.first()
+src/lint/modules.rs:311: && let Some(specifier) = source.as_string()
+src/lint/glob.rs:295: && let Some(close) = strings::index_of_any(&body[at + 1..], b"{},")
+src/lint/glob.rs:297: && let Some(range) = picomatch_range(&body[at + 1..at + 1 + close])
+src/lint/glob.rs:305: && let inside = &body[at + 1..at + len - 1]
+src/lint/context.rs:453: && let Some(details) = self.details()
+src/lint/context.rs:555: && let Some(details) = self.details()
+src/lint/context.rs:632: && let Some(text) = text()
+src/lint/context.rs:642: && let Some(details) = self.details()
+src/lint/context.rs:666: && let Some(diagnostic) = &mut self.diagnostic
+src/lint/selector/compile.rs:236: && let Some(key) = path.of(keys).first()
+src/lint/types/tsutils.rs:399: && let Some(target) = constituent.tuple_target()
+src/lint/types/utils/is_type_readonly.rs:211: && let Some(branches) = branches_of_conditional_type(ty)
+src/lint/types/utils/get_type_name.rs:24: && let Some(constraint) = declared_constraint(ty)
+src/lint/linter/registry.rs:419: && let Some(extension) = self.get(Plugin::TypeScript, name)
+src/lint/linter/fixer.rs:175: && let (Some(before), Some(pass)) = (previous.take(), last_pass.take())
+src/lint/linter/fixer.rs:205: && let (Some(before), Some(pass)) = (previous.take(), last_pass.take())
+src/lint/linter/mod.rs:1202: && let Some(fix) = message.fix.take()
+src/lint/linter/mod.rs:1428: && let Some(name) = rule.name()
+src/lint/linter/globals/mod.rs:482: && let Some(ProgramGlobals { names: all, .. }) = self.inferred_globals()
+src/lint/linter/globals/mod.rs:483: && let Ok(at) = all.binary_search_by(|it| (*it.name).cmp(name))
+src/lint/linter/config/oxlint_options.rs:555: && let Some((key, _)) = entries.iter().find(|entry| place_of(&entry.0).is_none())
+src/lint/linter/config/flat.rs:466: if !is_about_layout && let Some(found) = find_js_rule(&self.js_plugins, id) {
+src/lint/linter/config/flat.rs:483: && let Err(lines) = crate::linter::schema::validate_js(rule, &setting.options)
+src/lint/linter/config/rc.rs:38: && let Some(at) = list.get(from..).and_then(|it| strings::index_of(it, word))
+src/lint/linter/config/rc.rs:560: && let Some(why) = oxlint_options::options_error(&key, options.unwrap_or_default())
+src/lint/linter/config/mod.rs:1449: && let Err(lines) = &validated
+src/lint/linter/config/mod.rs:1711: && let Some(rule) =
+src/lint/linter/config/eslintrc.rs:311: && let Some(slash) = strings::index_of_char_usize(scoped, b'/').filter(|it| *it > 0)
+src/lint/linter/config/eslintrc.rs:1646: && let Some((at, name, _)) = self.member(named, b"processors", processor)
+src/lint/linter/config/eslintrc.rs:2171: && let Some(variables) = plugin_environment.get(b"globals")
+src/lint/linter/schema/mod.rs:75: && let Some(Json::Object(first)) = items.first_mut()
+src/lint/linter/schema/mod.rs:76: && let Some((_, Json::Object(properties))) =
+=== struct_arm
+src/http_jsc/websocket_client/CppWebSocket.rs:354: NameCheck::Nobody | NameCheck::Callback { .. } => boringssl::ServerIdentity::Unchecked,
+src/http_jsc/websocket_client/CppWebSocket.rs:367: TlsHandshake::First { peer, .. } => peer,
+src/http_jsc/websocket_client/CppWebSocket.rs:377: (NameCheck::Nobody, _) | (NameCheck::Callback { .. }, TlsHandshake::Renegotiation) => {
+src/http_jsc/websocket_client/CppWebSocket.rs:383: (NameCheck::Callback { callback, enforce }, TlsHandshake::First { context, .. }) => {
+src/bundler_jsc/analyze_jsc.rs:321: analyze::ModuleInfoString::Chars { chars, is_8bit } => {
+src/lint/runner.rs:226: hir::ExprKind::Dot { chain, .. } | hir::ExprKind::Index { chain, .. } => chain,
+src/lint/runner.rs:373: Some(&hir::ExprKind::Dot { name, .. }) => {
+src/lint/runner.rs:388: Some(&hir::ExprKind::Dot { name, .. }) => {
+src/lint/runner.rs:609: hir::ExprKind::Binary { op, .. } => Some(op as usize),
+src/lint/runner.rs:628: hir::ExprKind::Unary { op, .. } => Some(op as usize),
+src/lint/runner.rs:856: Some(hir::ExprKind::Dot { .. }) => callee
+src/lint/runner.rs:871: Some(hir::ExprKind::Dot { .. }) => {
+src/lint/oxlint_help.rs:65: (Texts::FixDescription { removes, edits, .. }, Part::Help) => {
+src/lint/oxlint_help.rs:68: (One(line), Part::Help) | (Texts::FixDescription { note: line, .. }, Part::Note) => {
+src/lint/selector/matcher.rs:120: Some(Test::Compare { literal, relation }) => matches!(
+src/lint/selector/matcher.rs:301: Some(Op::Attribute { path, test, first }) => {
+src/lint/selector/value.rs:121: Value::Regex { pattern, flags } => Val::Regex { pattern, flags },
+src/lint/selector/value.rs:199: (Val::Object(Object::Template { cooked, .. }), P::Cooked) => {
+src/lint/selector/value.rs:202: (Val::Object(Object::Template { raw, .. }), P::Raw) => Val::Str(raw),
+src/lint/selector/value.rs:203: (Val::Object(Object::Regex { pattern, .. }), P::Pattern) => Val::Str(pattern),
+src/lint/selector/value.rs:204: (Val::Object(Object::Regex { flags, .. }), P::Flags) => Val::Str(flags),
+src/lint/selector/value.rs:206: (Val::Regex { pattern, .. }, P::Source) => Val::Str(pattern),
+src/lint/selector/value.rs:207: (Val::Regex { flags, .. }, P::Flags) => Val::Short(Short::from_flags(flags)),
+src/lint/selector/value.rs:208: (Val::Regex { flags, .. }, P::HasFlag(flag)) => {
+src/lint/selector/value.rs:211: (Val::Regex { .. }, P::LastIndex) => Val::Number(0.0),
+src/lint/selector/value.rs:245: Val::Regex { pattern, flags } => {
+src/lint/selector/value.rs:287: Val::Short(_) | Val::Regex { .. } | Val::List(..) | Val::Range(_) => {
+src/lint/selector/compile.rs:62: Op::Attribute { .. } | Op::Field(_) | Op::NthChild(_) => {
+src/lint/selector/compile.rs:69: | Op::Adjacent { left, right, .. } => {
+src/lint/selector/compile.rs:93: Op::Identifier { node_type, .. } => {
+src/lint/selector/compile.rs:96: Op::Class { types, .. } => Some(types),
+src/lint/selector/compile.rs:137: Some(Op::Identifier { .. } | Op::Wildcard) => true,
+src/lint/selector/compile.rs:150: Op::Identifier { .. } | Op::ExactNode | Op::UnknownClass(_) | Op::Class { .. } => 1,
+src/lint/selector/compile.rs:151: Op::Attribute { .. } => 2,
+src/lint/selector/compile.rs:153: Op::Has { .. } => 5,
+src/lint/selector/compile.rs:205: Op::Has { selectors, .. } => {
+src/lint/selector/compile.rs:228: Some(Op::Identifier { node_type, .. }) => *node_type,
+src/lint/types/tsutils.rs:283: Some(Literal::BigInt { base10, .. }) => base10 == b"0",
+src/lint/types/ty.rs:431: Structure::IndexedAccess { object, index } => TypeStructure::IndexedAccess {
+src/lint/types/ty.rs:435: Structure::Index { ty: of } => TypeStructure::Index { ty: ty(of) },
+=== bytestr_arm
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:895: if !b"HTTP/1.".starts_with(&window[..window.len().min(7)]) =>
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1291: len if len == b"Connection".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1300: len if len == b"Upgrade".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1310: len if len == b"Sec-WebSocket-Version".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1320: len if len == b"Sec-WebSocket-Accept".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1330: len if len == b"Sec-WebSocket-Protocol".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1371: len if len == b"Sec-WebSocket-Extensions".len() => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1858: (b"server_no_context_takeover", None) if params.server_no_context_takeover == 0 => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1861: (b"client_no_context_takeover", None) if params.client_no_context_takeover == 0 => {
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1864: (b"server_max_window_bits", Some(_)) if server_bits.is_none() => server_bits = bits,
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1865: (b"client_max_window_bits", Some(_)) if client_bits.is_none() => client_bits = bits,
+src/install_types/resolver_hooks.rs:848: b"aix" => AIX, b"linux" => LINUX, b"sunos" => SUNOS, b"win32" => WIN32,
+src/install_types/resolver_hooks.rs:849: b"darwin" => DARWIN, b"android" => ANDROID, b"freebsd" => FREEBSD, b"openbsd" => OPENBSD,
+src/install_types/resolver_hooks.rs:962: b"arm" => ARM, b"ppc" => PPC, b"x32" => X32, b"x64" => X64,
+src/install_types/resolver_hooks.rs:963: b"ia32" => IA32, b"mips" => MIPS, b"s390" => S390,
+src/install_types/resolver_hooks.rs:964: b"arm64" => ARM64, b"ppc64" => PPC64, b"s390x" => S390X, b"mipsel" => MIPSEL,
+src/install_types/resolver_hooks.rs:1364: b"dependencies" => Some(Self::DEPENDENCIES),
+src/install_types/resolver_hooks.rs:1365: b"devDependencies" => Some(Self::DEV),
+src/install_types/resolver_hooks.rs:1366: b"optionalDependencies" => Some(Self::OPTIONAL),
+src/install_types/resolver_hooks.rs:1367: b"peerDependencies" => Some(Self::PEER),
+src/lint/paths.rs:144: b"" | b"." => {}
+src/lint/paths.rs:145: b".." => {
+src/lint/paths.rs:163: Some(rest) if base.ends_with(b"/") => Some(rest),
+src/lint/language.rs:34: b"off" => Global::Off,
+src/lint/language.rs:35: b"true" | b"writeable" | b"writable" => Global::Writable,
+src/lint/language.rs:36: b"false" | b"readable" | b"readonly" => Global::Readonly,
+src/lint/language.rs:117: Tables::Today | Tables::Eslint8 if name == b"es6" => b"es2015",
+src/lint/language.rs:283: b"module" => SourceType::Module,
+src/lint/language.rs:284: b"script" => SourceType::Script,
+src/lint/language.rs:285: b"commonjs" => SourceType::CommonJs,
+src/lint/language.rs:338: Some(Json::String(version)) if version == b"latest" => {}
+src/lint/language.rs:445: None | Some(b"espree") => Parser::Espree,
+src/lint/language.rs:446: Some(b"typescript" | b"@typescript-eslint/parser" | b"typescript-eslint/parser") => {
+src/lint/fix.rs:95: if is_blank_line(line) && (after.is_empty() || next.starts_with(b"}")) =>
+src/lint/glob.rs:282: Some(before) if !before.is_empty() && before != b"*" => (before, true),
+src/lint/glob.rs:390: b"]" if !is_first => break,
+src/lint/glob.rs:391: b"-" if !is_first && !is_in_range => is_in_range = true,
+src/lint/ignore.rs:305: b"/" => b"$",
+src/lint/ignore.rs:466: && strings::index_of_any(extension, b"./").is_none() =>
+src/lint/ignore.rs:486: None if is_anchored && first_len.is_none() && !strings::contains(own_text, b"**") => {
+=== byte_char_arm
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1832: [d @ b'0'..=b'9'] => d - b'0',
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/clap_macros/lib.rs:281: b'\\' => {
+src/clap_macros/lib.rs:285: b'<' | b'>' => {
+src/clap_macros/lib.rs:297: b'>' => {
+src/clap_macros/lib.rs:300: b'{' => {
+src/clap_macros/lib.rs:306: b'<' => {
+src/lint/paths.rs:28: [b'/', b'/', ..] => Style::Windows,
+src/lint/paths.rs:29: [drive, b':', ..] if drive.is_ascii_alphabetic() => Style::Windows,
+src/lint/paths.rs:137: ([b'/', b'/', ..], _) => 2,
+src/lint/paths.rs:162: Some([b'/', rest @ ..]) => Some(rest),
+src/lint/paths.rs:277: [drive, b':'] if drive.is_ascii_alphabetic() => [path, b"/"].concat(),
+src/lint/paths.rs:339: (Some(b'@'), Some(scope)) => end_of_part(scope + 1),
+src/lint/runner.rs:313: Some(b'#') => ByName::OTHERS as u8,
+src/lint/source.rs:389: [.., b'\r', b'\n'] => 2,
+src/lint/json.rs:100: (b'"', _) => return Some(at + 1),
+src/lint/json.rs:101: (b'\\', Some(b'"' | b'\\' | b'/' | b'b' | b'f' | b'n' | b'r' | b't')) => at += 2,
+src/lint/json.rs:102: (b'\\', Some(b'u')) => match unit(at + 2)? {
+src/lint/json.rs:111: (b'\\' | 0..=0x1f, _) => return None,
+src/lint/json.rs:128: b'0' => first + 1,
+src/lint/json.rs:151: (b'"', _) => end_of_strict_string(text, at)?,
+src/lint/json.rs:152: (b'-' | b'0'..=b'9', _) => end_of_strict_number(text, at)?,
+src/lint/json.rs:153: (b'#', _) => {
+src/lint/json.rs:158: (b'/', Some(b'/')) => line_end(at),
+src/lint/json.rs:159: (b'/', Some(b'*')) => at + 4 + strings::index_of(&text[at + 2..], b"*/")?,
+src/lint/json.rs:160: (b' ' | b'\t' | b'\n' | b'\r' | b'{' | b'}' | b'[' | b']' | b':' | b',', _) => at + 1,
+src/lint/json.rs:162: (b'a'..=b'z', _) => at + 1,
+src/lint/fix.rs:60: Some([b'\r', b'\n', ..]) => Some(2),
+src/lint/fix.rs:61: Some([b'\n' | b'\r', ..]) => Some(1),
+src/lint/fix.rs:375: Some([.., b'\r']) => b"\r\n",
+src/lint/glob.rs:21: b'\\' => at += 1,
+src/lint/glob.rs:22: b'[' => at = class_end(pattern, at).map_or(at, |end| end - 1),
+src/lint/glob.rs:23: b'{' => open.push((at, false)),
+src/lint/glob.rs:24: b',' => {
+src/lint/glob.rs:29: b'}' => {
+src/lint/glob.rs:57: b'\\' => {
+src/lint/glob.rs:66: b'[' => {
+src/lint/glob.rs:74: b'{' | b'}' if is_literal[at] => out.extend_from_slice(&[b'\\', byte]),
+src/lint/glob.rs:75: b'/' if is_minimatch && before == Some(b'/') => {}
+src/lint/glob.rs:78: && matches!(pattern.get(at + 1), None | Some(b'/')) =>
+=== slice_arm
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1832: [d @ b'0'..=b'9'] => d - b'0',
+src/http_jsc/websocket_client/WebSocketUpgradeClient.rs:1833: [b'1', d @ b'0'..=b'9'] => 10 + (d - b'0'),
+src/errno/windows_errno.rs:36: [UV_E2BIG => E2BIG] [UV_EACCES => EACCES] [UV_EADDRINUSE => EADDRINUSE]
+src/errno/windows_errno.rs:37: [UV_EADDRNOTAVAIL => EADDRNOTAVAIL] [UV_EAFNOSUPPORT => EAFNOSUPPORT]
+src/errno/windows_errno.rs:38: [UV_EAGAIN => EAGAIN] [UV_EAI_ADDRFAMILY] [UV_EAI_AGAIN] [UV_EAI_BADFLAGS]
+src/errno/windows_errno.rs:41: [UV_EAI_PROTOCOL] [UV_EAI_SERVICE] [UV_EAI_SOCKTYPE] [UV_EALREADY => EALREADY]
+src/errno/windows_errno.rs:42: [UV_EBADF => EBADF] [UV_EBUSY => EBUSY] [UV_ECANCELED => ECANCELED]
+src/errno/windows_errno.rs:43: [UV_ECHARSET => ECHARSET] [UV_ECONNABORTED => ECONNABORTED]
+src/errno/windows_errno.rs:44: [UV_ECONNREFUSED => ECONNREFUSED] [UV_ECONNRESET => ECONNRESET]
+src/errno/windows_errno.rs:45: [UV_EDESTADDRREQ => EDESTADDRREQ] [UV_EEXIST => EEXIST] [UV_EFAULT => EFAULT]
+src/errno/windows_errno.rs:46: [UV_EFBIG => EFBIG] [UV_EHOSTUNREACH => EHOSTUNREACH] [UV_EINVAL => EINVAL]
+src/errno/windows_errno.rs:47: [UV_EINTR => EINTR] [UV_EISCONN => EISCONN] [UV_EIO => EIO] [UV_ELOOP => ELOOP]
+src/errno/windows_errno.rs:48: [UV_EISDIR => EISDIR] [UV_EMSGSIZE => EMSGSIZE] [UV_EMFILE => EMFILE]
+src/errno/windows_errno.rs:49: [UV_ENETDOWN => ENETDOWN] [UV_ENAMETOOLONG => ENAMETOOLONG] [UV_ENFILE => ENFILE]
+src/errno/windows_errno.rs:50: [UV_ENETUNREACH => ENETUNREACH] [UV_ENODEV => ENODEV] [UV_ENOBUFS => ENOBUFS]
+src/errno/windows_errno.rs:51: [UV_ENOMEM => ENOMEM] [UV_ENOENT => ENOENT] [UV_ENOPROTOOPT => ENOPROTOOPT]
+src/errno/windows_errno.rs:52: [UV_ENONET => ENONET] [UV_ENOSYS => ENOSYS] [UV_ENOSPC => ENOSPC]
+src/errno/windows_errno.rs:53: [UV_ENOTDIR => ENOTDIR] [UV_ENOTCONN => ENOTCONN] [UV_ENOTSOCK => ENOTSOCK]
+src/errno/windows_errno.rs:54: [UV_ENOTEMPTY => ENOTEMPTY] [UV_EOVERFLOW => EOVERFLOW] [UV_ENOTSUP => ENOTSUP]
+src/errno/windows_errno.rs:55: [UV_EPIPE => EPIPE] [UV_EPERM => EPERM] [UV_EPROTONOSUPPORT => EPROTONOSUPPORT]
+src/errno/windows_errno.rs:56: [UV_EPROTO => EPROTO] [UV_ERANGE => ERANGE] [UV_EPROTOTYPE => EPROTOTYPE]
+src/errno/windows_errno.rs:57: [UV_ESHUTDOWN => ESHUTDOWN] [UV_EROFS => EROFS] [UV_ESRCH => ESRCH]
+src/errno/windows_errno.rs:58: [UV_ESPIPE => ESPIPE] [UV_ETXTBSY => ETXTBSY] [UV_ETIMEDOUT => ETIMEDOUT]
+src/errno/windows_errno.rs:59: [UV_UNKNOWN] [UV_EXDEV => EXDEV] [UV_ENXIO => ENXIO] [UV_EOF => EOF]
+src/errno/windows_errno.rs:60: [UV_EHOSTDOWN => EHOSTDOWN] [UV_EMLINK => EMLINK] [UV_ENOTTY => ENOTTY]
+src/errno/windows_errno.rs:61: [UV_EREMOTEIO => EREMOTEIO] [UV_EILSEQ => EILSEQ] [UV_EFTYPE => EFTYPE]
+src/errno/windows_errno.rs:62: [UV_ENODATA => ENODATA] [UV_ESOCKTNOSUPPORT => ESOCKTNOSUPPORT] [UV_ERRNO_MAX]
+src/errno/windows_errno.rs:63: [UV_EUNATCH => EUNATCH] [UV_ENOEXEC => ENOEXEC]
+src/lint/paths.rs:28: [b'/', b'/', ..] => Style::Windows,
+src/lint/paths.rs:29: [drive, b':', ..] if drive.is_ascii_alphabetic() => Style::Windows,
+src/lint/paths.rs:137: ([b'/', b'/', ..], _) => 2,
+src/lint/paths.rs:162: Some([b'/', rest @ ..]) => Some(rest),
+src/lint/paths.rs:277: [drive, b':'] if drive.is_ascii_alphabetic() => [path, b"/"].concat(),
+src/lint/source.rs:389: [.., b'\r', b'\n'] => 2,
+src/lint/source.rs:390: [.., 0xE2, 0x80, 0xA8 | 0xA9] => 3,
+src/lint/fix.rs:60: Some([b'\r', b'\n', ..]) => Some(2),
+src/lint/fix.rs:61: Some([b'\n' | b'\r', ..]) => Some(1),
+src/lint/fix.rs:62: Some([]) | None => Some(0),
+src/lint/fix.rs:375: Some([.., b'\r']) => b"\r\n",
+src/lint/oxlint_order.rs:326: [a, b] => {
+=== slice_let
+src/lint/oxlint_messages.rs:19: let [eslint, typescript] = entries_for_name(meta);
+src/lint/rule.rs:981: let [low, high, functions] = self.calls;
+src/lint/rule.rs:991: let [low, high] = self.members;
+src/lint/ignore.rs:662: while let [rest @ .., b'/'] = path {
+src/lint/linter/levn.rs:195: let [b'\\', escaped, ..] = *rest else {
+src/lint/linter/config/oxlint_options.rs:892: let [one, other] = &types[..] else {
+src/lint/linter/config/eslintrc.rs:285: if let [b'@', scoped @ ..] = &name[..] {
+src/lint/linter/config/eslintrc.rs:310: if let [b'@', scoped @ ..] = name
+src/lint/linter/schema/mod.rs:132: let [schema, defaults @ ..] = found.as_array()? else {
+src/lint/linter/syntax/order.rs:134: let [body, params, return_type, type_params] = ranks_in_function(func);
+src/lint/linter/syntax/typescript_estree.rs:490: let [declaration] = declarations else {
+src/lint/linter/syntax/oxc/names.rs:834: if let [first, others @ ..] = &own_defaults[..]
+src/lint/plugins/import_export_map.rs:209: let [without, with] = &facts.namespace;
+src/lint/plugins/import_export_map.rs:336: let [espree, typescript] = &self.languages;
+src/lint/plugins/oxlint/exhaustive_deps.rs:955: if let [(_, name)] = missing {
+src/lint/plugins/n/table.rs:92: let [read, call, construct] = *T::kinds().get(usize::from(self.kinds))?;
+src/lint/plugins/rules/oxc_bad_match_all_arg.rs:32: let [_, method, called_here] = TEXTS[REPLACE as usize];
+src/lint/plugins/rules/promise_no_multiple_resolved.rs:366: if let [prev] = segment.prev_segments().as_slice()
+src/lint/plugins/rules/import_no_duplicates.rs:201: if let [(_, _, module, _), _, ..] = group {
+src/lint/plugins/rules/import_no_duplicates.rs:256: let [key0, others @ ..] = &import_entries_maps;
+src/lint/plugins/rules/import_no_duplicates.rs:276: let [first, _, ..] = imports else {
+src/lint/driver/for_tests.rs:278: while let [function, a, b, after @ ..] = rest {
+src/lint/driver/for_tests.rs:302: let &[cases] = args else {
+src/lint/driver/configs.rs:542: if let [b'@', scoped @ ..] = name
+src/lint/driver/configs.rs:882: if let [package, claimed, .., b"match", ours] = words[..]
+src/lint/driver/configs.rs:2549: let [(start, ignored), (_, ignored_by_flags)] = self.ignore_patterns();
+src/lint/driver/git.rs:355: let [first, second, third] = DEFAULT_BRANCHES.map(|it| it.1);
+src/lint/driver/run.rs:215: let [first, last] = &self.ends;
+src/lint/driver/doctor.rs:316: let [origin, _, Json::String(prefix)] = location.as_array()? else {
+src/lint/driver/embedded.rs:117: if let [b'=', after @ ..] = rest {
+src/lint/driver/embedded.rs:146: let [b'=', rest @ ..] = content[at + 4..].trim_ascii_start() else {
+src/lint/driver/args.rs:190: } else if let [b'-', number @ ..] = arg
+src/lint/driver/gitignore.rs:421: while let [rest @ .., b'/'] = root {
+src/lint/driver/fmt/config.rs:823: let [oxfmt, vite_plus, prettier] = found.map_or([false; 3], |it| it.1);
+src/lint/driver/fmt/config.rs:1426: if let [first, second, ..] = candidates[..]
+src/lint/driver/fmt/mod.rs:549: let [javascript, typescript] =
+src/lint/driver/fmt/editorconfig.rs:201: if let [b'e' | b'E', exponent @ ..] = rest {
+src/lint/driver/fmt/editorconfig.rs:219: let [b'"', inner @ .., b'"'] = text else {
+src/lint/driver/fmt/editorconfig.rs:375: if let [b'[', name @ .., b']'] = line {
+src/lint/driver/fmt/cli.rs:610: let &[first, second, ..] = &self.modes[..] else {
+=== str_arm
+src/lint/oxlint_order.rs:145: Plugin::Eslint if rule.name == "max-statements" => return Once::ByEnd,
+src/lint/linter/registry.rs:100: "" => name.into(),
+src/lint/linter/mod.rs:889: ("Error", false) => thrown.message,
+src/lint/linter/config/rust_regex.rs:679: "start" | "end" | "start-half" | "end-half" => Ok(()),
+src/lint/linter/config/shape.rs:347: None if matches!(*key, "files" | "env" | "globals") => {
+src/lint/linter/syntax/oxc/names.rs:370: Declaration::Param(_) if name.is("this") => return,
+src/lint/linter/syntax/espree/early.rs:1062: reason if reason.starts_with("Duplicated flag") => {
+src/lint/linter/syntax/espree/early.rs:1065: "Invalid empty flags" => "Invalid regular expression modifiers",
+src/lint/plugins/bun.rs:138: ExprKind::Dot { obj, name, .. } if obj.is_ident("Bun") && is_global_reference(obj) => {
+src/lint/plugins/bun.rs:186: "exec" | "execSync" => (e, Starter::Shell),
+src/lint/plugins/oxlint/exhaustive_deps.rs:480: Declaration::Param(_) if symbol.name().is("this") => return None,
+src/lint/plugins/oxlint/exhaustive_deps.rs:1161: ExprKind::Ident(name) if name.is("undefined") && symbol_of(array).is_none() => {}
+src/lint/plugins/n/object_type.rs:132: Some("BigInt") => Some("BigInt"),
+src/lint/plugins/n/object_type.rs:145: if obj.is_ident("Intl") && is_global_object(obj) =>
+src/lint/plugins/n/object_type.rs:208: (Some("String"), _) | (_, Some("String")) => Some("String"),
+src/lint/plugins/n/object_type.rs:209: (Some("BigInt"), _) | (_, Some("BigInt")) => Some("BigInt"),
+src/lint/plugins/n/object_type.rs:210: (_, Some("Number")) | (Some("Number"), Some("null" | "undefined")) => {
+src/lint/plugins/n/object_type.rs:235: (Some("BigInt"), _) | (_, Some("BigInt")) => Some("BigInt"),
+src/lint/plugins/rules/bun_react_prefer_updater_function.rs:11: "`{{state}}` may be out of date when `{{setter}}` is called. Pass a function: `{{setter}}(previous => ..)`.",
+src/lint/plugins/rules/bun_no_side_effects_on_import.rs:55: ExprKind::Call(call) if call.callee().is_ident("require") || self.allows(call.callee()) => {}
+src/lint/plugins/rules/react_hooks_exhaustive_deps.rs:129: ExprKind::Dot { obj, name, .. } if obj == e && name.name().is("current") => Some(name),
+src/lint/plugins/rules/react_hooks_exhaustive_deps.rs:1259: "function" => ("useCallback", "definition"),
+src/lint/plugins/rules/react_hooks_exhaustive_deps.rs:1276: "conditional" | "logical expression" => b"could make",
+src/lint/plugins/rules/import_no_restricted_paths.rs:169: None | Some("") => Box::default(),
+src/lint/plugins/rules/promise_always_return.rs:75: Node::Expr(call) if call.as_call().is_some_and(|it| is_member_call(it, &["catch", "finally"])) => call,
+src/lint/plugins/rules/bun_zod_prefer_lazy_schema.rs:23: "This schema is built as soon as the module is imported. Build it when it is first used: `{{wrapper}}(() => ..)`.",
+src/lint/plugins/rules/bun_prefer_timeout_signal.rs:50: ExprKind::Dot { name, .. } if name.name().is("signal") => Use::Signal,
+src/lint/plugins/rules/bun_prefer_timeout_signal.rs:51: ExprKind::Dot { name, .. } if name.name().is("abort") => match member.parent().as_expr() {
+src/lint/plugins/rules/bun_no_cast_to_brand.rs:84: (None, 1) if first.name().is_any(&["Array", "ReadonlyArray"]) => return Named::Array,
+src/lint/plugins/rules/import_order.rs:145: "always" => Newlines::Always,
+src/lint/plugins/rules/import_order.rs:146: "always-and-inside-groups" => Newlines::AlwaysAndInsideGroups,
+src/lint/plugins/rules/import_order.rs:147: "never" => Newlines::Never,
+src/lint/plugins/rules/import_order.rs:154: Some("asc") => Direction::Asc,
+src/lint/plugins/rules/import_order.rs:155: Some("desc") => Direction::Desc,
+src/lint/plugins/rules/import_order.rs:173: Some("after") => {
+src/lint/plugins/rules/import_order.rs:178: Some("before") => {
+src/lint/plugins/rules/import_order.rs:280: Some("types-first") => NamedTypes::First,
+src/lint/plugins/rules/import_order.rs:281: Some("types-last") => NamedTypes::Last,
+src/lint/plugins/rules/bun_no_negative_repeat_count.rs:18: ExprKind::Dot { obj, name, .. } if obj.is_ident("Math") && is_global_reference(obj) => Some(name.name()),
+src/lint/plugins/rules/bun_no_env_at_module_scope.rs:31: ExprKind::Dot { obj, name, .. } if name.name().is("env") => match obj.kind() {
+=== matches_guard
+src/lint/selector/matcher.rs:149: matches!(current, Val::Node(found) if found == node)
+src/lint/linter/mod.rs:740: && !matches!(&it.rule_id, Some(RuleId::Known(meta)) if meta.needs_modules)
+src/lint/linter/mod.rs:1665: let is_zero = matches!(inline.first(), Some(Json::Number(n)) if *n == 0.0);
+src/lint/linter/levn.rs:301: let is_missing = |it: &Node| matches!(it, Node::Value(text) if text.is_empty());
+src/lint/linter/syntax/order.rs:51: ) && !matches!(func.owner(), Node::Member(member) if member.is_signature())
+src/lint/linter/syntax/order.rs:151: let is_key = matches!(member.key().map(|it| it.kind()), Some(KeyKind::Computed(key)) if is(Node::Expr(key)));
+src/lint/linter/syntax/oxc.rs:162: matches!(left.kind, StmtKind::Var(list) if list.len() != 1).then(|| {
+src/lint/linter/syntax/oxc.rs:1726: |it: Node<'a>| matches!(it, Node::Prop(it) if it.kind() == PropKind::Shorthand);
+src/lint/linter/syntax/typescript_estree.rs:351: || matches!(raw.kind, StmtKind::Var(list) if list.is_empty());
+src/lint/linter/syntax/typescript_estree.rs:1208: let has_none = matches!(*args, [only] if is_missing(only));
+src/lint/linter/syntax/typescript_estree.rs:1257: let is_this = |it: &&hir::TypeNode| matches!(it.kind, hir::TypeNodeKind::Mapped(id) if id.idx() == i);
+src/lint/linter/syntax/typescript_estree.rs:1495: .is_some_and(|it| matches!(it.parent(), Node::Expr(parent) if parent.tag() == ExprTag::Call));
+src/lint/linter/syntax/espree.rs:170: matches!(it, Node::Func(func) if !(was_parameter && func.is_arrow() && !func.is_async()))
+src/lint/linter/syntax/espree.rs:215: && matches!(it.parent(), Node::Expr(parent) if parent.tag() == ExprTag::Await);
+src/lint/linter/syntax/espree.rs:399: let is_chained = matches!(raw.kind, Kind::Dot { chain, .. } if chain != Chain::No);
+src/lint/linter/syntax/espree.rs:1677: && matches!(it, Declaration::Var(pat) if matches!(pat.parent(), Node::VarDecl(_)))
+src/lint/linter/syntax/oxc/keywords.rs:365: let is_single_statement_position = matches!(statement.parent(), Node::Stmt(it) if matches!(
+src/lint/linter/syntax/oxc/keywords.rs:427: .any(|it| matches!(it, Node::Stmt(it) if it.flags().contains(Flags::AMBIENT)))
+src/lint/linter/syntax/oxc/keywords.rs:593: matches!(it.parent(), Node::Stmt(it) if matches!(it.kind(), StmtKind::Try { .. }))
+src/lint/linter/syntax/oxc/keywords.rs:618: matches!(scope, Some(Node::Func(func)) if func.kind() == FnKind::StaticBlock)
+src/lint/linter/syntax/oxc/keywords.rs:717: if matches!(target.try_raw().map(|it| it.kind), Some(hir::ExprKind::Ident(it)) if it == name)
+src/lint/linter/syntax/oxc/keywords.rs:775: if matches!(owner, Some(Node::Func(it)) if it.kind() == FnKind::IndexSignature) {
+src/lint/linter/syntax/oxc/names.rs:272: && matches!(Node::Func(func).parent().parent(), Node::Stmt(it) if matches!(it.kind(), StmtKind::If { .. }));
+src/lint/linter/syntax/espree/editions.rs:57: && matches!(declaration.parent(), Node::Stmt(list) if matches!(list.kind(), StmtKind::Var(_))),
+src/lint/linter/syntax/espree/editions.rs:196: let is_in_head = matches!(it.parent(), Node::Stmt(parent) if parent.is_loop());
+src/lint/linter/syntax/espree/early.rs:654: && matches!(parent.kind(), StmtKind::ForIn { left, .. } if left == it)
+src/lint/linter/syntax/espree/early.rs:726: if matches!(it.kind(), StmtKind::Fn(func) if func.is_async()) {
+src/lint/linter/syntax/espree/early.rs:889: if matches!(operand.kind(), ExprKind::Dot { name, .. } if name.bytes().starts_with(b"#"))
+src/lint/linter/syntax/espree/early.rs:1244: && matches!(outer.kind(), ExprKind::New(call) if call.callee() == callee)
+src/lint/linter/syntax/espree/early.rs:1294: if matches!(it.kind(), StmtKind::Throw(thrown) if thrown.is_missing()) {
+src/lint/linter/syntax/espree/early.rs:1522: Node::Expr(parent) if matches!(parent.kind(), ExprKind::Call(call) if call.callee() == it) => {
+src/lint/linter/syntax/espree/early.rs:1546: let is_called = matches!(it.parent(), Node::Expr(parent) if matches!(parent.kind(), ExprKind::Call(call) if call.callee() == it));
+src/lint/linter/syntax/espree/early.rs:1552: && matches!(member.parent(), Node::Class(class) if class.extends().is_some())
+src/lint/linter/syntax/espree/early.rs:1637: if matches!(it.kind(), ExprKind::Dot { obj, .. } if matches!(obj.kind(), ExprKind::Super))
+src/lint/linter/syntax/espree/early.rs:1693: if matches!(parent.kind(), ExprKind::Binary { op: BinOp::In, left, .. } if left == it));
+src/lint/linter/syntax/espree/early.rs:1817: let completes = matches!((*seen.get(), half), (Some(a), Some(b)) if a.0 == b.0 && a.1 != b.1);
+src/lint/linter/syntax/espree/early.rs:1876: let is_named = |name: &str| matches!(key.kind(), KeyKind::Ident(it) | KeyKind::String(it) if it.is(name));
+src/lint/linter/syntax/espree/early.rs:1880: if matches!(key.kind(), KeyKind::Private(name) if name.is("#constructor")) {
+src/lint/linter/syntax/espree/early.rs:2063: && matches!(it.key().map(|it| it.kind()), Some(KeyKind::Ident(name) | KeyKind::String(name)) if name.is("__proto__"))
+src/lint/plugins/oxlint/exhaustive_deps.rs:657: matches!(owner.parent(), Node::Stmt(stmt) if stmt.tag() == StmtTag::Return)
+=== guard_lexparse
+src/lint/selector/parse.rs:198: Some(&first) if strings::contains_char(set, first) != is_inverted => {
+src/lint/selector/parse.rs:841: (i, count) if i + 1 == count => b", or ",
+src/lint/regex/parser.rs:251: Some(Data::CapturingGroup { name, .. }) if name.start != Run::NONE.start => Some(name),
+src/lint/json/parse.rs:65: Kind::LineComment | Kind::BlockComment if self.mode == Mode::Json => {
+src/lint/json/parse.rs:68: Kind::String if source_text.starts_with(b"'") => {
+src/lint/json/parse.rs:71: Kind::String if has_escapes => first_json5_only_escape(source_text)
+src/lint/json/parse.rs:73: Kind::Number if !is_json_number(source_text) => {
+src/lint/json/parse.rs:126: (Kind::Number, [.., b'N']) | (Kind::Identifier, b"NaN") if is_json5 => {
+src/lint/json/parse.rs:129: (Kind::Number, [.., b'y']) | (Kind::Identifier, b"Infinity") if is_json5 => {
+src/lint/json/parse.rs:155: Some(token) if token.kind == closing => tree.close(&mut open, &token),
+src/lint/json/parse.rs:156: token if kind == NodeKind::Object => State::Member(token),
+src/lint/json/parse.rs:164: Kind::Identifier | Kind::Boolean | Kind::Null if is_json5 => {
+src/lint/json/parse.rs:167: _ if is_json5 => {
+src/lint/json/parse.rs:179: Some(token) if token.kind == Kind::Colon => State::Value(reader.next()?),
+src/lint/json/parse.rs:200: Some(token) if token.kind == closing => tree.close(&mut open, &token),
+src/lint/json/parse.rs:201: Some(comma) if comma.kind == Kind::Comma => match reader.next()? {
+src/lint/json/parse.rs:202: Some(token) if token.kind == closing => {
+src/lint/json/parse.rs:211: token if is_object => State::Member(token),
+src/lint/json/parse.rs:214: None if is_object => {
+src/lint/js_plugin/tokens.rs:44: TokenKind::JsxText if is_attribute || file.language().is_oxlint => continue,
+src/lint/eslint/rules/complexity.rs:105: Node::Func(func) if func.has_body() => Some(ancestor),
+src/lint/eslint/rules/complexity.rs:106: Node::Member(member) if is_field_initializer(member, inner) => Some(ancestor),
+src/lint/eslint/rules/complexity.rs:135: Node::Member(member) if is_oxlint => (
+src/lint/eslint/rules/complexity.rs:145: Node::Func(func) if func.kind() == FnKind::StaticBlock => {
+src/lint/eslint/rules/complexity.rs:157: Node::Func(func) if is_oxlint => (
+src/lint/eslint/rules/complexity.rs:204: None if object.has("maximum") || object.has("max") => object
+src/lint/tokens/mod.rs:234: TokenKind::Line if self.text().starts_with(b"<!--") => self.span().shrink(4, 0),
+src/lint/tokens/mod.rs:235: TokenKind::Line if self.text().starts_with(b"-->") => self.span().shrink(3, 0),
+src/lint/tokens/mod.rs:353: (Some(token), Some(comment)) if comment.start < token.start => {
+src/lint/tokens/mod.rs:364: (Some(token), Some(comment)) if comment.start > token.start => {
+src/lint/tokens/mod.rs:445: _ if byte <= b' ' => 1,
+src/lint/tokens/mod.rs:447: (c @ 0x80.., size) if bun_core::lexer::is_white_space_single_line(c) => size,
+src/lint/tokens/scan.rs:133: ExprKind::Yield { .. } if is_typescript => marks.keywords.push(e.pos),
+src/lint/tokens/scan.rs:134: ExprKind::Dot { obj, .. } if marks_accesses => {
+src/lint/tokens/scan.rs:624: _ if file.language().is_oxlint => Dialect::Oxc,
+src/lint/tokens/scan.rs:792: b'.' if next.is_ascii_digit() => self.number(),
+src/lint/tokens/scan.rs:811: b'-' if next == b'-' && self.has_html_comments && self.is_html_close_comment() => {
+src/lint/tokens/scan.rs:819: _ if next == first => 2,
+src/lint/tokens/scan.rs:825: (b'.', after) if !after.is_ascii_digit() => 2,
+src/lint/tokens/scan.rs:1061: Some(byte) if stops.contains(byte) => return at,
+=== if_let_or
+src/lint/linter/comment.rs:142: if let Some(&byte @ (b':' | b',')) = text.get(mark) {
+src/lint/linter/schema/validate.rs:264: if let (Json::Array(_) | Json::Object(_), Some(found)) = (&error.data, found) {
+src/lint/linter/syntax/oxc/targets.rs:292: if let StmtKind::ForIn { left, .. } | StmtKind::ForOf { left, .. } = it.kind()
+src/lint/linter/syntax/espree/early.rs:248: if let Some(export) = export.filter(|&at| self.token_at(at) == b"export")
+src/lint/linter/syntax/espree/early.rs:304: if let Some((UnOp::PreInc | UnOp::PreDec | UnOp::PostInc | UnOp::PostDec, operand)) =
+src/lint/plugins/rules/oxc_branches_sharing_code.rs:33: if let Some(count) = start_eq.filter(|&count| !duplicated_stmts_are_empty(count, &bodies, false)) {
+src/lint/plugins/rules/oxc_branches_sharing_code.rs:48: if let Some(count) = end_eq.filter(|&count| !duplicated_stmts_are_empty(count, &bodies, true)) {
+src/lint/plugins/rules/oxc_no_barrel_file.rs:58: if let Some(count) = remote_module.and_then(|(modules, module)| count_loaded_modules(modules, module)) {
+src/lint/driver/fmt/editorconfig.rs:201: if let [b'e' | b'E', exponent @ ..] = rest {
+src/lint/markdown/util.rs:197: if let [b'h' | b'H', digit, rest @ ..] = &html[from..]
+src/lint/react_compiler/convert.rs:882: if let ExprKind::NonNull(inner) | ExprKind::Instantiation { expr: inner, .. } = expr.kind()
+src/lint/typescript/rules/no_unnecessary_qualifier.rs:210: if let TypeKind::Ref { name, .. } | TypeKind::Import { name, .. } = node.kind() {
+src/lint/typescript/rules/no_deprecated.rs:571: if let ExprKind::Ident(name) | ExprKind::String(name) = tag.kind()
+src/lint/typescript/rules/no_unnecessary_type_assertion.rs:909: if let ExprKind::Call(it) | ExprKind::New(it) | ExprKind::TaggedTemplate(it) = call.kind()
+src/lint/typescript/rules/no_unsafe_enum_assignment.rs:434: if let Some(receiver_type) = receiver_type().filter(|&it| !is_without_enums(it)) {
+src/lint/typescript/rules/prefer_string_starts_ends_with.rs:198: if let ExprKind::Dot { obj, .. } | ExprKind::Index { obj, .. } = node.kind()
+src/lint/typescript/rules/no_unused_vars.rs:241: if let Some(Some(BinOp::And | BinOp::Or | BinOp::Nullish)) = e.assign_op()
+src/lint/utils/visible.rs:109: if let Some(Declaration::ImportDefault(import) | Declaration::ImportNamespace(import)) =
+src/lint/utils/ast_utils.rs:1749: if let FunctionParent::Method(member) | FunctionParent::Field(member) = parent {
+src/lint/utils/eslint_utils/is_parenthesized.rs:26: if let Node::Func(_) | Node::Class(_) = node
+src/lint/code_path/analyzer.rs:530: if let Some(test) = test.filter(|&test| is(test)) {
+src/lint/semantic/order.rs:170: if let Some([first, .., last] | [first @ last]) =
+src/lint/semantic/table_of_oxc.rs:51: if let Some(free) = group.find(|&it| table[it] == FREE) {
+src/lint/eslint/rules/no_unused_labels.rs:75: if let StmtKind::Break(Some(name)) | StmtKind::Continue(Some(name)) = jump.kind() {
+src/lint/eslint/rules/no_unused_labels.rs:117: if let Some(is_used) = target.and_then(|&it| is_used.get_mut(it)) {
+src/lint/eslint/rules/no_eq_null.rs:18: if let (Some(op @ (BinOp::EqEq | BinOp::NotEq)), Some(left), Some(right)) = (e.binary_op(), e.left(), e.right())
+src/lint/eslint/rules/no_warning_comments.rs:203: if let (Some(first_bytes), [b'/', b'/' | b'*', rest @ ..]) = (&self.first_bytes, comment.text())
+src/lint/eslint/rules/prefer_regex_literals.rs:292: if let ExprKind::Call(call) | ExprKind::New(call) = e.kind()
+src/lint/eslint/rules/no_restricted_properties.rs:92: if let Some(found @ (Found::ObjectProperty(matched) | Found::Object(matched))) = matched_object_property
+src/lint/eslint/rules/id_length.rs:328: if let KeyKind::Ident(name) | KeyKind::Private(name) = key.kind() {
+src/lint/eslint/rules/id_match.rs:177: if let KeyKind::Ident(name) | KeyKind::Private(name) = key.kind()
+src/lint/eslint/rules/id_denylist.rs:60: if let KeyKind::Ident(name) | KeyKind::Private(name) = key.kind()
+src/lint/eslint/rules/no_dupe_else_if.rs:72: if let Some((op @ (BinOp::Or | BinOp::And), left, right)) = a.as_binary()
+src/lint/eslint/rules/no_useless_rename.rs:172: if let StmtKind::ForIn { left, .. } | StmtKind::ForOf { left, .. } = statement.kind()
+src/lint/eslint/rules/no_duplicate_case.rs:103: if let Some(first) = previous.find(|&it| equal(cx.file(), it, test, is_text_enough)) {
+src/lint/eslint/rules/require_unicode_regexp.rs:150: if let ExprKind::Call(call) | ExprKind::New(call) = e.kind() {
+src/lint/eslint/rules/use_isnan.rs:130: if let Some(test) = case.test().filter(|&it| is_compared_nan(it)) {
+src/lint/unicorn/rules/unicorn_prefer_default_parameters.rs:24: if let Some((Some(BinOp::Or | BinOp::Nullish), target, value)) = e.as_assign()
+src/lint/tokens/scan.rs:327: if let Some(first) = first.and_then(|&first| hir.types.get(first as usize)) {
+src/lint/react/rules/react_forbid_prop_types.rs:135: if let StmtKind::ForIn { left, expr: right, .. } | StmtKind::ForOf { left, expr: right, .. } = statement.kind()
+=== guard_side_effect
+src/lint/typescript/rules/explicit_module_boundary_types.rs:232: ExprKind::Array(elements) if self.visited.insert(Node::Expr(e)) => {
+src/lint/typescript/rules/explicit_module_boundary_types.rs:237: ExprKind::Object(properties) if self.visited.insert(Node::Expr(e)) => {
+src/lint/typescript/rules/explicit_module_boundary_types.rs:246: ExprKind::Ident(name) if self.visited.insert(Node::Expr(e)) => {
+=== guard_mut
+src/lint/unicorn/rules/unicorn_import_style.rs:248: _ if to_js_string(expr, &mut name) => {}
+src/install/bin.rs:1385: if Self::is_behind_link(&mut self.is_behind_link, self.node_modules_path) =>
+src/install/bin.rs:1946: Some(bin_path) if see_names_in(bin_path.as_bytes(), &mut seen).is_err() => return,
+src/format/html/tailwind.rs:116: _ if std::mem::take(&mut is_ignored) => {}

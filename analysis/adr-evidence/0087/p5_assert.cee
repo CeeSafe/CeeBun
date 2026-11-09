@@ -1,0 +1,6 @@
+fn bump(n: borrow mut i32) -> bool { n += 1; return true; }
+fn main() {
+    var n = 0;
+    assert(bump(mut n), "bumped");
+    Console.writeLine(n);
+}

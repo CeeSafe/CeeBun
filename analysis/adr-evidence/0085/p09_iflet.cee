@@ -1,0 +1,4 @@
+fn main() {
+    let x: u32? = Some(3);
+    if let (Some(n) = x) { Console.writeLine(n); }
+}

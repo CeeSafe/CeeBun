@@ -1,0 +1,10 @@
+struct Evens { i: u32; n: u32; }
+impl Evens {
+    fn next(borrow mut this) -> u32? {
+        if (this.i >= this.n) { return null; }
+        this.i += 2;
+        return this.i;
+    }
+}
+fn evens(n: u32) -> Evens => Evens { i: 0, n: n };
+fn main() { for (x in evens(6)) { Console.writeLine(x); } }

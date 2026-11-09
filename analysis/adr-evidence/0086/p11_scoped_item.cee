@@ -1,0 +1,16 @@
+interface Iter<T> {
+    fn next(borrow mut this) -> T?;
+}
+struct Words<region r> { text: StringView<r>; done: bool; }
+impl<region r> Iter<StringView<r>> for Words<r> {
+    fn next(borrow mut this) -> StringView<r>? {
+        if (this.done) { return null; }
+        this.done = true;
+        return this.text;
+    }
+}
+fn main() {
+    let s = "hello";
+    var w = Words { text: s, done: false };
+    match (w.next()) { Some(x) => { Console.writeLine(x); } null => {} }
+}

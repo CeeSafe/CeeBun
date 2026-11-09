@@ -1,0 +1,5 @@
+public fn run(n: u64) -> u64 {
+    var v = Vector<u64>.create();
+    let _ = v.push(helper(n));
+    return v[0];
+}

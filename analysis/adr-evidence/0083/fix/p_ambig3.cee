@@ -1,0 +1,7 @@
+fn f(a: bool, b: bool) -> StringView => if (a && b) "t" else "f";
+
+fn main() {
+    let a = false;
+    let b = true;
+    Console.writeLine(f(a < true, b > (false)));
+}

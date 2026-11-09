@@ -1,0 +1,3 @@
+const PREFIX: StringView = "bun: ";
+const MSG: StringView = PREFIX + "error";
+fn main() { Console.writeLine(MSG); }

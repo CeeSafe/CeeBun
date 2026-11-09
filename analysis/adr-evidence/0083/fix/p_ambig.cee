@@ -1,0 +1,9 @@
+fn f(a: bool, b: bool) -> StringView => if (a && b) "t" else "f";
+
+fn main() {
+    let i = 1;
+    let j = 2;
+    let k = 3;
+    Console.writeLine(f(i < (k), j > (k)));
+    Console.writeLine(f(i < k, j > k));
+}

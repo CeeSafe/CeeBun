@@ -1,0 +1,26 @@
+// Probe 10: a cell of a reference, set through a shared borrow to a shorter-lived reference (Rust prevents this by
+// making Cell<T> invariant in T). If accepted, the last read follows a dangling reference.
+@noncopy
+struct UCell<T: Copy> {
+    value: T;
+}
+
+impl<T: Copy> UCell<T> {
+    fn get(borrow this) -> T => this.value;
+
+    /// Safety: the probe's question: is the region of `v` checked against the cell's?
+    fn set(borrow this, v: T) {
+        let p = borrow this.value as *T as *mut T;
+        unsafe { p.write(v); }
+    }
+}
+
+fn main() {
+    let outer: u32 = 1;
+    let c = UCell<borrow u32> { value: borrow outer };
+    {
+        let inner: u32 = 2;
+        c.set(borrow inner);
+    }
+    Console.writeLine(*c.get());
+}
