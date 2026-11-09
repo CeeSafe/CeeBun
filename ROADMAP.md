@@ -236,7 +236,7 @@ that range.
 
 ## 7. Next steps
 
-1. Check out Bun 1.4.4 here as the frozen reference: `git clone --depth 1 --branch bun-v1.4.4
-   https://github.com/oven-sh/bun.git upstream` (gitignored).
+1. ~~Check out Bun 1.4.4 here as the frozen reference.~~ Done: `upstream/` (gitignored), a shallow clone made with
+   `git clone --depth 1 --branch bun-v1.4.4 https://github.com/oven-sh/bun.git upstream`.
 2. Start M0 with the compiler scale test.
 3. Draft the ADRs for the M0 language gaps.
