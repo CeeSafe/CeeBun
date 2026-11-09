@@ -4,7 +4,7 @@ The first M0 item of `ROADMAP.md`: can `ceesafec` take a program of Bun's size? 
 lines in about 120 packages, 20 times the largest CeeSafe program so far (the compiler, 85,000 lines).
 
 **Status (2026-11-09):** started. Three quadratic passes found and fixed in the compiler (`~/dev/CeeSafe`
-commit `fe4d0ca`, on main). The remaining blocker is the C step: the whole
+commit `fe4d0ca`, on main). The gaps it found have ADRs (0081–0087, Proposed, `101d7bb`). The remaining blocker is the C step: the whole
 program is one C file compiled on one core, and split output is not yet usable at this scale.
 
 ## The test
@@ -62,8 +62,16 @@ show the curve: C generation grows about as the square of the size, and would ta
 | Mac | 304,176 | 3.49 s | 15.60 s | 134.9 s, 1.7 GB | 30.9 s emit + 68.9 s cc (199.6 s CPU) |
 | Mac | 707,469 | 12.6 s | 58.39 s | | |
 
-The hanan runs with the branch (300k, 700k and 1.5M, with `--split`) are in progress; see `results.jsonl` on that box
-under `/root/bun-scale/`.
+| hanan | 304,176 | 6.0 s | 22.3 s | 224.7 s, 3.1 GB | 25.8 s emit + 292.5 s cc (2,353 CPU-s, 12 jobs) |
+| hanan | 707,469 | | | | killed: the 12 GB cgroup ran out of memory in gcc (`cc1`) |
+
+The hanan runs are in `/root/bun-scale/results.jsonl` on that box:
+- **Split, 300k:** with gcc, the parallel split build is *slower* than one file, and uses ten times the CPU. Each of
+  the 12 units parses the 54.7 MB shared header.
+- **700k:** with 12 jobs, the units did not fit in 12 GB, and the kernel's out-of-memory killer stopped the ramp, so
+  the 1.5M run never started. The release builds 700k as one file in 7.9 GB.
+
+Today's split output is no way out at this size: the shared header must go (ADR 0082).
 
 ## Findings
 
