@@ -1,6 +1,7 @@
 # Bun in CeeSafe
 
-This project ports Bun 1.4.4 from Rust to CeeSafe, to show that CeeSafe can replace Rust. **Read `ROADMAP.md` first.**
+This project, **CeeBun**, ports Bun 1.4.4 from Rust to CeeSafe, to show that CeeSafe can replace Rust. It keeps Bun's
+MIT licence and credit. **Read `ROADMAP.md` first.**
 It has the measurements, the milestones (M0–M6), the estimates, the risks, and the decisions still open.
 
 ## Layout

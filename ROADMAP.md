@@ -263,10 +263,11 @@ that range.
      `@derive`, `debugAssert`, `c"…"` and `embed`.
    - **Translation rules only:** general macros, iterator chains, shared C declarations.
 3. **Budget:** API spend (see the estimates) and the build machine.
-4. **Name and licence:** Bun is MIT. Keep the licence and credit, and decide the name of the port.
+4. ~~**Name and licence:** Bun is MIT. Keep the licence and credit, and decide the name of the port.~~ Decided
+   2026-11-10:
    - **Licence:** decided 2026-11-10, **MIT, kept**, with Bun's copyright and credit. The port also keeps
      `upstream/LICENSE.md`'s notices for the code Bun links (JavaScriptCore and WebKit under LGPL-2, and the rest).
-   - **Name:** still open.
+   - **Name:** decided 2026-11-10, **CeeBun**.
 
 ## 7. Next steps
 
