@@ -77,7 +77,7 @@ allocation report at exit. Tested with a C `main` calling exports, and inside Bu
 | `Async.run` | works |
 | `Process.argument` | always empty |
 | `CEESAFE_ALLOC_REPORT`, `CEESAFE_FAIL_ALLOC_AT` | silently ignored: no allocation-failure sweeps inside Bun |
-| Panic | prints `ceesafe panic: … at file:line:col`, then `abort()`; Bun's crash handler reports nothing |
+| Panic | prints `ceesafe panic: … at file:line:col`, then `abort()`; in this ASAN build Bun's crash handler reports nothing, because Bun skips its signal handlers under ASAN (`reset_on_posix`), so a release build would report an abort with a stack, but not CeeSafe's message, file or line |
 
 ## 4. Build integration
 
@@ -112,7 +112,7 @@ allocation report at exit. Tested with a C `main` calling exports, and inside Bu
    workspace dependencies.
 4. **G6: no allocator hook.** `ceesafe_platform_alloc` is a strong symbol calling `malloc`. A crate that hands
    ownership to Rust (a returned `Vec`) needs CeeSafe to allocate from mimalloc or `bun_alloc`.
-5. **G2: no panic hook.** Panics bypass Bun's crash reporting. Needed: a weak `ceesafe_panic` or a registration call,
+5. **G2: no panic hook.** A panic reaches Bun only as `SIGABRT`: without CeeSafe's message, file and line (correction, 2026-11-10: the silence seen in the trial came from the ASAN build, see §3). Needed: a weak `ceesafe_panic` or a registration call, routed to Bun's `Bun__crashHandler`,
    and an exported runtime initialiser for embedding.
 6. **G9: no Rust binding generator.** The shim's `extern` block and enum mapping are hand-written; nothing checks them
    against the exports, so a wrong parameter order links and runs.
