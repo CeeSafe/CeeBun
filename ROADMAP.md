@@ -159,7 +159,12 @@ translation rule.
       (`debugAssert`, `c"…"`, `@derive`).
     - 0.27.0: ADR 0087 step 2 (constant `+`, `embed`/`embedText`).
   - **Still open in M0:** ADR 0082 stages B–F (stage D, per-package checking and `check --all`, is next), the threads
-    and GC check, Windows at Bun's needs (the new Windows embed path has never been run), and the performance probe.
+    and GC check, Windows at Bun's needs, and the performance probe.
+  - **Windows (2026-11-10, a Windows 11 ARM64 VM with MSVC 14.51):** ceesafec builds with `cl` and reaches the fixed
+    point there, but the corpus finds four Windows bugs that 0.27.0 already had (the release workflow never runs the
+    corpus on Windows): `durable-files` and `file-append-metadata` panic, `CULong` is laid out as 8 bytes where Windows
+    has 4 (`ffi/c-data`), and imported C enums are taken as unsigned where Windows makes them `int`
+    (`ffi/imported-enums`).
 - **Fixed in the compiler (`b7c9f41`):** a data race in safe code (`Share` was every `Send` type) and interface method
   bodies that were never checked. Both were found while drafting the ADRs.
 
