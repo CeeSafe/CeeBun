@@ -11,7 +11,7 @@ crate-by-crate swapping stops at the foundation crates.
 
 **Where the trial is:** a local clone at `~/dev/CeeSafeApps/ceebun-trial`, branch `ceebun/csrf-trial`, with two
 commits: `a8ffc47ede` (the CeeSafe packages) and `28bb360c8f` (the Rust shim and the build change). It is not pushed
-anywhere.
+anywhere. Since 2026-11-11 the work continues on branch `ceebun/main-trial`, on Bun's `main` (§8).
 
 ## 1. Results
 
@@ -207,7 +207,22 @@ side and freed on the other.
 - G9 for Rust (stage C), G8 for two separately built archives (stage D), and the crash-report target and release
   timings of §6.
 
-## 8. Verdict
+## 8. The trial on Bun's `main` (2026-11-11)
+
+The port's reference moved from 1.4.4 to a pinned commit of Bun's `main`, `89452d2ac137` (`ROADMAP.md` §1), 97 commits
+later. The trial's four commits were cherry-picked onto it as branch `ceebun/main-trial` (`e01589d740`, `ad3c589e94`,
+`7b4231215f`, `2eb1464065`); `ceebun/csrf-trial` stays at 1.4.4.
+
+- **Conflicts:** one, in `scripts/build/ninja.ts`, where `main` and the trial each added a rule's variables on the
+  same line; both are kept.
+- **The Rust the CeeSafe packages re-port:** unchanged between the two commits (`bun_csrf`, `bun_base64`, `hmac.rs`,
+  `strings::trim`, the hex decoding, `milli_timestamp`), but for `evp::Algorithm::md`, whose result changed from a raw
+  pointer to a `&'static` reference with the same values. The CeeSafe copies need no change.
+- **Builds:** release (ThinLTO) from scratch 1,297 s, debug + ASAN 561 s; 0 duplicate symbols.
+- **Tests:** the six files of §1 pass on both builds: csrf 40, cryptohasher 144 (`main` added 35 tests), base64-url 6,
+  hmac 5, text-encoder 46, hash 28.
+
+## 9. Verdict
 
 - **Leaf crates with C-shaped APIs: workable and cheap.** The build change is small, Bun's tests run unchanged.
   `bun_csrf` is near the ideal case: two functions, slices in, a length or a bool out, one dependent.

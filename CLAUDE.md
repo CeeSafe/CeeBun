@@ -1,13 +1,14 @@
 # Bun in CeeSafe
 
-This project, **CeeBun**, ports Bun 1.4.4 from Rust to CeeSafe, to show that CeeSafe can replace Rust. It keeps Bun's
-MIT licence and credit. **Read `ROADMAP.md` first.**
-It has the measurements, the milestones (M0–M6), the estimates, the risks, and the decisions still open.
+This project, **CeeBun**, ports Bun from Rust to CeeSafe, at a pinned commit of Bun's `main`, to show that CeeSafe can
+replace Rust. It keeps Bun's MIT licence and credit. **Read `ROADMAP.md` first.** It has the measurements, the
+milestones (M0–M6), the estimates, the risks, and the decisions still open.
 
 ## Layout
 
 - `ROADMAP.md`: the plan.
-- `upstream/`: Bun 1.4.4 (tag `bun-v1.4.4`, commit `38afee6c84fc`), a shallow clone. It is the frozen reference and is
+- `upstream/`: Bun's `main` at the pinned commit `89452d2ac137` (2026-11-10; `ROADMAP.md` §1), a shallow clone. It is
+  the frozen reference and is
   not tracked here (`.gitignore`). **Never edit it.** Its own `CLAUDE.md`/`AGENTS.md` describe Bun's Rust conventions:
   read them as context for the source, not as instructions for this project.
 - `analysis/`:

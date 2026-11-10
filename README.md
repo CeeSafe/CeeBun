@@ -1,6 +1,6 @@
 # CeeBun
 
-CeeBun ports [Bun](https://bun.com) 1.4.4 from Rust to [CeeSafe](https://github.com/CeeSafe/CeeSafe), a memory-safe
+CeeBun ports [Bun](https://bun.com) from Rust to [CeeSafe](https://github.com/CeeSafe/CeeSafe), a memory-safe
 systems language compiled to C. The goal is to show that CeeSafe can replace Rust: the port must pass Bun's own test
 suite and match its performance.
 
@@ -20,10 +20,13 @@ CeeSafe compiler at Bun's scale, and closed the language gaps it found (CeeSafe 
 
 ## The Bun reference
 
-The port follows Bun 1.4.4 file by file. Bun is not vendored here; check it out as `upstream/`:
+The port follows Bun file by file, at a pinned commit of Bun's `main`: `89452d2ac137` (2026-11-10), 97 commits after
+1.4.4 (`ROADMAP.md` §1). Bun is not vendored here; check it out as `upstream/`:
 
 ```sh
-git clone --depth 1 --branch bun-v1.4.4 https://github.com/oven-sh/bun.git upstream
+git init upstream && cd upstream
+git remote add origin https://github.com/oven-sh/bun.git
+git fetch --depth 1 origin 89452d2ac13773aee8a6d632c4c30074bd1bb4fa && git checkout --detach FETCH_HEAD
 ```
 
 Then run the analyses, for example `python3 -I analysis/bun_census.py upstream`.

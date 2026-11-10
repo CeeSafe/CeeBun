@@ -1,27 +1,34 @@
 # Porting Bun to CeeSafe: roadmap
 
-**Goal:** show that CeeSafe can replace Rust, by porting Bun 1.4.4 (Rust) to CeeSafe. The port must pass Bun's own
-test suite and match its performance.
+**Goal:** show that CeeSafe can replace Rust, by porting Bun (Rust) to CeeSafe, at a pinned commit of Bun's `main`
+(§1). The port must pass Bun's own test suite and match its performance.
 
 **Status:** M0 in progress (started 2026-11-09). Nothing is ported yet. The compiler scale test runs, and its first findings are in
 `analysis/scale/README.md`.
 
 ## 1. Starting point
 
-### Bun 1.4.4
+### Bun at the pinned commit
 
-- **Release:** tag `bun-v1.4.4`, commit `38afee6c84fc`, 2026-10-22.
-- **Rust:** about 1.39 million lines, not counting blanks or comments, in 3,221 files and 122 crates. Only about 22,000
-  lines are generated.
+- **The pin:** Bun's `main` at commit `89452d2ac137` (2026-11-10, "AOT: bun compile, build output, module mocks, fixes
+  and new names (#48436)"), 97 commits after the 1.4.4 release (tag `bun-v1.4.4`, commit `38afee6c84fc`,
+  2026-10-22). Its `package.json` still says 1.4.4. Decided 2026-11-11: the port follows `main` rather than the
+  release, and the pin moves only on purpose (§2).
+- **Rust:** about 1.79 million lines, not counting blanks or comments, in 4,157 files and 135 crates (1.4.4: 1.39
+  million, 3,221 files, 122 crates). Only about 22,000 lines are generated. Most of the growth is a new ahead-of-time
+  compiler (`src/aot`) and the type checker (`src/sema`).
 
-| Part of Bun | Rust lines | Share |
-|---|---|---|
-| Developer tools: linter (`src/lint`), type checker (`src/sema`), formatter (`src/format`), React compiler | 621,933 | 44.7% |
-| Runtime: Node and Web APIs, JavaScriptCore glue, servers, SQL, shell, test runner | 344,652 | 24.8% |
-| Transpiler and bundler: parser, printer, AST, bundler, resolver, CSS, source maps, YAML/TOML/Markdown | 208,547 | 15.0% |
-| Package manager: `bun install`, semver, patch | 96,273 | 6.9% |
-| Core and platform: allocators, collections, I/O, event loop, threads, system calls, uWS glue | 88,592 | 6.4% |
-| Other small crates | 31,214 | 2.2% |
+| Part of Bun | Rust lines | Share | At 1.4.4 |
+|---|---|---|---|
+| Developer tools: linter (`src/lint`), type checker (`src/sema`), formatter (`src/format`), React compiler | 744,014 | 41.5% | 621,113 |
+| Runtime: Node and Web APIs, JavaScriptCore glue, servers, SQL, shell, test runner, CLI | 423,197 | 23.6% | 375,959 |
+| AOT compiler (`src/aot`, new since 1.4.4) | 210,316 | 11.7% | 0 |
+| Transpiler and bundler: parser, printer, AST, bundler, resolver, CSS, source maps, YAML/TOML/Markdown | 227,792 | 12.7% | 204,834 |
+| Package manager: `bun install`, semver, patch | 94,126 | 5.2% | 94,374 |
+| Core and platform: allocators, collections, I/O, event loop, threads, system calls, uWS glue, `-sys` crates | 94,142 | 5.2% | 92,132 |
+
+Both columns group `src/<crate>` directories the same way (the grouping changed from this table's first version, so
+the 1.4.4 column differs slightly from the figures first given for it).
 
 - **Not ported:** about 230,000 lines of C++ (mostly the JavaScriptCore bindings in `src/jsc`) and about 190,000 lines
   of C. Neither is ported: CeeSafe calls the same `extern "C"` functions Rust calls today.
@@ -31,31 +38,33 @@ test suite and match its performance.
 - **Third-party crates:** 25 are runtime dependencies, and 11 of them exist only for macros (`syn`, `quote`, `paste`,
   `strum`, `thiserror`, `bitflags`, …). The others are small: `encoding_rs`, `hashbrown`, `smallvec`, `bcrypt`,
   `blake2`, `sha3`, `rustix`, `libc`, `bstr`, `itoa`, …
-- **The tests:** about 60,000 tests and 1.4 million assertions, written in TypeScript. They don't depend on the
-  language Bun is written in, so they are the oracle for the port.
+- **The tests:** about 60,000 tests and 1.4 million assertions (counted at 1.4.4), written in TypeScript. They don't
+  depend on the language Bun is written in, so they are the oracle for the port.
 
 ### How Bun's Rust is written
 
 Measured over the hand-written Rust:
 
-| Feature | Count | Per 1,000 lines |
-|---|---|---|
-| `unsafe` blocks, functions and impls | 12,835 | 9.4 |
-| Raw pointer types | 12,964 | 9.5 |
-| `extern "C"` items | 1,642 | 1.2 |
-| Generic functions and types | 15,088 | 11.0 |
-| Trait impls / trait definitions | 5,082 / 540 | 3.7 / 0.4 |
-| `dyn` uses / `Box<dyn Fn>` and `impl Fn` | 717 / 1,009 | |
-| Macro invocations (657 distinct macros) | 36,282 | 26.1 |
-| `macro_rules!` definitions | 697 | |
-| Const generic parameters / `const fn` | 1,409 / 762 | |
-| `Cell` / `RefCell` | 791 / 128 | |
-| Thread and atomic sites | 1,516 | |
-| async/await | 2 | none in practice |
-| SIMD / inline asm | 18 / 15 | |
+| Feature | Count | Per 1,000 lines | At 1.4.4 |
+|---|---|---|---|
+| `unsafe` blocks, functions and impls | 11,569 | 6.5 | 12,835 |
+| Raw pointer types | 12,080 | 6.8 | 12,964 |
+| `extern "C"` items | 1,816 | 1.0 | 1,642 |
+| Generic functions and types | 18,055 | 10.2 | 15,088 |
+| Trait impls / trait definitions | 5,179 / 547 | 2.9 / 0.3 | 5,082 / 540 |
+| `dyn` uses / `Box<dyn Fn>` and `impl Fn` | 1,219 / 1,721 | | 717 / 1,009 |
+| Macro invocations (distinct macros) | 55,407 (683) | 31.2 | 36,282 (657) |
+| `macro_rules!` definitions | 732 | | 697 |
+| Const generic parameters / `const fn` | 1,473 / 845 | | 1,409 / 762 |
+| `Cell` / `RefCell` | 951 / 180 | | 791 / 128 |
+| Thread and atomic sites | 1,875 | | 1,516 |
+| async/await | 2 | none in practice | 2 |
+| SIMD / inline asm | 28 / 25 | | 18 / 15 |
 
-The macro, const generic and cell rows were measured again for ADRs 0083, 0084 and 0087 (the scripts are in
-`analysis/adr-evidence/`). The first count included comments, and counted const generics and `const fn` together.
+The macro, const generic and cell rows come from the scripts in `analysis/adr-evidence/` (ADRs 0087, 0083, 0084); the
+others from `analysis/bun_rust_features.py`, over 1.77 million hand-written lines (1.37 million at 1.4.4). Both columns
+were measured again on 2026-11-11 with the same scripts. `unsafe` and raw pointers went down while the code grew by
+29%. Much of the rise in macro invocations is `assert_eq!` and `assert!` (12,113 more).
 
 The code is a faithful port from Zig, with the same architecture and data structures, and it was made with AI agents.
 That shows in the heavy use of `unsafe` and raw pointers.
@@ -106,18 +115,19 @@ Source: <https://bun.com/blog/bun-in-rust>
 - **Size:** 33,584 lines of C# became 57,868 lines of CeeSafe, 1.7 times larger.
 - **Time:** about 2.5 days (2026-11-04 to 2026-11-06), with compiler fixes made in parallel (ADRs 0074 and 0075).
 - **Scale so far:** the largest CeeSafe program is the compiler, at about 85,000 lines. The Bun port would be about
-  1.7 million, **20 times larger**.
+  2.2 million, **25 times larger**.
 
 ## 2. Approach
 
 1. **A faithful, mechanical port of Rust to CeeSafe.** Same architecture, same data structures, same files. Idiomatic
    cleanup comes after the port works, as Bun did after its Zig port.
 2. **Hybrid: leaf crates swapped inside Bun, the core ported all at once.** Decided 2026-11-11, after the `bun_csrf`
-   trial (`analysis/trials/csrf/REPORT.md`, §8):
-   - **Leaves and edges, swapped one crate at a time** in a clone of Bun branched from `bun-v1.4.4`. These are crates
-     with C-shaped APIs: slices in, plain values out, few dependents. Each swapped crate is a CeeSafe package in one
-     `--emit lib` archive linked into Bun's ThinLTO build, behind a thin Rust shim. Bun's own tests check it right
-     away, and a release build is benchmarked against stock Bun. This is the proving and benchmarking harness.
+   trial (`analysis/trials/csrf/REPORT.md`, §9):
+   - **Leaves and edges, swapped one crate at a time** in a clone of Bun branched from the pinned commit (§1). These
+     are crates with C-shaped APIs: slices in, plain values out, few dependents. Each swapped crate is a CeeSafe
+     package in one `--emit lib` archive linked into Bun's ThinLTO build, behind a thin Rust shim. Bun's own tests
+     check it right away, and a release build is benchmarked against stock Bun. This is the proving and benchmarking
+     harness.
    - **The core, ported all at once**, as Bun's blog recommends. The core is `bun_core` (100 dependents), `bun_alloc`
      (55), `bun_collections` (42) and every crate whose API carries Rust types (`bun_core::String`, `Vec`/`Box`
      ownership, generics, traits, callbacks). These crates call each other through Rust types. Swapping them from the
@@ -125,9 +135,9 @@ Source: <https://bun.com/blog/bun-in-rust>
    - **The swapped crates' code goes into the full port.** The shims and C facades are temporary and are dropped when
      the core lands.
    - **Rules for the clone:**
-     - Never merge Bun's `main` into it.
-     - A later Bun release is taken with `git diff bun-v1.4.4..bun-vX`: changes to a swapped crate are ported into
-       CeeSafe by hand; other crates merge as usual. The clone keeps a list of its swapped crates.
+     - Never merge Bun's `main` into it between pins.
+     - Moving the pin takes `git diff <old pin>..<new pin>`: changes to a swapped crate are ported into CeeSafe by
+       hand; other crates merge as usual. The clone keeps a list of its swapped crates.
      - Rust and CeeSafe share one heap through the CeeSafe allocator hook (ceesafec 0.29.0), so ownership can cross
        the boundary.
      - The clone is local (`~/dev/CeeSafeApps/ceebun-trial`). Publishing it as a fork needs the owner's approval and
@@ -202,15 +212,15 @@ translation rule.
 
 ### M2: The proof slice, a CeeSafe `bun build` (4–6 weeks)
 
-- **Scope:** core and platform plus transpiler and bundler: ~300,000 Rust lines, ~22% of Bun.
+- **Scope:** core and platform plus transpiler and bundler: ~322,000 Rust lines, ~18% of Bun (1.4.4: ~297,000, 21%).
   - Core and platform: `bun_core`, collections, `sys`, `io`, `paths`, `threading`, …
   - Transpiler and bundler: `js_parser`, `js_printer`, `ast`, `bundler`, `resolver`, `css`, `sourcemap`, `parsers`,
     `md`, `glob`, …
 - **Result:** a CeeSafe binary that transpiles and bundles.
 - **Exit:**
   - Bun's bundler and transpiler tests pass (`test/bundler`, transpiler and CSS tests).
-  - On the esbuild-style benchmarks (three.js bundle, transpile throughput), it stays within 10% of Rust Bun 1.4.4 on
-    Linux x64 and macOS arm64.
+  - On the esbuild-style benchmarks (three.js bundle, transpile throughput), it stays within 10% of Rust Bun at the
+    pin on Linux x64 and macOS arm64.
 
 This milestone is the public proof: the same tests, the same benchmarks, Rust against CeeSafe.
 
@@ -229,13 +239,13 @@ This milestone is the public proof: the same tests, the same benchmarks, Rust ag
 
 ### M5: The developer tools (4–6 weeks; can run in parallel with M3–M4)
 
-- **Port:** the linter, type checker, formatter and React compiler: 622,000 lines. They are self-contained compilers,
-  the kind of code that ports fastest.
+- **Port:** the linter, type checker, formatter and React compiler: 744,000 lines (1.4.4: 621,000). They are
+  self-contained compilers, the kind of code that ports fastest.
 - **Exit:** their test suites (`src/lint/conformance`, `src/format/conformance`, the type checker's baselines) pass.
 
 ### M6: Performance parity and hardening (2–4 months)
 
-- **Speed:** CeeSafe Bun within ±5% of Rust Bun 1.4.4 on Bun's published benchmarks (`Bun.serve`, `node:http`,
+- **Speed:** CeeSafe Bun within ±5% of Rust Bun at the pin on Bun's published benchmarks (`Bun.serve`, `node:http`,
   `next build`, `vite build`, `tsc -b`).
 - **Size and memory:** binary size and memory use no worse.
 - **Safety checks:** 24/7 fuzzing of the parsers, adversarial security review, and AddressSanitizer and
@@ -251,14 +261,17 @@ that range.
 
 | | Runtime only (M0–M4 and M6, without M5) | All of Bun (M0–M6) |
 |---|---|---|
-| Rust to port | ~770,000 lines | ~1,390,000 lines |
-| CeeSafe written (about 1.2× Rust) | ~0.9 million | ~1.7 million |
+| Rust to port | ~840,000 lines without the AOT compiler (1.4.4: ~770,000) | ~1,790,000 lines (1.4.4: ~1,390,000) |
+| CeeSafe written (about 1.2× Rust) | ~1.0 million | ~2.2 million |
 | **Passes Bun's test suite** | **~2.5–4 months** | **~3–5 months** |
 | **Releasable** | **~4.5–7 months** | **~5–9 months** |
 | API cost (Bun's $165,000, scaled) | ~$0.3–0.6M | ~$0.5–1.0M |
 | People | 1 engineer running the port, plus CeeSafe compiler work in parallel; both with agents | the same |
 | Without agents (Bun's estimate of 3 engineers × 1 year, scaled) | ~4 engineer-years | ~8 engineer-years |
 
+- **At the pin:** the times and costs above were estimated at 1.4.4 and are not rescaled. The Rust to port grew by
+  about 9% for the runtime and 29% for all of Bun. The AOT compiler (210,000 lines, new since 1.4.4) is counted in
+  "All of Bun" but in no milestone yet (§6).
 - **Machine:** Bun's rewrite stalled on disk throughput and ran out of disk. Use many cores, at least 1 TB of fast
   storage and high IOPS.
 - **Isolation:** cgroups for the stress tests.
@@ -271,9 +284,9 @@ that range.
 | The compiler at 20× its largest program: compile time, memory, bugs, miscompiles | The M0 scale test comes first; compiler work runs alongside the port; a small differential test of compiled C against the interpreter |
 | Agents write wrong CeeSafe more often than wrong Rust | `PORTING.md`, the CeeSafe MCP server (`check`, `explain`, `spec_search`), two adversarial reviewers per change, and fixing the workflow rather than the code |
 | Performance: always-on overflow checks, bounds checks, fallible allocation | The M0 probe; M6 parity work; whole-program optimisation across CeeSafe's C and Bun's C++ |
-| Macro translation errors (37k invocations) | Rules and code generation decided in M0; reviewers check macro sites against the Rust |
+| Macro translation errors (55k invocations) | Rules and code generation decided in M0; reviewers check macro sites against the Rust |
 | Threads and the JS garbage collector under the data-race checker | Validated in M0; `unsafe` with `/// Safety:` lines where Bun's design needs it |
-| Bun keeps moving (version 1.4.4 now, more later) | Freeze at 1.4.4; after M6, a catch-up loop that ports upstream changes |
+| Bun keeps moving: 97 commits and about 400,000 more Rust lines in the 19 days after 1.4.4 | A pinned `main` commit, moved only on purpose; the diff between pins is ported by hand for what is already ported; after M6, a catch-up loop |
 | Windows | A native Windows check in M0, and the M4 platform milestone |
 
 ## 6. Decisions needed before M0
@@ -291,11 +304,15 @@ that range.
    - **Licence:** decided 2026-11-10, **MIT, kept**, with Bun's copyright and credit. The port also keeps
      `upstream/LICENSE.md`'s notices for the code Bun links (JavaScriptCore and WebKit under LGPL-2, and the rest).
    - **Name:** decided 2026-11-10, **CeeBun**.
+5. **The AOT compiler** (`src/aot`, 210,000 lines, new since 1.4.4): which milestone ports it. It checks a program and
+   compiles it ahead of time (`bun compile`, and `--aot` for `bun run` and `bun test`), so it is part of the runtime's
+   commands (M3), but it is a self-contained compiler like the developer tools (M5).
 
 ## 7. Next steps
 
-1. ~~Check out Bun 1.4.4 here as the frozen reference.~~ Done: `upstream/` (gitignored), a shallow clone made with
-   `git clone --depth 1 --branch bun-v1.4.4 https://github.com/oven-sh/bun.git upstream`.
+1. ~~Check out Bun here as the frozen reference.~~ Done: `upstream/` (gitignored), a shallow clone. First at 1.4.4;
+   moved on 2026-11-11 to the pinned `main` commit (§1): `git fetch --depth 1 origin
+   89452d2ac13773aee8a6d632c4c30074bd1bb4fa && git checkout --detach FETCH_HEAD`.
 2. ~~Start M0 with the compiler scale test.~~ Started: `analysis/scale/`.
 3. Finish the scale test at 1.5 million lines, then draft the ADRs it calls for: separate compilation at scale, and C
    declarations shared between packages.
