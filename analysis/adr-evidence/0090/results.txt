@@ -1,0 +1,35 @@
+== compiler: ceesafec 0.29.0
+== p1_into_raw (check)
+analysis/adr-evidence/0090/p1_into_raw.cee:5:20: error[N0200]: 'Vector' has no function 'intoRaw'; use 'Vector.create()' or 'Vector.withCapacity(n)'
+== p2_spare (check)
+analysis/adr-evidence/0090/p2_spare.cee:12:11: error[N0200]: 'Vector<u8>' has no method 'setLength'; it has 'push', 'pop', 'clear', 'view', 'viewMut', 'retain', 'truncate', 'swap', 'sortBy', 'forEach', 'any', 'all', 'splitAt', 'splitAtMut', 'extend', 'resize', 'reserve', 'insert', 'remove', 'swapRemove'
+== p3_resize_then_truncate (run --interp)
+3
+7
+== p4_spare_pointer (run --interp)
+same
+== p6_append_today (run --interp)
+3
+0
+== p5_parts_export (check)
+src/lib.cee:3:1: error[N0290]: a generic struct cannot be '@repr(C)' (type-system.md §28.1)
+src/lib.cee:12:14: error[N0291]: exported function 'fill' cannot take a '*mut Parts<u8>': only integers, bool, raw pointers, @repr(C) structs and @repr enums cross to C (type-system.md §28.3)
+== b_resize (200 buffers of 16 MiB)
+3355443200 real 0.31 user 0.06 sys 0.00 
+== b_reserve (200 buffers of 16 MiB)
+3355443200 real 0.32 user 0.00 sys 0.00 
+== buffers.py
+files 4297
+Vec::from_raw_parts                      18   collections 4, jsc 4, bundler 4, bun_core 2, uws_sys 2, sql_jsc 1
+into_raw_parts / ManuallyDrop<Vec>        8   runtime 4, bun_core 2, collections 1, jsc 1
+mem::forget                              17   bundler 7, resolver 3, io 2, runtime 2, js_parser 2, collections 1
+Box::into_raw                           330   runtime 158, jsc 30, install 19, ptr 19, http 13, bundler 12
+Box::from_raw                           484   runtime 285, jsc 32, io 26, spawn 21, ptr 18, install 12
+Box::leak / Vec::leak                   170   runtime 54, react_compiler 20, sema 14, bundler 11, jsc 9, bun_core 8
+into_boxed_slice                        655   runtime 231, bundler 100, install 63, aot 48, sema 23, jsc 23
+spare_capacity_mut                       42   runtime 6, zstd 6, aot 6, libdeflate_sys 5, bun_core 4, parsers 2
+set_len                                  80   bun_core 13, collections 12, runtime 11, bundler 10, aot 6, css 4
+commit_spare                             36   runtime 10, bun_core 5, zstd 5, io 3, sourcemap 2, brotli 2
+as_mut_ptr on a call's argument         528   runtime 144, sys 58, bun_core 45, jsc 34, highway 25, collections 21
+slice::from_raw_parts(_mut)             420   runtime 116, jsc 55, bun_core 30, bun_alloc 19, sema 19, uws_sys 19
+try_reserve(_exact)                     128   runtime 39, png 17, bun_core 10, tar 10, io 6, md 6

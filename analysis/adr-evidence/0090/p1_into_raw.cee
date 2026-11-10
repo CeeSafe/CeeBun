@@ -1,0 +1,6 @@
+// ADR 0090 probe: a vector's buffer cannot be handed out. Expected on 0.29.0: an error on `Vector.intoRaw`.
+fn main() {
+    var v = Vector<u8>.create();
+    v.push(1)!;
+    let p = Vector.intoRaw(v);
+}

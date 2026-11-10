@@ -1,0 +1,14 @@
+// ADR 0090 probe: a generic struct cannot be @repr(C), so a `VectorParts<T>` cannot be in an export's signature.
+// Expected on 0.29.0: N0290 on the struct, N0291 on the export.
+@repr(C)
+public struct Parts<T> {
+    public pointer: *mut T;
+    public length: usize;
+    public capacity: usize;
+}
+
+/// Safety: writes the three fields of the caller's struct.
+@export("p5_fill")
+fn fill(out: *mut Parts<u8>) {
+    unsafe { out.write(Parts<u8> { pointer: 0 as *mut u8, length: 0, capacity: 0 }); }
+}

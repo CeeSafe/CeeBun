@@ -1,0 +1,15 @@
+// ADR 0090 probe: writing through a pointer into a vector's spare capacity, then committing the length.
+// Expected on 0.29.0: `.ptr` of the view compiles; there is no `setLength`.
+/// Safety: writes 3 bytes inside the 16 reserved.
+fn main() {
+    var v = Vector<u8>.create();
+    v.reserve(16)!;
+    let p = v.viewMut().ptr;
+    unsafe {
+        p.write(7);
+        p.add(1).write(8);
+        p.add(2).write(9);
+        v.setLength(3);
+    }
+    Console.writeLine(v.length);
+}

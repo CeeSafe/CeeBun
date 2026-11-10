@@ -1,0 +1,16 @@
+// ADR 0090 probe: today's way to let C write into a vector: resize with a fill (a zero pass over the buffer), write
+// through the view's pointer, truncate to what was written. Expected on 0.29.0: prints 3 and 7.
+/// Safety: writes 3 bytes inside the 16 the resize made.
+fn main() {
+    var v = Vector<u8>.create();
+    v.resize(16, 0)!;
+    let p = v.viewMut().ptr;
+    unsafe {
+        p.write(7);
+        p.add(1).write(8);
+        p.add(2).write(9);
+    }
+    v.truncate(3);
+    Console.writeLine(v.length);
+    Console.writeLine(v[0]);
+}

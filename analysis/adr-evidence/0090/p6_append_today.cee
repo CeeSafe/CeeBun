@@ -1,0 +1,36 @@
+// ADR 0090 probe: §2.2's example as far as 0.29.0 goes: a C-style writer fills a vector's spare capacity through the
+// view's pointer. The length cannot be committed (p2), so the bytes are read back through the pointer.
+// Expected on 0.29.0: prints 3 (the bytes written) and 0 (the vector's length, unchanged).
+enum WriteError { Failed }
+
+/// Stands for ZSTD_decompress: writes up to `room` bytes at `p`, returns how many.
+/// Safety: `p` has `room` writable bytes.
+unsafe fn fill(p: *mut u8, room: usize) -> usize {
+    var n: usize = 0;
+    while (n < room && n < 3) {
+        p.add(n).write(7 + truncate<u8>(n));
+        n += 1;
+    }
+    return n;
+}
+
+/// Safety: `fill` writes at most `room` bytes from `p`, inside the vector's capacity.
+fn append(out: borrow mut Vector<u8>) -> Result<usize, WriteError> {
+    let room = out.capacity - out.length;
+    let at = out.length;
+    let written = unsafe { fill(out.viewMut().ptr.add(at), room) };
+    if (written == 0) {
+        return Err(WriteError.Failed);
+    }
+    return Ok(written);
+}
+
+fn main() {
+    var v = Vector<u8>.create();
+    v.reserve(16)!;
+    match (append(mut v)) {
+        Ok(n) => { Console.writeLine(n); }
+        Err(_) => { Console.writeLine("failed"); }
+    }
+    Console.writeLine(v.length);
+}

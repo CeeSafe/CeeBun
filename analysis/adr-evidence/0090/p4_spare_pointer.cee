@@ -1,0 +1,11 @@
+// ADR 0090 probe: the pointer of an empty vector's view is its buffer's address once it has capacity, so C can
+// write into the spare capacity through it. Expected on 0.29.0: "same".
+/// Safety: only compares addresses.
+fn main() {
+    var v = Vector<u8>.create();
+    v.reserve(16)!;
+    let before = v.viewMut().ptr as usize;
+    v.push(1)!;
+    let after = v.viewMut().ptr as usize;
+    Console.writeLine(if (before == after && before != 0) "same" else "different");
+}

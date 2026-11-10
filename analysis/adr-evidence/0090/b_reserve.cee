@@ -1,0 +1,10 @@
+// ADR 0090 benchmark: the same 200 buffers by `reserve(n)`, which fills nothing.
+fn main() {
+    var sum: usize = 0;
+    for (i in 0u32..200) {
+        var v = Vector<u8>.create();
+        v.reserve(16 * 1024 * 1024)!;
+        sum += v.capacity;
+    }
+    Console.writeLine(sum);
+}
