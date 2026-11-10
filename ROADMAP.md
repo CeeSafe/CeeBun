@@ -150,7 +150,16 @@ translation rule.
     parameters, interior mutability, patterns, interfaces, and macros.
   - **How they were made:** each draft was written from Bun's measured usage and probes of the compiler. Two
     adversarial reviews and a fixer pass followed, with the evidence in `analysis/adr-evidence/`.
-  - **Releases:** 0.24.3, then 0.25.0 to 0.27.0. None is implemented yet.
+  - **Releases (2026-11-10):** all four are out, each implemented in worktrees, read by two adversarial reviewers,
+    fixed, and checked by every suite, the bootstrap from 0.3.2 and the fixed point.
+    - 0.24.3: ADR 0081's diagnostics, ADR 0082 stage A (split units per file, `--jobs`).
+    - 0.25.0: ADR 0086 (interface defaults, associated types, `Iterator<T>`), ADR 0084 (cells), ADR 0085 step 1
+      (guards, or-patterns, ranges, `@` bindings, constant patterns).
+    - 0.26.0: ADR 0083 (const generics), ADR 0085 step 2 (string and slice patterns, `is`), ADR 0087 step 1
+      (`debugAssert`, `c"…"`, `@derive`).
+    - 0.27.0: ADR 0087 step 2 (constant `+`, `embed`/`embedText`).
+  - **Still open in M0:** ADR 0082 stages B–F (stage D, per-package checking and `check --all`, is next), the threads
+    and GC check, Windows at Bun's needs (the new Windows embed path has never been run), and the performance probe.
 - **Fixed in the compiler (`b7c9f41`):** a data race in safe code (`Share` was every `Send` type) and interface method
   bodies that were never checked. Both were found while drafting the ADRs.
 
