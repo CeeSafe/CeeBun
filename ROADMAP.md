@@ -112,8 +112,26 @@ Source: <https://bun.com/blog/bun-in-rust>
 
 1. **A faithful, mechanical port of Rust to CeeSafe.** Same architecture, same data structures, same files. Idiomatic
    cleanup comes after the port works, as Bun did after its Zig port.
-2. **All at once, not incrementally**, as Bun's blog recommends. Rust crates call each other through Rust types, so a
-   mixed Rust/CeeSafe build would need temporary glue everywhere.
+2. **Hybrid: leaf crates swapped inside Bun, the core ported all at once.** Decided 2026-11-11, after the `bun_csrf`
+   trial (`analysis/trials/csrf/REPORT.md`, §7):
+   - **Leaves and edges, swapped one crate at a time** in a clone of Bun branched from `bun-v1.4.4`. These are crates
+     with C-shaped APIs: slices in, plain values out, few dependents. Each swapped crate is a CeeSafe package in one
+     `--emit lib` archive linked into Bun's ThinLTO build, behind a thin Rust shim. Bun's own tests check it right
+     away, and a release build is benchmarked against stock Bun. This is the proving and benchmarking harness.
+   - **The core, ported all at once**, as Bun's blog recommends. The core is `bun_core` (100 dependents), `bun_alloc`
+     (55), `bun_collections` (42) and every crate whose API carries Rust types (`bun_core::String`, `Vec`/`Box`
+     ownership, generics, traits, callbacks). These crates call each other through Rust types. Swapping them from the
+     top down would mean copying their pieces into every swapped crate (gap D1), and those copies would drift.
+   - **The swapped crates' code goes into the full port.** The shims and C facades are temporary and are dropped when
+     the core lands.
+   - **Rules for the clone:**
+     - Never merge Bun's `main` into it.
+     - A later Bun release is taken with `git diff bun-v1.4.4..bun-vX`: changes to a swapped crate are ported into
+       CeeSafe by hand; other crates merge as usual. The clone keeps a list of its swapped crates.
+     - Rust and CeeSafe share one heap through the CeeSafe allocator hook (ceesafec 0.29.0), so ownership can cross
+       the boundary.
+     - The clone is local (`~/dev/CeeSafeApps/ceebun-trial`). Publishing it as a fork needs the owner's approval and
+       its own crash-report target, because Bun's crash reports go to Oven's bun.report.
 3. **Proof first.** Port a self-contained slice that can be benchmarked (milestone M2) before committing to the whole.
 4. **Bun's test suite is the definition of done.** No test is skipped or deleted.
 5. **Language gaps are fixed in CeeSafe, not worked around in thousands of places.** Each gap gets an ADR in
