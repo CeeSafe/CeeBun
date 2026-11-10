@@ -255,7 +255,8 @@ that range.
 
 ## 6. Decisions needed before M0
 
-1. **Scope:** runtime first (M5 later), or all of Bun?
+1. ~~**Scope:** runtime first (M5 later), or all of Bun?~~ Decided 2026-11-10: **runtime first**. M0–M4 and M6 come
+   first (the "Runtime only" column of §4); M5, the developer tools, waits until the runtime is done.
 2. ~~**Language changes:** which gaps get language changes (const generics, `Cell`, guards, default methods), and
    which get translation rules only.~~ Decided 2026-11-09: ADRs 0081–0087, accepted as recommended (CeeSafe `05beffb`).
    - **Language changes:** const generic parameters, cells, richer patterns, interface defaults and associated types,
@@ -263,6 +264,9 @@ that range.
    - **Translation rules only:** general macros, iterator chains, shared C declarations.
 3. **Budget:** API spend (see the estimates) and the build machine.
 4. **Name and licence:** Bun is MIT. Keep the licence and credit, and decide the name of the port.
+   - **Licence:** decided 2026-11-10, **MIT, kept**, with Bun's copyright and credit. The port also keeps
+     `upstream/LICENSE.md`'s notices for the code Bun links (JavaScriptCore and WebKit under LGPL-2, and the rest).
+   - **Name:** still open.
 
 ## 7. Next steps
 
