@@ -124,7 +124,51 @@ allocation report at exit. Tested with a C `main` calling exports, and inside Bu
 12. **Minor:** `64usize as u32` rejected even for a constant that fits; `?? { return … }` does not parse on a
     `Result`; no `Enum.fromIndex`.
 
-## 6. Verdict
+## 6. ADR 0088 stage A in the trial (ceesafec 0.28.0)
+
+**Date:** 2026-11-10. The §5 "CeeBun" test of CeeSafe ADR 0088, on the same clone and branch, commit `4176b669d2`.
+
+**The change:**
+- `scripts/build/ceesafe.ts`: one `ceesafec build --emit lib` archive in place of `--emit obj`, with Bun's flags for
+  C that is not its own (`computeDepFlags`: target, sysroot, `-mcpu`, frame pointers, ASAN, `-flto=thin`). A new
+  ceesafec or clang rebuilds it. Configure refuses Windows targets (stage E).
+- `ceebun/host/ceebun_host.c` (new): `ceebun_init` calls `ceesafe_init` with Bun's argv and a panic hook that formats
+  the panic and calls `Bun__crashHandler`. Debug builds also read `CEESAFE_ALLOC_REPORT` and `CEESAFE_FAIL_ALLOC_AT`
+  and print the report at exit; a release `bun` reads neither, since every child process would inherit them. The
+  file re-declares the exports as the Rust shim does, so a CeeSafe signature change is a C compile error. A change to
+  the shim alone, a reordering of same-typed parameters, and enum values are not checked (stage C's `--emit rust`).
+- `src/runtime/bin_entry/mod.rs`: calls `ceebun_init` right after `bun_crash_handler::init()`.
+- Manifests: `ceesafec = ">=0.28.0"`.
+
+**Results:**
+
+| Check | Debug + ASAN | Release (ThinLTO) |
+|---|---|---|
+| The six test files of §1 | all pass, same counts | all pass, same counts (`hash.test.js` needs the test harness's `BUN_GARBAGE_COLLECTOR_LEVEL` and `BUN_FEATURE_FLAG_INTERNAL_FOR_TESTING`, as for any release build) |
+| Bun's duplicate-symbol check | 0 | 0 |
+| Archive members | ASAN-instrumented | LLVM bitcode, in Bun's ThinLTO link |
+| `panic("…")` (temporary patch, reverted) | `panic(main thread): CeeSafe: explicit panic: ceebun trial: deliberate panic at src/exports.cee:83:9`, a stack through the hook, the export, the Rust shim and JSC, status 134 | the same line in Bun's full crash report ("oh no: Bun has crashed", bun.report link), status 134 |
+| Index out of bounds (same patch) | `CeeSafe: index out of bounds at src/exports.cee:86:34`, status 134 | the same, in the full crash report |
+| `CEESAFE_ALLOC_REPORT=1` | `ceesafe alloc: attempts=2 live=0` at exit | ignored |
+| `CEESAFE_FAIL_ALLOC_AT=1` / `2` | `generate` throws "Failed to create CSRF token" / `verify` returns false | ignored |
+
+**What it closes:** G2 (the panic now reaches Bun's crash handler with CeeSafe's message, file and line, in both
+builds, where §3's ASAN build reported nothing), the missing initialiser (§3: failure sweeps and the allocation
+report now work inside a debug Bun), and LTO (CeeSafe was a native object outside Bun's ThinLTO).
+
+**Still open:**
+- **G9 for Rust** (stage C): the shim is matched to the C copy by hand.
+- **G6** (stage B): CeeSafe still allocates with the C library's `malloc`.
+- **G8 for two separately built archives** (stage D): CeeBun keeps one umbrella package.
+- **Crash reports of a fork.** A CeeSafe panic now produces Bun's "This indicates a bug in Bun" message and a
+  bun.report link for upstream Bun's team. A public CeeBun build needs its own report target.
+- **Not measured:** release timings against a stock release build (§1's timings are debug only).
+- **Reviews:** two adversarial reviews (runtime soundness, build integration). Their findings are fixed in the change
+  above, except three kept as they are: the headers are rewritten on each archive build (one small C file
+  recompiles), a `.cee` file added later is seen only after the next configure, and the link order would matter only
+  to GNU ld, which Bun does not use.
+
+## 7. Verdict
 
 - **Leaf crates with C-shaped APIs: workable and cheap.** The build change is small, Bun's tests run unchanged.
   `bun_csrf` is near the ideal case: two functions, slices in, a length or a bool out, one dependent.
