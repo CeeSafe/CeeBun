@@ -1,5 +1,5 @@
 """Second pass: integer const parameters used as array lengths, per item kind; crates; const fn bodies.
-Run: python3 -I measure2.py /Users/kutty/dev/CeeSafeApps/bun/upstream"""
+Run: python3 -I measure2.py ../../../upstream"""
 import collections, os, re, sys
 ROOT = sys.argv[1]
 SKIP = {".git", "node_modules", "target", "test", "tests"}

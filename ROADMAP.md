@@ -3,7 +3,7 @@
 **Goal:** show that CeeSafe can replace Rust, by porting Bun 1.4.4 (Rust) to CeeSafe. The port must pass Bun's own
 test suite and match its performance.
 
-**Status:** M0 started (2026-11-09). Nothing is ported yet. The compiler scale test runs, and its first findings are in
+**Status:** M0 in progress (started 2026-11-09). Nothing is ported yet. The compiler scale test runs, and its first findings are in
 `analysis/scale/README.md`.
 
 ## 1. Starting point

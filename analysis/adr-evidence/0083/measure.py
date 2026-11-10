@@ -1,6 +1,6 @@
 """Measure const generics and const fn in Bun's Rust (src/, same SKIP as analysis/bun_rust_features.py).
 
-Run: python3 -I measure.py /Users/kutty/dev/CeeSafeApps/bun/upstream
+Run: python3 -I measure.py ../../../upstream
 """
 import collections
 import os
