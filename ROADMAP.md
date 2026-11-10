@@ -138,8 +138,10 @@ Source: <https://bun.com/blog/bun-in-rust>
      - Never merge Bun's `main` into it between pins.
      - Moving the pin takes `git diff <old pin>..<new pin>`: changes to a swapped crate are ported into CeeSafe by
        hand; other crates merge as usual. The clone keeps a list of its swapped crates.
-     - Rust and CeeSafe share one heap through the CeeSafe allocator hook (ceesafec 0.29.0), so ownership can cross
-       the boundary.
+     - Rust and CeeSafe share one heap through the CeeSafe allocator hook (ceesafec 0.29.0). Their blocks are still
+       not interchangeable (CeeSafe ADR 0088 §2.5): each side frees what it allocated through its own code, so a
+       block CeeSafe hands out comes back through an export. A CeeSafe buffer adopted by Rust without a copy needs a
+       later CeeSafe ADR.
      - The clone is local (`~/dev/CeeSafeApps/ceebun-trial`). Publishing it as a fork needs the owner's approval and
        its own crash-report target, because Bun's crash reports go to Oven's bun.report.
 3. **Proof first.** Port a self-contained slice that can be benchmarked (milestone M2) before committing to the whole.

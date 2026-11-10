@@ -177,7 +177,7 @@ report now work inside a debug Bun), and LTO (CeeSafe was a native object outsid
   `#[global_allocator]` uses. In a build without ASAN that is mimalloc, through `mi_malloc_aligned`,
   `mi_zalloc_aligned` and `mi_realloc_aligned` at 16 bytes, and `mi_free`. The aligned forms are needed because plain
   `mi_malloc` gives a small block only its size's alignment (8 for an 8-byte block), and CeeSafe panics on a block
-  aligned below 16. `mi_free` frees blocks from either side. Under ASAN no allocator is given: Rust uses the system
+  aligned below 16. Under ASAN no allocator is given: Rust uses the system
   allocator there, and ASAN sees every block from both sides.
 - `scripts/build/ceesafe.ts`: the host file is compiled against mimalloc's headers, after mimalloc is built, with
   `CEEBUN_MIMALLOC` set exactly when `cfg.asan` is not (Rust's `bun_asan`). `bun.ts` passes it the mimalloc dependency.
@@ -196,12 +196,19 @@ the hook's functions: `alloc` 201 calls, `free` 200, `alloc_zeroed` and `realloc
 allocates one `Vector` and frees it; the 201st block is `argv`'s copy, kept until exit. After ThinLTO, `ceebun_alloc`
 ends in mimalloc's aligned allocation path and `ceebun_free` is a tail call to `mi_free`.
 
-**What it closes:** G6. CeeSafe and Rust allocate from one heap in both builds, so a block can be allocated on one
-side and freed on the other.
+**What it closes:** G6's hook. CeeSafe and Rust allocate from one heap in both builds.
+
+**Correction (2026-11-11):** this section first said a block could then be allocated on one side and freed on the
+other. That is wrong. ADR 0088 §2.5: one heap does not make the two sides' blocks interchangeable. Each side frees
+what it allocated through its own code (a block CeeSafe hands out with `Box.intoRaw` comes back through an export
+that drops it, so its drop glue runs and the allocation report stays right), and neither side calls the other's
+`free`. A CeeSafe buffer that Rust adopts without a copy as a `Vec<u8>` is outside ADR 0088 (its §4: `Vector.intoRaw`
+and the block's move to the report's `foreign held` line, "when a swapped crate returns an owned buffer to Rust").
 
 **Still open:**
-- **No block crosses the boundary yet.** `bun_csrf` frees everything it allocates. A second leaf crate that returns an
-  owned buffer to Rust would test it (`ROADMAP.md` §2).
+- **No block crosses the boundary yet.** `bun_csrf` frees everything it allocates. The next crate, `bun_zstd`,
+  returns a `Vec<u8>` to Rust (`decompress_alloc`): that needs the later CeeSafe ADR for adopted buffers, a wrapper
+  type whose `Drop` calls an export, or a copy.
 - **Windows:** Bun calls `mi_*` directly there too, so the same host code would apply, but CeeBun does not build for
   Windows (ADR 0088 stage E).
 - G9 for Rust (stage C), G8 for two separately built archives (stage D), and the crash-report target and release
