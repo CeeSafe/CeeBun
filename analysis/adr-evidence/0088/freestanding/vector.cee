@@ -1,0 +1,9 @@
+// ADR 0088 probe: a freestanding package cannot use Vector (N0293), so the profile is no answer for Bun's crates.
+
+/// Pushes one value.
+@export("fs_vector")
+fn fsVector() -> u64 {
+    var v = Vector<u64>.create();
+    v.push(1)!;
+    return v.len() as u64;
+}

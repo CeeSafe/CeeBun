@@ -1,0 +1,5 @@
+// ADR 0088 probe: one of two builds that share the package common.
+
+/// Bumps common's counter.
+@export("two_bump")
+fn twoBump() -> u64 => common.bump();

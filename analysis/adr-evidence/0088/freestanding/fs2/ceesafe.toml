@@ -1,0 +1,4 @@
+[package]
+name = "fs2"
+kind = "object"
+profile = "freestanding"

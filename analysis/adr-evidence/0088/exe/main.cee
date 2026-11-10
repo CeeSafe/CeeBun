@@ -1,0 +1,5 @@
+// ADR 0088 probe: the generated C main of a one-line program.
+
+fn main() -> i32 {
+    return 0;
+}

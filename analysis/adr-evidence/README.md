@@ -14,5 +14,6 @@ The generated programs from the scale test are not kept: `analysis/scale/scale_t
 
 **ADR 0088** (embedding CeeSafe in a host program) was raised by the `bun_csrf` trial (`analysis/trials/csrf/REPORT.md`)
 and measured on ceesafec 0.27.0. Its folder has one script, `0088/run.sh`, which builds every probe (C hosts, a Rust
-host, two-object links) and prints what the ADR quotes; `0088/results.txt` is its output on the Mac (Apple clang 21,
-arm64). Its build products are ignored (`0088/.gitignore`).
+host, two-object links, ELF links with ld.lld, ThreadSanitizer and UBSan runs) and prints what the ADR quotes; run it
+with `bash`. `0088/results.txt` is its output on the Mac (Apple clang 21, arm64, LLD 21). `0088/bun/panic_in_bun.log` is
+the trial's own output for a deliberate panic, copied, not remade. Its build products are ignored (`0088/.gitignore`).

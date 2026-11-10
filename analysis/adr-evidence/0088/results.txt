@@ -1,0 +1,181 @@
+== compiler: ceesafec 0.27.0; Apple clang version 21.0.0 (clang-2100.3.34.2); Darwin arm64
+== g8: two packages, each build --emit obj
+alpha.o: 123 global symbols, 122 named ceesafe_*; others: _alpha_sum 
+beta.o: 130 global symbols, 129 named ceesafe_*; others: _beta_twice 
+common (tentative) symbols in alpha.o: _ceesafe_test_cancel_at _ceesafe_test_reports _ceesafe_vec_empty 
+in beta.o only: _beta_twice _ceesafe_mutex_create _ceesafe_mutex_destroy _ceesafe_mutex_lock _ceesafe_mutex_unlock _ceesafe_thread_join _ceesafe_thread_start _ceesafe_thread_watchdog 
+-- link both objects:
+duplicate symbol '_ceesafe_scratch_enter_child' in:
+ld: 119 duplicate symbols
+-- link both as archives (one member each):
+duplicate symbol '_ceesafe_scratch_enter_child' in:
+ld: 119 duplicate symbols
+-- a host defining ceesafe_platform_alloc and ceesafe_panic beside alpha.o, then beside liba.a:
+duplicate symbol '_ceesafe_platform_alloc' in:
+duplicate symbol '_ceesafe_panic' in:
+ld: 2 duplicate symbols
+duplicate symbol '_ceesafe_platform_alloc' in:
+duplicate symbol '_ceesafe_panic' in:
+ld: 2 duplicate symbols
+-- --split: global names other than the runtime's:
+_alpha_sum _ceeF_alpha_alphaSum 
+-- by hand: each main.c alone, the runtime once (g8/manual.sh):
+alpha_sum=6 beta_twice=42
+global symbols of alpha's main.c: _alpha_sum 
+global symbols of beta's main.c: _beta_twice 
+ABI version macro in each main.c: alpha_c/main.c:1 beta_c/main.c:1 
+-- by hand: an archive per build with one member per runtime file (g8/archives.sh):
+alpha_sum=6 beta_twice=42
+members loaded from libb.a: libb.a[2](beta_main.o) libb.a[6](ceesafe_rt_thread.o) 
+members loaded from liba.a: liba.a[2](alpha_main.o) liba.a[3](ceesafe_rt_core.o) liba.a[4](ceesafe_rt_hosted.o) 
+alpha_sum=6 beta_twice=42
+== shared: two builds that both depend on the package common (shared/run.sh)
+one=1 two=1 one=2 (one counter would give 1 2 3)
+split: global names of common's unit in build one: _ceeF_one_common_bump 
+split: global names of common's unit in build two: _ceeF_two_common_bump 
+split: one=1 two=1 one=2 (one counter would give 1 2 3)
+== nomain: a C host, no CeeSafe main (nomain/host.c)
+-- host  boxes, CEESAFE_ALLOC_REPORT=1:
+boxes made=5 of 5
+status=0
+-- host  leak, CEESAFE_ALLOC_REPORT=1:
+leaked one box
+status=0
+-- host  args, CEESAFE_ALLOC_REPORT=1:
+args=0 (C has 2)
+status=0
+-- host  panic, CEESAFE_ALLOC_REPORT=1:
+ceesafe panic: index out of bounds at src/lib.cee:40:14
+run.sh: line 43: 72832 Abort trap: 6           CEESAFE_ALLOC_REPORT=1 ./nomain/host $init $w 2>&1
+status=134
+-- host  thread, CEESAFE_ALLOC_REPORT=1:
+ceesafe panic: index out of bounds at src/lib.cee:48:18
+run.sh: line 43: 72833 Abort trap: 6           CEESAFE_ALLOC_REPORT=1 ./nomain/host $init $w 2>&1
+status=134
+-- host  callback, CEESAFE_ALLOC_REPORT=1:
+100/4=25
+ceesafe panic: division by zero at src/lib.cee:55:32
+run.sh: line 43: 72834 Abort trap: 6           CEESAFE_ALLOC_REPORT=1 ./nomain/host $init $w 2>&1
+status=134
+-- host  boxes, CEESAFE_FAIL_ALLOC_AT=3:
+boxes made=5 of 5
+-- host init boxes, CEESAFE_ALLOC_REPORT=1:
+boxes made=5 of 5
+ceesafe alloc: attempts=5 live=0
+status=0
+-- host init leak, CEESAFE_ALLOC_REPORT=1:
+leaked one box
+ceesafe alloc: attempts=1 live=1
+status=0
+-- host init args, CEESAFE_ALLOC_REPORT=1:
+args=3 (C has 3)
+ceesafe alloc: attempts=0 live=0
+status=0
+-- host init panic, CEESAFE_ALLOC_REPORT=1:
+ceesafe panic: index out of bounds at src/lib.cee:40:14
+run.sh: line 43: 72840 Abort trap: 6           CEESAFE_ALLOC_REPORT=1 ./nomain/host $init $w 2>&1
+status=134
+-- host init thread, CEESAFE_ALLOC_REPORT=1:
+ceesafe panic: index out of bounds at src/lib.cee:48:18
+run.sh: line 43: 72843 Abort trap: 6           CEESAFE_ALLOC_REPORT=1 ./nomain/host $init $w 2>&1
+status=134
+-- host init callback, CEESAFE_ALLOC_REPORT=1:
+100/4=25
+ceesafe panic: division by zero at src/lib.cee:55:32
+run.sh: line 43: 72844 Abort trap: 6           CEESAFE_ALLOC_REPORT=1 ./nomain/host $init $w 2>&1
+status=134
+-- host init boxes, CEESAFE_FAIL_ALLOC_AT=3:
+boxes made=2 of 5
+== freestanding: the environment's ceesafe_panic
+fs.o undefined: _ceesafe_panic 
+fs.o global: _ceesafe_fba_over _ceesafe_io_message _ceesafe_panic_reason _ceesafe_panic_text _ceesafe_region_alloc _ceesafe_utf8_valid _fs_index 
+fs_index(1)=2
+host hook: index out of bounds at src/lib.cee:7:14
+run.sh: line 56: 72902 Abort trap: 6           ./freestanding/host x
+status=134
+freestanding/vector.cee:6:13: error[N0293]: 'Vector' needs the hosted runtime and is not available with --profile freestanding (profiles.md §4.1)
+-- two freestanding objects:
+ld: 6 duplicate symbols
+== names: an export in the runtime's namespace
+names/reserved.cee:4:1: error[N0292]: the exported symbol 'ceesafe_platform_alloc' is reserved for the CeeSafe runtime and generated code (c-backend.md §2.1) (type-system.md §28.2)
+names/reserved.cee:8:1: error[N0292]: the exported symbol 'ceesafe_init' is reserved for the CeeSafe runtime and generated code (c-backend.md §2.1) (type-system.md §28.2)
+== weak: a weak default overridden by the host, from an object and from an archive
+runtime default: boom
+host hook: boom
+host hook: boom
+== rust_host: a hand-written extern block (G9)
+alpha_sum=6
+run.sh: line 71: 73016 Segmentation fault: 11  ./wrong
+status=139
+-- the same wrong declaration in C, with ceesafe_exports.h:
+rust_host/wrong.c:6:10: error: conflicting types for 'alpha_sum'
+-- ceesafe_exports.h:
+/* Generated by ceesafec 0.27.0. Do not edit. CeeSafe's C interface (type-system.md §28). */
+#ifndef CEESAFE_EXPORTS_H
+#define CEESAFE_EXPORTS_H
+
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+
+
+uint64_t alpha_sum(uint8_t const *, size_t);
+
+#endif
+-- a Rust extern "C" hook that panics:
+run.sh: line 78: 73039 Abort trap: 6           ./hook_unwind > hook_unwind.txt 2>&1
+status=134
+thread 'main' (222712434) panicked at hook_unwind.rs:5:5:
+host hook at line 7
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+== msvc: --emit obj --cc cl
+ceesafec: cannot run the C compiler 'cl': No such file or directory
+== cxx_host: a C++ host including ceesafe_exports.h
+__cplusplus guards in the header: 0
+Undefined symbols for architecture arm64:
+  "alpha_sum(unsigned char const*, unsigned long)", referenced from:
+   NOTE: found '_alpha_sum' in alpha.o, declaration possibly missing 'extern "C"'
+== exe: the generated C main of a one-line program
+int main(int argc, char **argv) {
+    ceesafe_rt_args((int32_t)argc, (const uint8_t *const *)(void *)argv);
+    ceesafe_rt_start();
+    return (int)ceesafe_rt_finish(ceeF_main());
+}
+== threads: two threads entering scratch frames (threads/run.sh)
+ceesafe panic: a scratch frame is already active; nest with frame.enter() at spawn.cee:2:5
+spawn status=134
+ceesafe panic: a scratch frame is already active; nest with frame.enter() at src/lib.cee:3:5
+host status=134
+SUMMARY: ThreadSanitizer: data race ceesafe_rt_core.c:458 in ceesafe_scratch_enter_root
+== align: a host allocator aligned only for max_align_t (align/run.sh)
+max_align_t here: 8
+status=134
+runtime error: member access within misaligned address 0x00010209e3a8 for type 'cee_task' (aka 'struct cee_task'), which requires 16 byte alignment
+== elf: the version reference and the package marker under ld.lld (elf/run.sh)
+version reference, used, plain: fails: undefined symbol: ceesafe_runtime_0_28_0
+version reference, used, gc-sections: LINKS (check bypassed)
+version reference, used, lto: fails: undefined symbol: ceesafe_runtime_0_28_0
+version reference, used, lto+gc-sections: LINKS (check bypassed)
+version reference, retain, plain: fails: undefined symbol: ceesafe_runtime_0_28_0
+version reference, retain, gc-sections: fails: undefined symbol: ceesafe_runtime_0_28_0
+version reference, retain, lto: fails: undefined symbol: ceesafe_runtime_0_28_0
+version reference, retain, lto+gc-sections: fails: undefined symbol: ceesafe_runtime_0_28_0
+version reference, used, native linker -dead_strip : fails: Undefined symbols for architecture arm64: _ceesafe_runtime_0_28_0
+version reference, used, native linker -dead_strip -flto: fails: Undefined symbols for architecture arm64: _ceesafe_runtime_0_28_0
+package marker, strong, ld.lld: fails: duplicate symbol: ceesafe_package_common
+package marker, strong, native linker: fails: duplicate symbol '_ceesafe_package_common' in:
+package marker, tentative, ld.lld: LINKS (duplicate merged silently)
+package marker, tentative, native linker: LINKS (duplicate merged silently)
+package marker, weak, ld.lld: LINKS (duplicate merged silently)
+package marker, weak, native linker: LINKS (duplicate merged silently)
+== lto: --cflag and the runtime; joining the host's LTO (lto/run.sh)
+--emit obj (plain): the runtime's ceesafe_scratch_enter_root has 0 shadow loads
+--emit obj (asan): the runtime's ceesafe_scratch_enter_root has 4 shadow loads
+--emit obj --cflag -flto=thin: Mach-O 64-bit object arm64
+a member compiled with -flto=thin: LLVM bitcode
+thin LTO link with the bitcode archive: alpha_sum=6
+== rust_sig: a stale generated Rust binding under ld.lld --gc-sections (rust_sig/run.sh)
+rust binding, used, no gc: fails: undefined symbol: ceesafe_sig_alpha_sum_deadbeef
+rust binding, used, --gc-sections: fails: undefined symbol: ceesafe_sig_alpha_sum_deadbeef
+rust binding, named, no gc: fails: undefined symbol: alpha_sum_ceesig_deadbeef
+rust binding, named, --gc-sections: fails: undefined symbol: alpha_sum_ceesig_deadbeef

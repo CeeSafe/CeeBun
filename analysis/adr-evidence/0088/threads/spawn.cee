@@ -1,0 +1,21 @@
+fn work(seed: u64) -> Result<u64, AllocError> {
+    using frame = Scratch.enter();
+    var sum: u64 = 0;
+    for (i in 0u64..64) {
+        let p = frame.alloc(seed + i)?;
+        sum += *p;
+    }
+    return Ok(sum);
+}
+
+fn main() {
+    let t = Thread.spawn(move () => {
+        var s: u64 = 0;
+        for (k in 0u64..100000) { s += work(1)!; }
+        return s;
+    })!;
+    var s: u64 = 0;
+    for (k in 0u64..100000) { s += work(2)!; }
+    let r = t.join();
+
+}

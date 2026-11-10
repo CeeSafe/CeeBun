@@ -1,0 +1,6 @@
+[package]
+name = "one"
+kind = "object"
+
+[dependencies]
+common = { path = "../common" }

@@ -1,0 +1,17 @@
+// ADR 0088 probe: one of two CeeSafe objects linked into one C host (G8).
+
+/// Sums the bytes C lends; allocates one vector so the heap runtime is used.
+/// Safety: `p` points to `n` readable bytes for the call.
+@export("alpha_sum")
+fn alphaSum(p: *u8, n: usize) -> u64 {
+    let bytes = unsafe { Slice.fromRaw(p, n) };
+    var v = Vector<u64>.create();
+    for (b in bytes) {
+        v.push(b as u64)!;
+    }
+    var t: u64 = 0;
+    for (x in v.view()) {
+        t += x;
+    }
+    return t;
+}

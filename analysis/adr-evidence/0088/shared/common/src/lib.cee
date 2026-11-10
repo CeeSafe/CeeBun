@@ -1,0 +1,9 @@
+// ADR 0088 probe: a package two separate builds both depend on, with one static.
+
+static CALLS: AtomicU64 = AtomicU64.constant(0);
+
+/// Counts a call; returns the count so far.
+public fn bump() -> u64 {
+    CALLS.store(CALLS.load() + 1);
+    return CALLS.load();
+}

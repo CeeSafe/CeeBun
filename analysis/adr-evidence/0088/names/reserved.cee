@@ -1,0 +1,9 @@
+// ADR 0088 probe: may an export take a name of the runtime's namespace (c-backend.md §2.1)?
+
+/// Clashes with the runtime's allocator at link time, if the checker allows it.
+@export("ceesafe_platform_alloc")
+fn mine(size: usize) -> usize => size;
+
+/// A name a new runtime entry point (§2.2) would take.
+@export("ceesafe_init")
+fn init() -> void {}

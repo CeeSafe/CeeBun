@@ -1,0 +1,8 @@
+// ADR 0088 probe: the freestanding profile already routes panics to the environment's ceesafe_panic.
+
+/// Panics on an index out of bounds.
+@export("fs2_index")
+fn fs2Index(i: usize) -> u8 {
+    let a = [1u8, 2, 3];
+    return a[i];
+}

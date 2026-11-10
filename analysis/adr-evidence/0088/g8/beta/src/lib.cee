@@ -1,0 +1,20 @@
+// ADR 0088 probe: the second CeeSafe object; it also starts a thread, so its runtime has the thread layer.
+
+struct Tally {
+    count: u64;
+}
+
+/// Doubles `x` on a thread CeeSafe spawns.
+@export("beta_twice")
+fn betaTwice(x: u64) -> u64 {
+    let tally = Arc<Mutex<Tally>>.create(Mutex<Tally>.create(Tally { count: x })!)!;
+    let mine = tally.clone();
+    let worker = Thread.spawn(move () => {
+        var guard = mine.get().lock();
+        let data = guard.data();
+        data.count *= 2;
+    })!;
+    worker.join();
+    var guard = tally.get().lock();
+    return guard.data().count;
+}

@@ -1,0 +1,19 @@
+// Safe code only: a scratch frame per call.
+fn work(seed: u64) -> Result<u64, AllocError> {
+    using frame = Scratch.enter();
+    var sum: u64 = 0;
+    for (i in 0u64..64) {
+        let p = frame.alloc(seed + i)?;
+        sum += *p;
+    }
+    return Ok(sum);
+}
+
+/// Sums 64 scratch values starting at `seed`; 0 when out of memory.
+@export("scr_work")
+fn scrWork(seed: u64) -> u64 {
+    match (work(seed)) {
+        Ok(s) => { return s; }
+        Err(_) => { return 0; }
+    }
+}

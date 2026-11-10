@@ -1,0 +1,59 @@
+// ADR 0088 probe: the CeeSafe runtime in a C host with no CeeSafe main.
+
+/// Makes `n` boxes, one allocation attempt each; returns how many were made before one failed.
+@export("nomain_boxes")
+fn nomainBoxes(n: u64) -> u64 {
+    var made: u64 = 0;
+    for (i in 0u64..n) {
+        match (Box.create(i)) {
+            Ok(_) => {
+                made += 1;
+            }
+            Err(_) => {
+                return made;
+            }
+        }
+    }
+    return made;
+}
+
+/// Leaks one box, so that a report has a live block to show.
+@export("nomain_leak")
+fn nomainLeak() -> void {
+    let p = Box.intoRaw(Box.create(7u64)!);
+}
+
+/// The number of program arguments the runtime knows.
+@export("nomain_args")
+fn nomainArgs() -> u64 {
+    var n: u64 = 0;
+    while (Process.argument(n as usize).isSome()) {
+        n += 1;
+    }
+    return n;
+}
+
+/// Panics on an index out of bounds, on the caller's thread.
+@export("nomain_panic")
+fn nomainPanic(i: usize) -> u8 {
+    let a = [1u8, 2, 3];
+    return a[i];
+}
+
+/// Panics on a thread CeeSafe spawns.
+@export("nomain_thread_panic")
+fn nomainThreadPanic(i: usize) -> u8 {
+    let worker = Thread.spawn(move () => {
+        let a = [1u8, 2, 3];
+        return a[i];
+    })!;
+    return worker.join();
+}
+
+/// Divides 100 by `x`: a zero panics inside a callback C calls.
+@callback
+fn hundredBy(x: u32) -> u32 => 100 / x;
+
+/// The callback's C address, for the host to call.
+@export("nomain_callback")
+fn nomainCallback() -> extern "C" fn(u32) -> u32 => hundredBy;
