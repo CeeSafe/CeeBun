@@ -110,7 +110,7 @@ allocation report at exit. Tested with a C `main` calling exports, and inside Bu
    it uses from its Rust dependencies (here ~245 lines from 4 crates), and those copies can drift. With `cargo metadata`
    (123 workspace crates): `bun_core` has 100 dependents, `bun_alloc` 55, `bun_collections` 42; only 10 crates have no
    workspace dependencies.
-4. **G6: no allocator hook.** `ceesafe_platform_alloc` is a strong symbol calling `malloc`. A crate that hands
+4. **G6: no allocator hook** (closed in §7). `ceesafe_platform_alloc` is a strong symbol calling `malloc`. A crate that hands
    ownership to Rust (a returned `Vec`) needs CeeSafe to allocate from mimalloc or `bun_alloc`.
 5. **G2: no panic hook.** A panic reaches Bun only as `SIGABRT`: without CeeSafe's message, file and line (correction, 2026-11-10: the silence seen in the trial came from the ASAN build, see §3). Needed: a weak `ceesafe_panic` or a registration call, routed to Bun's `Bun__crashHandler`,
    and an exported runtime initialiser for embedding.
@@ -158,7 +158,7 @@ report now work inside a debug Bun), and LTO (CeeSafe was a native object outsid
 
 **Still open:**
 - **G9 for Rust** (stage C): the shim is matched to the C copy by hand.
-- **G6** (stage B): CeeSafe still allocates with the C library's `malloc`.
+- **G6** (stage B): CeeSafe still allocates with the C library's `malloc`. Closed in §7.
 - **G8 for two separately built archives** (stage D): CeeBun keeps one umbrella package.
 - **Crash reports of a fork.** A CeeSafe panic now produces Bun's "This indicates a bug in Bun" message and a
   bun.report link for upstream Bun's team. A public CeeBun build needs its own report target.
@@ -168,7 +168,46 @@ report now work inside a debug Bun), and LTO (CeeSafe was a native object outsid
   recompiles), a `.cee` file added later is seen only after the next configure, and the link order would matter only
   to GNU ld, which Bun does not use.
 
-## 7. Verdict
+## 7. ADR 0088 stage B in the trial (ceesafec 0.29.0)
+
+**Date:** 2026-11-11. The trial clone's commit `f16561b48e`.
+
+**The change:**
+- `ceebun/host/ceebun_host.c`: `ceebun_init` gives `ceesafe_init` the allocator that `bin_entry`'s
+  `#[global_allocator]` uses. In a build without ASAN that is mimalloc, through `mi_malloc_aligned`,
+  `mi_zalloc_aligned` and `mi_realloc_aligned` at 16 bytes, and `mi_free`. The aligned forms are needed because plain
+  `mi_malloc` gives a small block only its size's alignment (8 for an 8-byte block), and CeeSafe panics on a block
+  aligned below 16. `mi_free` frees blocks from either side. Under ASAN no allocator is given: Rust uses the system
+  allocator there, and ASAN sees every block from both sides.
+- `scripts/build/ceesafe.ts`: the host file is compiled against mimalloc's headers, after mimalloc is built, with
+  `CEEBUN_MIMALLOC` set exactly when `cfg.asan` is not (Rust's `bun_asan`). `bun.ts` passes it the mimalloc dependency.
+- Manifests: `ceesafec = ">=0.29.0"`.
+
+**Results:**
+
+| Check | Debug + ASAN | Release (ThinLTO) |
+|---|---|---|
+| The six test files of §1 | all pass, same counts | all pass, same counts |
+| Bun's duplicate-symbol check | 0 | 0 |
+| The allocator CeeSafe uses | the C library's `malloc` | mimalloc |
+
+**The hook in the release binary:** 100 `generate`/`verify` pairs with a session id, under lldb with breakpoints on
+the hook's functions: `alloc` 201 calls, `free` 200, `alloc_zeroed` and `realloc` none. Each `sign` with a session id
+allocates one `Vector` and frees it; the 201st block is `argv`'s copy, kept until exit. After ThinLTO, `ceebun_alloc`
+ends in mimalloc's aligned allocation path and `ceebun_free` is a tail call to `mi_free`.
+
+**What it closes:** G6. CeeSafe and Rust allocate from one heap in both builds, so a block can be allocated on one
+side and freed on the other.
+
+**Still open:**
+- **No block crosses the boundary yet.** `bun_csrf` frees everything it allocates. A second leaf crate that returns an
+  owned buffer to Rust would test it (`ROADMAP.md` §2).
+- **Windows:** Bun calls `mi_*` directly there too, so the same host code would apply, but CeeBun does not build for
+  Windows (ADR 0088 stage E).
+- G9 for Rust (stage C), G8 for two separately built archives (stage D), and the crash-report target and release
+  timings of §6.
+
+## 8. Verdict
 
 - **Leaf crates with C-shaped APIs: workable and cheap.** The build change is small, Bun's tests run unchanged.
   `bun_csrf` is near the ideal case: two functions, slices in, a length or a bool out, one dependent.

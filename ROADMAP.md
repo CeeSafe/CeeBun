@@ -113,7 +113,7 @@ Source: <https://bun.com/blog/bun-in-rust>
 1. **A faithful, mechanical port of Rust to CeeSafe.** Same architecture, same data structures, same files. Idiomatic
    cleanup comes after the port works, as Bun did after its Zig port.
 2. **Hybrid: leaf crates swapped inside Bun, the core ported all at once.** Decided 2026-11-11, after the `bun_csrf`
-   trial (`analysis/trials/csrf/REPORT.md`, §7):
+   trial (`analysis/trials/csrf/REPORT.md`, §8):
    - **Leaves and edges, swapped one crate at a time** in a clone of Bun branched from `bun-v1.4.4`. These are crates
      with C-shaped APIs: slices in, plain values out, few dependents. Each swapped crate is a CeeSafe package in one
      `--emit lib` archive linked into Bun's ThinLTO build, behind a thin Rust shim. Bun's own tests check it right
