@@ -1,0 +1,30 @@
+# cargo test --release -p tsrs_spanmap --test differential -- --ignored --nocapture
+# tsrs-trial 878c330f, ceesafec 0.35.0, rustc 1.99.1, Apple clang, MacBookPro arm64, 2026-11-11. Three runs, load average about 6.
+== run 1
+nanoseconds per call                                 Rust      CeeSafe
+new (2,000 segments, unordered)                   25651.7      34133.3     +33%
+new (2,000 segments, already ordered)              5143.3      10465.8    +103%
+validate (2,000 segments, valid)                   5675.0       4745.4     -16%
+virtual_to_original_position                         38.1         49.0     +29%
+virtual_to_original_span                             78.6         95.1     +21%
+original_to_virtual_positions                       122.0        134.5     +10%
+original_to_virtual_spans                           220.4        295.5     +34%
+original index, first use (2,000 segments)        69690.0      60763.3     -13%
+== run 2
+new (2,000 segments, unordered)                   27426.7      40885.8     +49%
+new (2,000 segments, already ordered)              5307.5      10811.7    +104%
+validate (2,000 segments, valid)                   5658.1       4727.1     -16%
+virtual_to_original_position                         37.9         49.2     +30%
+virtual_to_original_span                             77.0         94.9     +23%
+original_to_virtual_positions                       123.9        137.9     +11%
+original_to_virtual_spans                           222.8        298.3     +34%
+original index, first use (2,000 segments)        66640.8      57762.5     -13%
+== run 3
+new (2,000 segments, unordered)                   30177.5      46555.8     +54%
+new (2,000 segments, already ordered)              5215.0      10630.8    +104%
+validate (2,000 segments, valid)                   5667.7       4728.1     -17%
+virtual_to_original_position                         37.9         48.9     +29%
+virtual_to_original_span                             76.5         94.6     +24%
+original_to_virtual_positions                       125.1        138.1     +10%
+original_to_virtual_spans                           223.6        289.5     +29%
+original index, first use (2,000 segments)        81078.3      64820.8     -20%

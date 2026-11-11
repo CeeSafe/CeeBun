@@ -1,14 +1,15 @@
 # Trial: two crates of tsrs (TypeScript's checker in Rust) in CeeSafe
 
 **Date:** 2026-11-11. **tsrs:** [oxc-project/tsrs](https://github.com/oxc-project/tsrs) `main` at `13a31a4cac36`
-(Apache-2.0; 24 MB of Rust in 38 crates). **Compiler:** ceesafec 0.32.0. **Toolchain:** rustc 1.99.1 (tsrs's own),
+(Apache-2.0; 24 MB of Rust in 38 crates). **Compiler:** ceesafec 0.32.0; 0.35.0 for §7. **Toolchain:** rustc 1.99.1 (tsrs's own),
 Apple clang 21. **Machine:** MacBookPro (arm64). **Code:** `~/dev/CeeSafeApps/tsrs-trial`, branch `ceesafe/trial`
 (local, not published).
 
 **Question:** does the proof made on Bun hold on a second Rust code base, and on code that is data structures and
 algorithms in the language itself, where Bun's two crates were wrappers around C libraries?
 
-**Answer:** yes for correctness, with one Rust wrapper kept for a missing CeeSafe feature. For speed: equal where the
+**Answer:** yes for correctness. One Rust wrapper was kept for a missing CeeSafe feature, which ceesafec 0.35.0 added
+(§7). For speed: equal where the
 work is inside CeeSafe, 13–40% slower per call where a small function is called across the boundary, and about
 twice as slow to build a map.
 
@@ -79,6 +80,8 @@ What the numbers mean:
 
 ## 4. Gaps found in CeeSafe
 
+Both are closed in ceesafec 0.35.0, and the trial uses the fixes (§7).
+
 1. **No once cell.** Rust builds the span map's index on first use in a `OnceLock`. CeeSafe has `Mutex` and atomics
    but nothing that initialises once and then reads without a lock, so the `OnceLock` stays in the Rust shim and the
    index is a second CeeSafe object. A candidate for an ADR.
@@ -111,3 +114,26 @@ Friction that is by design, not a gap:
 The method carries over: two more crates of a second large Rust project run as CeeSafe behind an unchanged API, with
 the same answers as the Rust on about a million generated cases. On speed the result matches the Bun trial's: CeeSafe
 equals Rust where the work is, and a hybrid build pays at the boundary. It is not faster than Rust.
+
+## 7. With ceesafec 0.35.0
+
+The two gaps of §4 became CeeSafe ADRs 0096 (`OnceCell`, `OnceLock`) and 0097 (`impl dep.I for T`), released in
+0.35.0. The trial was changed to use them (trial commit `878c330f`):
+
+- **The index is built once inside CeeSafe.** `SpanMap` has an `originalIndex: OnceLock<OriginalIndex>` field, filled
+  by `getOrInit` on the first original-to-virtual lookup, as the Rust struct has. The shim's `OnceLock`, its second
+  handle and two exports are gone, and the empty-range case of `original_to_virtual_intersecting_spans` moved from
+  the shim into CeeSafe. The shim is 53 lines shorter.
+- **The five comparison impls name `tsrs_core.Order`** directly; the import is gone.
+- **Not used:** 0.35.0's third addition, `readUnaligned` (ADR 0093, from the Bun trial's wyhash). Nothing in these two
+  crates reads through a raw pointer.
+
+**Tests:** as §2, all passing again: the crates' own (31 and 40), both differential tests, and the content-mapper
+tests of `tsrs_contentmapper`, `tsrs_api_codec`, `tsrs_ast` and `tsrs_compiler`. Clippy is clean.
+
+**Speed** (`results-0.35.0.txt`, three runs): the picture of §3 holds. The lookups that use the index now pass through
+the `OnceLock`'s atomic load and are where they were (`original_to_virtual_positions` 10–11% slower than Rust,
+`original_to_virtual_spans` 29–34%). The first use of the index came out 13–20% faster than Rust in these runs, where
+it was equal before, and building an unordered map 33–54% slower, where it was about twice as slow;
+`virtual_to_original_position` came out 29% slower, where it was 15%. The runs were taken at a load average of 6, and
+the compiler changed from 0.32.0, so which of these are real changes was not established.
