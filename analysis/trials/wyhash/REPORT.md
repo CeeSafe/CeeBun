@@ -40,8 +40,9 @@ The third column changes only keys of 4 to 16 bytes; longer inputs take the safe
 - **Bun's Rust here is not safe Rust.** It reads through raw pointers in `unsafe` blocks, to remove bounds checks.
   The CeeSafe of the middle column has no unsafe code in the hash.
 - **Large inputs: equal, with safe code.** The first safe version checked every read and was 35–55% slower from 256
-  bytes up. Slicing one 48-byte block per round, so the block is checked once, removed the difference. The machine
-  code of the round is then the same six loads, three multiplies and three high multiplies as Rust's.
+  bytes up. Slicing one 48-byte block per round, so the block is checked once, removed the difference. The
+  compiled function has 18 conditional branches where the first version had 32 (Rust's has 14), and each
+  multiply is one `mul` and one `umulh`, as in Rust's.
 - **Short keys: safe CeeSafe is 12–16% slower**, a third to half a nanosecond. The four reads are at offsets that
   depend on the length, so their checks stay. Written unchecked, as Rust writes them, 8 and 16 bytes come within
   2–5%.
