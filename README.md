@@ -1,11 +1,14 @@
 # CeeBun
 
-CeeBun ports [Bun](https://bun.com) from Rust to [CeeSafe](https://github.com/CeeSafe/CeeSafe), a memory-safe
-systems language compiled to C. The goal is to show that CeeSafe can replace Rust: the port must pass Bun's own test
-suite and match its performance.
+CeeBun is a proof of concept that [Bun](https://bun.com)'s Rust can be ported to
+[CeeSafe](https://github.com/CeeSafe/CeeSafe), a memory-safe systems language compiled to C. It is not a port of all
+of Bun, and it stops at the proof.
 
-**Status:** milestone M0 (readiness). Nothing of Bun is ported yet. The work so far has measured Bun's Rust, tested the
-CeeSafe compiler at Bun's scale, and closed the language gaps it found (CeeSafe 0.24.3 to 0.27.0, ADRs 0081–0087).
+**Status: done.** Two of Bun's crates, `bun_csrf` and `bun_zstd`, are replaced by CeeSafe inside Bun, with Rust and
+CeeSafe linked into one binary. Bun's own tests for them pass in release and debug + ASAN builds, and the release
+timings equal stock Bun's within noise ([`analysis/trials/`](analysis/trials/)). The work also measured Bun's Rust,
+tested the CeeSafe compiler at Bun's scale, and closed the language gaps it found (CeeSafe 0.24.3 to 0.31.0, ADRs
+0081–0088 and 0090). The core of Bun is not ported: [`ROADMAP.md`](ROADMAP.md) says what the proof does and does not show.
 
 ## Contents
 
@@ -15,7 +18,8 @@ CeeSafe compiler at Bun's scale, and closed the language gaps it found (CeeSafe 
   - `bun_census.py` and `bun_rust_features.py`: lines and Rust feature counts.
   - `probes/`: small programs testing which Rust features CeeSafe supports.
   - `scale/`: the compiler scale test and its report.
-  - `adr-evidence/`: the evidence for CeeSafe ADRs 0081–0087.
+  - `trials/`: the reports of the two crates swapped inside Bun, `bun_csrf` and `bun_zstd`.
+  - `adr-evidence/`: the evidence for CeeSafe ADRs 0081–0088 and 0090.
 - [`CLAUDE.md`](CLAUDE.md): instructions for the agents doing the port.
 
 ## The Bun reference

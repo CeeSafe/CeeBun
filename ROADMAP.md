@@ -1,10 +1,29 @@
 # Porting Bun to CeeSafe: roadmap
 
-**Goal:** show that CeeSafe can replace Rust, by porting Bun (Rust) to CeeSafe, at a pinned commit of Bun's `main`
-(§1). The port must pass Bun's own test suite and match its performance.
+**Goal:** show that Bun's Rust can be ported to CeeSafe, as a proof of concept, at a pinned commit of Bun's `main`
+(§1). Ported code runs inside Bun, passes Bun's own tests, and matches stock Bun's speed.
 
-**Status:** M0 in progress (started 2026-11-09). Nothing is ported yet. The compiler scale test runs, and its first findings are in
-`analysis/scale/README.md`.
+**Scope (owner, 2026-11-11):** a proof of concept, not a port of all of Bun. The full port (1.79 million lines of
+Rust) costs more than the project can spend, so the work stops at the proof below. The milestones M1–M6, the estimates
+(§4) and the next steps (§7) are kept as the record of what a full port would take. They are not planned.
+
+**Status: the proof of concept is done.** Two of Bun's crates are replaced by CeeSafe inside Bun (§2, the hybrid
+approach), Rust and CeeSafe linked into one binary:
+
+| Crate | What it shows | Report |
+|---|---|---|
+| `bun_csrf` | Ported logic (HMAC tokens, base64) calling BoringSSL; every buffer lent for the call | `analysis/trials/csrf/REPORT.md` |
+| `bun_zstd` | A `Vec<u8>` owned by one side, grown by the other and handed back, with no copy | `analysis/trials/zstd/REPORT.md` |
+
+- **Tests:** Bun's own tests for both crates pass in release and debug + ASAN builds.
+- **Speed:** release timings of the `bun_zstd` paths equal stock Bun's within noise.
+- **Compiler:** the gaps found on the way are closed in CeeSafe (0.24.3 to 0.31.0, ADRs 0081–0088 and 0090), and the compiler
+  was tested at Bun's scale (`analysis/scale/README.md`).
+- **Code:** the private repository `CeeSafe/ceebun-trial` (Bun's tree at the pin plus the trial's commits).
+
+**What it does not show:** the core. The foundation crates, the JavaScriptCore bindings, the event loop and the
+bundler are not ported, and crate-by-crate swapping stops at the foundation crates (§2). Whether CeeSafe can replace
+Rust for all of Bun, at Bun's speed, is not proven by two leaf crates.
 
 ## 1. Starting point
 

@@ -1,8 +1,10 @@
 # Bun in CeeSafe
 
-This project, **CeeBun**, ports Bun from Rust to CeeSafe, at a pinned commit of Bun's `main`, to show that CeeSafe can
-replace Rust. It keeps Bun's MIT licence and credit. **Read `ROADMAP.md` first.** It has the measurements, the
-milestones (M0–M6), the estimates, the risks, and the decisions still open.
+This project, **CeeBun**, is a proof of concept that Bun's Rust can be ported to CeeSafe, at a pinned commit of Bun's
+`main`. It keeps Bun's MIT licence and credit. **The scope is the proof, not a port of all of Bun** (owner,
+2026-11-11): two crates, `bun_csrf` and `bun_zstd`, run as CeeSafe inside Bun, and the work stops there. Do not start
+porting further crates unless the owner asks. **Read `ROADMAP.md` first.** It has the scope, the results, the
+measurements, and the milestones (M0–M6) a full port would take, which are not planned.
 
 ## Layout
 
