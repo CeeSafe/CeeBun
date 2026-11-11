@@ -19,7 +19,7 @@ approach), Rust and CeeSafe linked into one binary:
 - **Speed:** release timings of the `bun_zstd` paths equal stock Bun's within noise.
 - **Compiler:** the gaps found on the way are closed in CeeSafe (0.24.3 to 0.31.0, ADRs 0081–0088 and 0090), and the compiler
   was tested at Bun's scale (`analysis/scale/README.md`).
-- **Code:** the private repository `CeeSafe/ceebun-trial` (Bun's tree at the pin plus the trial's commits).
+- **Code:** the repository [CeeSafe/ceebun-trial](https://github.com/CeeSafe/ceebun-trial) (Bun's tree at the pin plus the trial's commits).
 
 **What it does not show:** the core. The foundation crates, the JavaScriptCore bindings, the event loop and the
 bundler are not ported, and crate-by-crate swapping stops at the foundation crates (§2). Whether CeeSafe can replace
