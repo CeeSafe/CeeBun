@@ -1,0 +1,49 @@
+# cargo test --release -p tsrs_sourcemap -p tsrs_spanmap --test differential -- --ignored --nocapture
+# tsrs-trial 1e89a64c, ceesafec 0.32.0, rustc 1.99.1, Apple clang, MacBookPro arm64, 2026-11-11. Three runs, load average about 5.
+== run 1, load { 4.82 39.53 47.28 }
+the source map is 1201860 bytes
+nanoseconds                                        Rust        CeeSafe         
+add 200,000 mappings, per mapping                  17.5           24.6     +41%
+string() of the map                            225291.0       260250.0     +16%
+base64_data_url() of the map                  1337625.0      1005000.0     -25%
+nanoseconds per call                                 Rust      CeeSafe         
+new (2,000 segments, unordered)                   26867.5      50254.2     +87%
+validate (2,000 segments, valid)                   5571.7       4563.5     -18%
+virtual_to_original_position                         39.7         45.7     +15%
+virtual_to_original_span                             72.3         88.8     +23%
+original_to_virtual_positions                       117.9        133.3     +13%
+original_to_virtual_spans                           212.2        290.5     +37%
+original index, first use (2,000 segments)        67930.8      68570.0      +1%
+== run 2, load { 5.32 36.88 46.10 }
+the source map is 1201860 bytes
+nanoseconds                                        Rust        CeeSafe         
+add 200,000 mappings, per mapping                  17.2           24.1     +40%
+string() of the map                            252584.0       286500.0     +13%
+base64_data_url() of the map                  1375583.0       947125.0     -31%
+nanoseconds per call                                 Rust      CeeSafe         
+new (2,000 segments, unordered)                   28529.2      49831.7     +75%
+validate (2,000 segments, valid)                   5748.3       4563.5     -21%
+virtual_to_original_position                         40.2         46.5     +16%
+virtual_to_original_span                             72.6         88.7     +22%
+original_to_virtual_positions                       117.7        132.5     +13%
+original_to_virtual_spans                           213.1        290.1     +36%
+original index, first use (2,000 segments)        66345.8      66466.7      +0%
+== run 3, load { 5.22 36.33 45.86 }
+the source map is 1201860 bytes
+nanoseconds                                        Rust        CeeSafe         
+add 200,000 mappings, per mapping                  17.9           24.5     +37%
+string() of the map                            230125.0       258792.0     +12%
+base64_data_url() of the map                  1331041.0       954375.0     -28%
+nanoseconds per call                                 Rust      CeeSafe         
+new (2,000 segments, unordered)                   27378.3      56519.2    +106%
+validate (2,000 segments, valid)                   5395.4       4490.0     -17%
+virtual_to_original_position                         40.2         46.2     +15%
+virtual_to_original_span                             71.3         90.1     +26%
+original_to_virtual_positions                       117.8        132.8     +13%
+original_to_virtual_spans                           213.7        288.3     +35%
+original index, first use (2,000 segments)        78725.0      69490.0     -12%
+== later runs with the ordered row added (trial commit after 1e89a64c)
+new (2,000 segments, unordered)                   27664.2      58813.3    +113%
+new (2,000 segments, already ordered)              5101.7      10920.8    +114%
+new (2,000 segments, unordered)                   26919.2      56757.5    +111%
+new (2,000 segments, already ordered)              5134.2      10525.0    +105%

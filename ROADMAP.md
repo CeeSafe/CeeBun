@@ -16,6 +16,13 @@ approach), Rust and CeeSafe linked into one binary:
 | `bun_zstd` | A `Vec<u8>` owned by one side, grown by the other and handed back, with no copy | `analysis/trials/zstd/REPORT.md` |
 | `bun_wyhash` (one function, timed outside Bun) | Safe CeeSafe equals Bun's unsafe-tuned Rust on a hash loop from 1 KB up; 12–16% slower on short keys; not faster | `analysis/trials/wyhash/REPORT.md` |
 
+A second trial repeats the proof on another Rust code base, [tsrs](https://github.com/oxc-project/tsrs)
+(TypeScript's checker in Rust), at the owner's request (2026-11-11):
+
+| Crate | What it shows | Report |
+|---|---|---|
+| `tsrs_spanmap`, with Go's pdqsort from `tsrs_core`, and `tsrs_sourcemap`'s mappings encoder | Data structures and algorithms in the language itself, behind an unchanged Rust API; the same answers as the Rust on about a million generated cases; equal speed inside CeeSafe, 13–40% slower per small call across the boundary | `analysis/trials/tsrs/REPORT.md` |
+
 - **Tests:** Bun's own tests for both crates pass in release and debug + ASAN builds.
 - **Speed:** release timings of the `bun_zstd` paths equal stock Bun's within noise.
 - **Compiler:** the gaps found on the way are closed in CeeSafe (0.24.3 to 0.31.0, ADRs 0081–0088 and 0090), and the compiler
