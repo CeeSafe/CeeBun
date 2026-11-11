@@ -1,6 +1,6 @@
 # Trial: Bun's wyhash in CeeSafe, timed against Bun's Rust
 
-**Date:** 2026-11-11. **Bun:** `main` at the pin `89452d2ac137`. **Compiler:** ceesafec 0.31.0. **Toolchain:** Bun's
+**Date:** 2026-11-11. **Bun:** `main` at the pin `89452d2ac137`. **Compiler:** ceesafec 0.31.0 for §2; 0.32.0 for §4. **Toolchain:** Bun's
 own, rustc `nightly-2026-09-15` and clang, both LLVM 23, `-O3`, `-mcpu=apple-m1`. **Machine:** MacBookPro (arm64).
 
 **Question:** is a CeeSafe port faster than the Rust it replaces? `bun_csrf` and `bun_zstd` could not say: C
@@ -51,11 +51,22 @@ The third column changes only keys of 4 to 16 bytes; longer inputs take the safe
 
 ## 4. Gaps found
 
-1. **No 128-bit multiply.** wyhash needs the high half of a 64 × 64 product. CeeSafe has no `u128` and no
-   widening-multiply built-in, so the port builds it from 32-bit halves. LLVM 23 folds that into one `umulh`; Apple
-   clang 21 does not, and there the port would be slower. A built-in would not depend on the C compiler.
+1. **No 128-bit multiply. Closed in ceesafec 0.32.0** (CeeSafe ADR 0092, `x.mulHigh(y)`). wyhash needs the high half
+   of a 64 × 64 product. With 0.31.0 the port built it from 32-bit halves, which LLVM 23 folds into one `umulh` and
+   Apple clang 21 does not. The port now calls `a.mulHigh(b)`, which is one instruction with either compiler.
+   Nanoseconds per call, the CeeSafe side built with Apple clang 21:
+
+   | Input | Rust | CeeSafe 0.31.0, hand-written | CeeSafe 0.32.0, `mulHigh` |
+   |---|---|---|---|
+   | 16 bytes | 2.72 | 7.44 (2.5 times) | 3.05 (+12%) |
+   | 1 KB | 37.64 | 149.21 (3.8 times) | 37.53 (equal) |
+   | 1 MB | 41,556 | 143,618 (3.3 times) | 41,689 (equal) |
+
+   The middle column is an earlier run, and its multiples are against that run's Rust figures (3.02, 39.51 and
+   43,153 ns). `results.txt` is a run of the 0.32.0 port with LLVM 23: the same ratios to Rust as §2.
 2. **No unaligned load from a raw pointer.** `p.read()` needs an aligned pointer. The unchecked reads go through
-   `Slice.fromRaw(p, 4).readLE<u32>(0)`, which compiles to one load.
+   `Slice.fromRaw(p, 4).readLE<u32>(0)`, which compiles to one load. CeeSafe ADR 0093 (`p.readUnaligned()`) is
+   accepted and not implemented; it would make this read as what it does, not faster.
 
 ## 5. Not done
 

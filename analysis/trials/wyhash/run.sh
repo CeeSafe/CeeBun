@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds Bun's Rust wyhash and the CeeSafe port (ceebun/bun_wyhash in the trial clone) into one program, checks that
-# they agree, and times both. Needs: the trial clone, ceesafec 0.31.0, LLVM 23's clang and llvm-ar on the PATH, and
+# they agree, and times both. Needs: the trial clone, ceesafec 0.32.0, LLVM 23's clang and llvm-ar on the PATH, and
 # Bun's Rust toolchain.
 # usage: sh run.sh <trial clone> <ceesafec> <work directory>
 set -e
