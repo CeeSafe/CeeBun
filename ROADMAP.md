@@ -14,6 +14,7 @@ approach), Rust and CeeSafe linked into one binary:
 |---|---|---|
 | `bun_csrf` | Ported logic (HMAC tokens, base64) calling BoringSSL; every buffer lent for the call | `analysis/trials/csrf/REPORT.md` |
 | `bun_zstd` | A `Vec<u8>` owned by one side, grown by the other and handed back, with no copy | `analysis/trials/zstd/REPORT.md` |
+| `bun_wyhash` (one function, timed outside Bun) | Safe CeeSafe equals Bun's unsafe-tuned Rust on a hash loop from 1 KB up; 12–16% slower on short keys; not faster | `analysis/trials/wyhash/REPORT.md` |
 
 - **Tests:** Bun's own tests for both crates pass in release and debug + ASAN builds.
 - **Speed:** release timings of the `bun_zstd` paths equal stock Bun's within noise.

@@ -1,0 +1,9 @@
+agree on 1224 inputs
+       8 bytes: rust      2.82 ns | ceesafe safe      3.15 ns (1.118) | ceesafe short keys unchecked      2.88 ns (1.021)
+      16 bytes: rust      2.83 ns | ceesafe safe      3.18 ns (1.124) | ceesafe short keys unchecked      2.98 ns (1.054)
+      32 bytes: rust      3.20 ns | ceesafe safe      3.73 ns (1.163) | ceesafe short keys unchecked      4.11 ns (1.283)
+      64 bytes: rust      4.61 ns | ceesafe safe      4.69 ns (1.017) | ceesafe short keys unchecked      5.19 ns (1.126)
+     256 bytes: rust     10.40 ns | ceesafe safe     10.55 ns (1.015) | ceesafe short keys unchecked     10.91 ns (1.049)
+    1024 bytes: rust     38.97 ns | ceesafe safe     39.20 ns (1.006) | ceesafe short keys unchecked     39.55 ns (1.015)
+   65536 bytes: rust   2676.42 ns | ceesafe safe   2680.17 ns (1.001) | ceesafe short keys unchecked   2681.60 ns (1.002)
+ 1048576 bytes: rust  43017.17 ns | ceesafe safe  43214.50 ns (1.005) | ceesafe short keys unchecked  43312.00 ns (1.007)

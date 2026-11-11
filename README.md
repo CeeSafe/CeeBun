@@ -18,7 +18,8 @@ tested the CeeSafe compiler at Bun's scale, and closed the language gaps it foun
   - `bun_census.py` and `bun_rust_features.py`: lines and Rust feature counts.
   - `probes/`: small programs testing which Rust features CeeSafe supports.
   - `scale/`: the compiler scale test and its report.
-  - `trials/`: the reports of the two crates swapped inside Bun, `bun_csrf` and `bun_zstd`.
+  - `trials/`: the reports of the two crates swapped inside Bun, `bun_csrf` and `bun_zstd`, and of the wyhash timing
+    against Rust.
   - `adr-evidence/`: the evidence for CeeSafe ADRs 0081–0088 and 0090.
 - [`CLAUDE.md`](CLAUDE.md): instructions for the agents doing the port.
 
