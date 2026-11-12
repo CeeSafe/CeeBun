@@ -11,7 +11,7 @@ algorithms in the language itself, where Bun's two crates were wrappers around C
 **Answer:** yes for correctness. One Rust wrapper was kept for a missing CeeSafe feature, which ceesafec 0.35.0 added
 (§7). For speed: equal where the
 work is inside CeeSafe, 13–40% slower per call where a small function is called across the boundary, and about
-twice as slow to build a map.
+twice as slow to build a map, which §8 traces to where the linker placed the sort in the test binary.
 
 ## 1. What was ported
 
@@ -72,7 +72,7 @@ What the numbers mean:
 - **Small calls pay for the boundary:** each lookup and each added mapping is one call that is not inlined, 6 to 17
   ns more. The list-returning lookups also allocate on both sides, since no block changes sides. The largest
   difference, `original_to_virtual_spans`, is not explained further.
-- **Building a map is twice as slow, and the cause is not established.** The segments are copied twice more than in
+- **Building a map is twice as slow, and the cause is not established** (it was, later: §8). The segments are copied twice more than in
   Rust (into the `u32` buffer and out of it), which the ordered row shows costs about 5 µs. The rest of the
   unordered difference is in the sort by one key, although the sort by three keys is equal.
 - **The two faster rows are not a language result.** Rust's base64 pushes `char`s through an iterator into a
@@ -137,3 +137,38 @@ the `OnceLock`'s atomic load and are where they were (`original_to_virtual_posit
 it was equal before, and building an unordered map 33–54% slower, where it was about twice as slow;
 `virtual_to_original_position` came out 29% slower, where it was 15%. The runs were taken at a load average of 6, and
 the compiler changed from 0.32.0, so which of these are real changes was not established.
+
+## 8. With ceesafec 0.38.0, and why building a map was slow
+
+**Date:** 2026-11-12. ceesafec 0.38.0, the trial unchanged at `878c330f`, the same machine, shared with other work
+(load average 2 to 9).
+
+**Tests:** as §2 and §7, all passing: the crates' own (31 and 40), `tsrs_contentmapper` and `tsrs_api_codec` (16 and
+35), the filtered runs of `tsrs_ast` and `tsrs_compiler` (4 and 12), both differential tests with the same counts
+(909,360 questions, 87,607 calls), the `tsrs` binary on a small file with `--sourceMap`, and Clippy.
+
+**Speed,** one run at a load average of about 9: adding a mapping 40% slower, building an unordered map 95% slower
+and an ordered one 104%, validation 18% faster and `base64_data_url` 29% faster, as before. The lookups came out 3 to
+24% slower (13 to 37% in §3) and the index's first use 10% slower (equal in §3); one loaded run does not establish
+either change.
+
+**Building a map.** §3 left the unordered case unexplained and pointed at the sort by one key. It is the sort, but
+not its code:
+
+- `tsrs_spanmap__new` called directly on the benchmark's input, with a drop after each call, takes 42 to 50 µs in
+  the differential test binary and 24 to 33 µs in a C program and in a plain Rust binary linked with the same
+  archive. The sort's machine code is the same in both (624 instructions); its address is 0x08 modulo 64 in the
+  slow binary and 0x04 in the fast one.
+- Moved 4 bytes at a time by a padding object, the sort takes 46 to 52 µs when it starts at 0x08, 0x0c or 0x10
+  modulo 64 and 28 to 41 µs at the other 13 offsets. Built with `-falign-loops=32` or `=64` it takes 24 to 36 µs
+  at every offset.
+- Rust's sort, moved the same way, takes 21 to 28 µs at 15 offsets and 41 µs at one.
+- At a good placement the CeeSafe copy and sort take 24 to 28 µs against Rust's 21 to 22 µs. The shim's copy of the
+  segments into a `Vec<u32>` adds about 3.5 µs a call; in the ordered case the direct call is 4.4 µs.
+- Which loop of the sort is sensitive was not found: its smallest loops are six and seven instructions, and a
+  loop split by a line boundary at the slow offsets was looked for and is not there.
+
+So the row measures the link of one test binary more than the port. ceesafec does not align loops by default: over
+its benchmark suite `-falign-loops=32` cost 0.4% and `=64` 0.6%, and the owner declined it. The measurements are in
+CeeSafe's `docs/performance-investigation-2026-11.md`, §10.
+
