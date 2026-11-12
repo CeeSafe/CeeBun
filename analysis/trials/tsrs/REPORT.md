@@ -197,3 +197,27 @@ the two sides in either order):
 
 The timing code for this is not in the trial: it was a copy of `tests/differential` with one more row.
 
+## 10. The lookups: how much is the boundary
+
+**Date:** 2026-11-12, ceesafec 0.39.0. §3 put the lookups' gap on the call that rustc cannot inline ("6 to 17 ns
+more"). Measured apart in a copy of the differential test, over 65,536 different positions and ranges, nanoseconds a
+call (three runs):
+
+| | Rust, inlined | Rust, not inlined | CeeSafe export, called directly | CeeSafe through the shim |
+|---|---|---|---|---|
+| `virtual_to_original_position` | 47–48 | 48–50 | 51–53 | 52–54 |
+| `original_to_virtual_spans` | 222–231 | 223–240 | 261–306 | 272–288 |
+
+The same export on an empty map: 2.7 to 4.0 ns.
+
+- **The boundary is a few nanoseconds,** which is the gap of the position lookup and fits adding a mapping.
+- **`original_to_virtual_spans` is about 40 ns slower inside CeeSafe,** with no shim: 23 ns of it in
+  `segmentsAtOriginalPosition` (66 ns against Rust's 43, by sampling), for a reason not found, and 7 ns in growing
+  vectors. §3's "not explained further" stands, with the boundary ruled out.
+- **Tried:** the port's three binary searches rewritten in the form of Rust's `partition_point` (a number of steps
+  fixed by the length). Alone that form is 9.6 ns a search against the port's 16.9 ns (in Rust, 10.8 and 18.6); in
+  the trial the answers were the same and the lookups did not move by more than the spread, so the trial is
+  unchanged.
+
+More in CeeSafe's `docs/performance-investigation-2026-11.md`, §12.
+
