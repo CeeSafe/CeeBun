@@ -11,7 +11,7 @@ algorithms in the language itself, where Bun's two crates were wrappers around C
 **Answer:** yes for correctness. One Rust wrapper was kept for a missing CeeSafe feature, which ceesafec 0.35.0 added
 (§7). For speed: equal where the
 work is inside CeeSafe, 13–40% slower per call where a small function is called across the boundary, and about
-twice as slow to build a map, which §8 traces to where the linker placed the sort in the test binary.
+twice as slow to build a map as first timed; timed on maps that differ, 5–9% slower (§8, §9).
 
 ## 1. What was ported
 
@@ -72,7 +72,7 @@ What the numbers mean:
 - **Small calls pay for the boundary:** each lookup and each added mapping is one call that is not inlined, 6 to 17
   ns more. The list-returning lookups also allocate on both sides, since no block changes sides. The largest
   difference, `original_to_virtual_spans`, is not explained further.
-- **Building a map is twice as slow, and the cause is not established** (it was, later: §8). The segments are copied twice more than in
+- **Building a map is twice as slow, and the cause is not established** (it was, later: §9). The segments are copied twice more than in
   Rust (into the `u32` buffer and out of it), which the ordered row shows costs about 5 µs. The rest of the
   unordered difference is in the sort by one key, although the sort by three keys is equal.
 - **The two faster rows are not a language result.** Rust's base64 pushes `char`s through an iterator into a
@@ -168,7 +168,32 @@ not its code:
 - Which loop of the sort is sensitive was not found: its smallest loops are six and seven instructions, and a
   loop split by a line boundary at the slow offsets was looked for and is not there.
 
-So the row measures the link of one test binary more than the port. ceesafec does not align loops by default: over
+So the row measures the link of one test binary more than the port (and §9 says why the link matters at all). ceesafec does not align loops by default: over
 its benchmark suite `-falign-loops=32` cost 0.4% and `=64` 0.6%, and the owner declined it. The measurements are in
 CeeSafe's `docs/performance-investigation-2026-11.md`, §10.
+
+## 9. Correction: the map build on maps that differ
+
+**Date:** 2026-11-12, after §8. §3's two "new" rows, and §8's account of them, time one map built again and again.
+That is a benchmark of the processor's branch predictor: it learns the branches of a sort of one input, how well
+depends on where the code is placed, and Rust's side swings as CeeSafe's does (37 to 56 µs across three runs of
+the same binary, where CeeSafe's gave 51 to 56 µs).
+
+Timed in the same test on 512 different unordered maps of 2,000 segments, each built once per round (three runs,
+the two sides in either order):
+
+| Work | Rust | CeeSafe | Difference |
+|---|---|---|---|
+| Build a map of 2,000 unordered segments | 84–86 µs | 90–92 µs | 5–9% slower |
+
+- **The difference is the boundary:** the shim's copy of the segments into a `Vec<u32>` is 3.5 µs, and the export
+  copies them once more into its vector.
+- **The sort is equal.** Alone, on new random data each round, the CeeSafe sort and the Rust take the same time
+  within 2% at every one of 16 link placements (CeeSafe's `docs/performance-investigation-2026-11.md`, §11).
+- **§8's "24 to 28 µs against 21 to 22 µs at a good placement" is not a gap**, and loop alignment is not needed:
+  both came from the repeated input.
+- The lookup rows of §3 use 4,096 different positions and are not affected. The index rows build one map
+  repeatedly and may be; they were not re-measured.
+
+The timing code for this is not in the trial: it was a copy of `tests/differential` with one more row.
 
