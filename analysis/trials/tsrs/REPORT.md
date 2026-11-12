@@ -221,3 +221,18 @@ The same export on an empty map: 2.7 to 4.0 ns.
 
 More in CeeSafe's `docs/performance-investigation-2026-11.md`, §12.
 
+## 11. With ceesafec 0.40.0: `partitionPoint`
+
+**Date:** 2026-11-12. §10's rewrite became a library method, `s.partitionPoint(test)` (CeeSafe ADR 0103, released in
+0.40.0), and the trial uses it (trial commit `56164f5c`): the span map's three search loops are one call each, as the
+Rust has `partition_point`, 30 lines fewer. `tsrs_spanmap` and the umbrella package now need ceesafec 0.40.0.
+
+**Tests:** as §2, all passing with 0.40.0: the crates' own (31 and 40), `tsrs_contentmapper` and `tsrs_api_codec`
+(16 and 35), the filtered runs of `tsrs_ast` and `tsrs_compiler` (4 and 12), both differential tests with the same
+counts, and Clippy.
+
+**Speed** (two runs, load average about 3), nanoseconds a call, Rust and CeeSafe: `virtual_to_original_position`
+37 and 45 to 46; `virtual_to_original_span` 75 and 83; `original_to_virtual_positions` 120 and 123 to 124;
+`original_to_virtual_spans` 216 and 257. About where they were, or slightly better; not a measured gain, as §10
+expected.
+
